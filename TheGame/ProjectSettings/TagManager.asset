@@ -24,6 +24,10 @@ TagManager:
   - Enemy
   - NextPage
   - LastPage
+  - MovingPlatform
+  - DeathZone
+  - SpawnPoint
+  - SinkingPlatform
   layers:
   - Default
   - TransparentFX

@@ -16,6 +16,9 @@ public class PlayerScript : MonoBehaviour
     public bool canGoToBed = false;
     public float coolDownTime = 0f;
 
+    public Transform startPoint;
+    public Transform spawnPoint;
+
     // Variables for footsteps
     public bool createFootSteps;
     public GameObject footStep;
@@ -72,12 +75,17 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-        if(gm.levelInfo.levelNumber == 0)
+        startPoint = GameObject.Find("StartPosition").transform;
+        transform.position = startPoint.position;
+        transform.eulerAngles = startPoint.eulerAngles;
+
+        if (gm.levelInfo.levelNumber == 0)
         {
             toBedPrompt.SetActive(false);
         }
+
         myRB = GetComponent<Rigidbody>();
-        myAnim = GetComponent<Animator>();
+        myAnim = GetComponentInChildren<Animator>();
         fadeScreen = GameObject.Find("FadeScreen");
         dialogueManager = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
         cameraScript = Camera.main.GetComponent<CameraScript>();
@@ -97,14 +105,14 @@ public class PlayerScript : MonoBehaviour
     {
         myAnim.SetFloat("yVelocity",myRB.velocity.y);
 
-        /*  In case you need to jump
+
          
         if (Input.GetButtonDown("Jump") && canJump && canMove)
         {
             myAnim.SetBool("isJumping",true);
             myRB.AddForce(Vector3.up * jumpSpeed);
         }
-        */
+
 
         if(Input.GetButtonDown("Fire1"))
         {
@@ -246,7 +254,7 @@ public class PlayerScript : MonoBehaviour
 
             if(hit.transform.tag == "Wheel")
             {
-                transform.parent = hit.transform;
+                transform.position = transform.position + hit.transform.position;
             }
             else
             {
@@ -271,6 +279,25 @@ public class PlayerScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if(other.gameObject.tag == "SpawnPoint")
+        {
+            spawnPoint = other.gameObject.transform;
+        }
+
+        if(other.gameObject.tag == "DeathZone")
+        {
+            if(spawnPoint !=null)
+            {
+                transform.position = spawnPoint.position;
+                myRB.velocity = Vector3.zero;
+            }
+            else
+            {
+                transform.position = startPoint.position;
+            }
+
+        }
+
         if(other.gameObject.tag == "Turnip" && !holdingTurnip)
         {
             canPickTurnip = true;

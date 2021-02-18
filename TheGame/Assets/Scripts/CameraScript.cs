@@ -46,11 +46,11 @@ public class CameraScript : MonoBehaviour
                 cameraHeight = 5f;
                 cameraRotation = 15f;
             }
-            else if (Input.GetAxis("Mouse Y") < -0.1f && cameraDistance < 15f || Input.GetAxis("CameraVertical") < -0.1f && cameraDistance < 15f)
+            else if (Input.GetAxis("Mouse Y") < -0.1f && cameraDistance < 12f || Input.GetAxis("CameraVertical") < -0.1f && cameraDistance < 12f)
             {
-                cameraDistance = 15f;
-                cameraHeight = 7f;
-                cameraRotation = 30f;
+                cameraDistance = 12f;
+                cameraHeight = 14f;
+                cameraRotation = 50f;
             }
         }
     }
