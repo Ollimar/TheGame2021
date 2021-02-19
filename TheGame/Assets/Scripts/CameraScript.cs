@@ -83,9 +83,9 @@ public class CameraScript : MonoBehaviour
 
     public void ReturnCamera()
     {
-        cameraDistance = 15f;
-        cameraHeight = 7f;
-        cameraRotation = 30f;
+        cameraDistance = 12f;
+        cameraHeight = 14f;
+        cameraRotation = 50f;
         canMoveCamera = true;
         target = landTarget;
     }

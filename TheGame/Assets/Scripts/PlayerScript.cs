@@ -8,6 +8,7 @@ public class PlayerScript : MonoBehaviour
     public bool canMove = true;
     public float speed = 10f;
     public float storedSpeed = 10f;
+    public float turnipCarryingVelocity;
     public float snowBallRollVelocity;
     public float jumpSpeed = 12f;
     public float turnSmoothing = 10f;
@@ -26,9 +27,13 @@ public class PlayerScript : MonoBehaviour
     public Transform footL;
     public Transform footR;
 
+
+    // UI variables
     public GameObject launchButton;
     public GameObject gasTankInfo;
     public GameObject SnowBallRollPrompt;
+    public GameObject goldenTurnipCollected;
+
 
     // Bedtime variables
     public GameObject toBedPrompt;
@@ -56,6 +61,7 @@ public class PlayerScript : MonoBehaviour
     public bool canPickTurnip = false;
     public bool holdingTurnip = false;
     public GameObject activeTurnip;
+    public GameObject goldenTurnip;
 
     // Variables for snowball carrying and throwing
     public Transform snowBallPosition;
@@ -91,9 +97,11 @@ public class PlayerScript : MonoBehaviour
         cameraScript = Camera.main.GetComponent<CameraScript>();
         gasTankInfo = GameObject.Find("gasTankInfo");
         launchButton.SetActive(false);
+        goldenTurnipCollected.SetActive(false);
         gasTankInfo.SetActive(false);
         snowBallPosition = GameObject.Find("SnowBallPosition").transform;
         snowBallRollVelocity = speed * 0.6f;
+        turnipCarryingVelocity = speed * 0.5f;
         storedSpeed = speed;
         SnowBallRollPrompt.SetActive(false);
         footL = GameObject.Find("FootStepL").transform;
@@ -107,7 +115,7 @@ public class PlayerScript : MonoBehaviour
 
 
          
-        if (Input.GetButtonDown("Jump") && canJump && canMove)
+        if (Input.GetButtonDown("Jump") && canJump && canMove && !holdingTurnip)
         {
             myAnim.SetBool("isJumping",true);
             myRB.AddForce(Vector3.up * jumpSpeed);
@@ -118,20 +126,25 @@ public class PlayerScript : MonoBehaviour
         {
             if(canPickTurnip && !holdingTurnip)
             {
-                activeTurnip.transform.parent = transform;
-                activeTurnip.transform.position = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
-                canPickTurnip = false;
-                holdingTurnip = true;
+                myAnim.SetBool("Pick", true);
+                speed = 0f;
+                canMove = false;
+                StartCoroutine("PullTurnip");
             }
 
             else if(holdingTurnip)
             {
+
+                speed = 0f;
+                canMove = false;
                 activeTurnip.transform.parent = null;
                 activeTurnip.AddComponent<CapsuleCollider>();
                 activeTurnip.AddComponent<Rigidbody>();
                 activeTurnip.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
                 holdingTurnip = false;
                 canPickTurnip = true;
+                myRB.velocity = Vector3.zero;
+                StartCoroutine("ThrowTurnip");
             }
 
         }
@@ -143,6 +156,17 @@ public class PlayerScript : MonoBehaviour
                 SnowBallRollPrompt.SetActive(false);
                 activeSnowball.transform.position = snowBallPosition.position;
                 speed = snowBallRollVelocity;
+            }
+
+            if(goldenTurnipCollected.activeSelf)
+            {
+                canMove = true;
+                myAnim.SetBool("Pick", false);
+                goldenTurnipCollected.SetActive(false);
+                myRB.useGravity = false;
+                goldenTurnip.SetActive(false);
+                myRB.useGravity = true;
+                cameraScript.ReturnCamera();
             }
         }
 
@@ -314,6 +338,25 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
+        if(other.gameObject.tag == "Golden Turnip")
+        {
+            canMove = false;
+            if(goldenTurnip !=null)
+            {
+                goldenTurnip.SetActive(true);
+            }
+            goldenTurnip = other.gameObject;
+            cameraScript.DialogueCamera();
+            myAnim.SetBool("Pick", true);
+            myRB.velocity = Vector3.zero;
+            myRB.useGravity = false;
+            transform.eulerAngles = new Vector3(0f, 180f, 0f);
+            other.gameObject.transform.position = new Vector3(transform.position.x, transform.position.y + 3.5f, transform.position.z);
+            other.gameObject.GetComponentInChildren<SpinningObject>().speed = 0f;
+            other.gameObject.transform.eulerAngles = new Vector3(0f, 90f, 0f);
+            goldenTurnipCollected.SetActive(true);
+        }
+
         if (other.gameObject.tag == "GasTank")
         {
             gm.SpaceShipStaminaUpdate();
@@ -459,6 +502,29 @@ public class PlayerScript : MonoBehaviour
             toBedPrompt.SetActive(false);
             canGoToBed = false;
         }
+    }
+
+    public IEnumerator PullTurnip()
+    {
+        yield return new WaitForSeconds(0.5f);
+        activeTurnip.transform.parent = transform;
+        activeTurnip.transform.position = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
+        activeTurnip.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        activeTurnip.transform.eulerAngles = new Vector3(90f, 90f, 180f);
+        canPickTurnip = false;
+        holdingTurnip = true;
+        yield return new WaitForSeconds(0.5f);
+        canMove = true;
+        speed = turnipCarryingVelocity;
+    }
+
+    public IEnumerator ThrowTurnip()
+    {
+        yield return new WaitForSeconds(0.5f);
+        speed = storedSpeed;
+        canMove = true;
+        myRB.velocity = Vector3.zero;
+        myAnim.SetBool("Pick", false);
     }
 
     public IEnumerator ChangeLevel(int levelNumber)

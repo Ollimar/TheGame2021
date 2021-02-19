@@ -28,6 +28,7 @@ TagManager:
   - DeathZone
   - SpawnPoint
   - SinkingPlatform
+  - Golden Turnip
   layers:
   - Default
   - TransparentFX
@@ -45,7 +46,7 @@ TagManager:
   - SnowBall
   - Player
   - Ground
-  - 
+  - Turnip
   - 
   - 
   - 
