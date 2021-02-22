@@ -254,7 +254,6 @@ public class PlayerScript : MonoBehaviour
         float hor = Input.GetAxis("Horizontal");
         float ver = Input.GetAxis("Vertical");
 
-
         if(canMove)
         {
             Move(hor, ver);

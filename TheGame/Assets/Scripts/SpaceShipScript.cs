@@ -123,16 +123,19 @@ public class SpaceShipScript : MonoBehaviour
             }
         }
 
+        /*
         else if (transform.position.y >= 8f && !stage1)
         {
             Stop();
             StartCoroutine("Relaunch");
         }
+        */
 
-        else if (transform.position.y >= 150f && levelInfo.levelNumber == 1)
+        if (transform.position.y >= 150f && levelInfo.levelNumber == 1)
         {
-            StartCoroutine(ChangeLevel(4));
+            StartCoroutine(ChangeLevel(0));
         }
+        
 
         if (canMove)
         {
