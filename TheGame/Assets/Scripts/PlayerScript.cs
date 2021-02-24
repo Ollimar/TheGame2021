@@ -354,6 +354,7 @@ public class PlayerScript : MonoBehaviour
             other.gameObject.GetComponentInChildren<SpinningObject>().speed = 0f;
             other.gameObject.transform.eulerAngles = new Vector3(0f, 90f, 0f);
             goldenTurnipCollected.SetActive(true);
+            gm.goldenTurnips += 1;
         }
 
         if (other.gameObject.tag == "GasTank")

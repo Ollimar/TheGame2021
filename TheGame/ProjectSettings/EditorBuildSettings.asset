@@ -12,6 +12,15 @@ EditorBuildSettings:
     path: Assets/Scenes/PlatformerLevel.unity
     guid: e8c3364f5fd41cc4ba2d2b42e1756599
   - enabled: 1
+    path: Assets/Scenes/PlatformerLevelDesert.unity
+    guid: 6fbdf3167ee8034418f2eeb4c2f8d7b1
+  - enabled: 1
+    path: Assets/Scenes/PlatformerLevelSnow.unity
+    guid: 824d199fd5f6735418d987449215f7fc
+  - enabled: 1
+    path: Assets/Scenes/PlatformerLevelBlockTown.unity
+    guid: 1b53cea9616dc6640a28d712d7f15426
+  - enabled: 1
     path: Assets/Scenes/HomeUpStairs.unity
     guid: 0bd1f19ea1fbc5b46811ff442b2541a4
   - enabled: 1

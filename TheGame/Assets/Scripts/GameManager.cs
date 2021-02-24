@@ -15,7 +15,10 @@ public class GameManager : MonoBehaviour
     public bool boosterSky              = false;
     public bool boosterSpace            = false;
 
+    // Used for old spaceship stamina system
     public float staminaMultipliers = 1f;
+
+    public int goldenTurnips;
 
     public float timer;
     public float changeTimer;
@@ -169,7 +172,10 @@ public class GameManager : MonoBehaviour
         }
         */
 
-        RenderSettings.skybox.SetFloat("_Rotation", Time.time*-1f);
+        if(levelInfo.levelNumber != 0f)
+        {
+            RenderSettings.skybox.SetFloat("_Rotation", Time.time * -1f);
+        }
 
         if(timer > changeTimer)
         {
