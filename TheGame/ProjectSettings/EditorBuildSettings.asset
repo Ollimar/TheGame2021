@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/PlatformerLevelBlockTown.unity
     guid: 1b53cea9616dc6640a28d712d7f15426
   - enabled: 1
+    path: Assets/Scenes/PlatformerLevelForest.unity
+    guid: b88e237a665f79d4f95cd68fa63ea19a
+  - enabled: 1
     path: Assets/Scenes/HomeUpStairs.unity
     guid: 0bd1f19ea1fbc5b46811ff442b2541a4
   - enabled: 1
