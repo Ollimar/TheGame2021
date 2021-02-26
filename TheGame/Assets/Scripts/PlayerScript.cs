@@ -29,6 +29,10 @@ public class PlayerScript : MonoBehaviour
     public Transform footL;
     public Transform footR;
 
+    // Variables for different eyes
+    public GameObject eyesNeutral;
+    public GameObject eyesHappy;
+
 
     // UI variables
     public GameObject launchButton;
@@ -84,6 +88,8 @@ public class PlayerScript : MonoBehaviour
     {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         startPoint = GameObject.Find("StartPosition").transform;
+        eyesNeutral.SetActive(true);
+        eyesHappy.SetActive(false);
         transform.position = startPoint.position;
         transform.eulerAngles = startPoint.eulerAngles;
 
@@ -166,6 +172,8 @@ public class PlayerScript : MonoBehaviour
                 myRB.useGravity = false;
                 goldenTurnip.SetActive(false);
                 myRB.useGravity = true;
+                eyesNeutral.SetActive(true);
+                eyesHappy.SetActive(false);
                 cameraScript.ReturnCamera();
             }
         }
@@ -362,6 +370,8 @@ public class PlayerScript : MonoBehaviour
                 goldenTurnip.SetActive(true);
             }
             steps.Stop();
+            eyesNeutral.SetActive(false);
+            eyesHappy.SetActive(true);
             myAnim.SetBool("GoldCollected",true);
             goldenTurnip = other.gameObject;
             cameraScript.DialogueCamera();
