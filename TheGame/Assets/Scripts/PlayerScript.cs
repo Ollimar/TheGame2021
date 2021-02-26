@@ -5,12 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
+
     public bool canMove = true;
     public float speed = 10f;
     public float storedSpeed = 10f;
     public float turnipCarryingVelocity;
     public float snowBallRollVelocity;
     public float jumpSpeed = 12f;
+    public bool jumpSqueeze = false;
     public float turnSmoothing = 10f;
     public bool canJump = false;
     public bool canFly = false;
@@ -112,9 +114,7 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         myAnim.SetFloat("yVelocity",myRB.velocity.y);
-
-
-         
+      
         if (Input.GetButtonDown("Jump") && canJump && canMove && !holdingTurnip)
         {
             myAnim.SetBool("isJumping",true);
@@ -161,8 +161,8 @@ public class PlayerScript : MonoBehaviour
             if(goldenTurnipCollected.activeSelf)
             {
                 canMove = true;
-                myAnim.SetBool("Pick", false);
                 goldenTurnipCollected.SetActive(false);
+                myAnim.SetBool("GoldCollected", false);
                 myRB.useGravity = false;
                 goldenTurnip.SetActive(false);
                 myRB.useGravity = true;
@@ -186,6 +186,22 @@ public class PlayerScript : MonoBehaviour
         {
             StartCoroutine("GoToBed");
             canMove = false;
+        }
+
+        if(jumpSqueeze)
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(2f, 1f, 2f), 7f * Time.deltaTime);
+        }
+
+        if(transform.localScale.y <= 1.1f)
+        {
+            jumpSqueeze = false;
+
+        }
+
+        if (!jumpSqueeze && transform.localScale.y != 1.5f)
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1.5f, 1.5f, 1.5f), 10f * Time.deltaTime);
         }
     }
 
@@ -271,6 +287,7 @@ public class PlayerScript : MonoBehaviour
                 myAnim.SetBool("isJumping", false);
                 if (myRB.velocity.y < -2f)
                 {
+                    jumpSqueeze = true;
                     Instantiate(stepPuff, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation);
                 }
             }
@@ -344,9 +361,10 @@ public class PlayerScript : MonoBehaviour
             {
                 goldenTurnip.SetActive(true);
             }
+            steps.Stop();
+            myAnim.SetBool("GoldCollected",true);
             goldenTurnip = other.gameObject;
             cameraScript.DialogueCamera();
-            myAnim.SetBool("Pick", true);
             myRB.velocity = Vector3.zero;
             myRB.useGravity = false;
             transform.eulerAngles = new Vector3(0f, 180f, 0f);

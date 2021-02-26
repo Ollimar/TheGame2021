@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class CameraScript : MonoBehaviour
 {
@@ -24,10 +25,15 @@ public class CameraScript : MonoBehaviour
     // Cameras
     public Camera doorCamera;
 
+    // PostProcessEffects
+    public PostProcessVolume     postProcess;
+    public DepthOfField          depthOfField;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        postProcess.profile.TryGetSettings(out depthOfField);
+        ReturnCamera();
     }
 
     // Update is called once per frame
@@ -78,7 +84,7 @@ public class CameraScript : MonoBehaviour
         cameraHeight = 3f;
         cameraRotation = 15f;
         canMoveCamera = false;
-
+        depthOfField.focusDistance.value = 7f;
     }
 
     public void ReturnCamera()
@@ -88,6 +94,7 @@ public class CameraScript : MonoBehaviour
         cameraRotation = 50f;
         canMoveCamera = true;
         target = landTarget;
+        depthOfField.focusDistance.value = 13f;
     }
 
     //Coroutine called from the KeyScript which returns the camera from showing the unlocked door to the player
