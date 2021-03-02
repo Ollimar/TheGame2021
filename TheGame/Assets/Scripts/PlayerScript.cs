@@ -149,7 +149,7 @@ public class PlayerScript : MonoBehaviour
                 activeTurnip.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
                 holdingTurnip = false;
                 canPickTurnip = true;
-                myRB.velocity = Vector3.zero;
+                //myRB.velocity = Vector3.zero;
                 StartCoroutine("ThrowTurnip");
             }
 
@@ -534,7 +534,7 @@ public class PlayerScript : MonoBehaviour
 
     public IEnumerator PullTurnip()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.1f);
         activeTurnip.transform.parent = transform;
         activeTurnip.transform.position = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
         activeTurnip.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);

@@ -32,6 +32,7 @@ public class CameraScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        postProcess = GameObject.Find("PP").GetComponent<PostProcessVolume>();
         postProcess.profile.TryGetSettings(out depthOfField);
         ReturnCamera();
     }

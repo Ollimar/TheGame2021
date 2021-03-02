@@ -62,7 +62,6 @@ public class SpaceShipScript : MonoBehaviour
         landButton.SetActive(false);
         launchParticles.Stop();
         spaceShipStaminaImage.transform.parent.gameObject.SetActive(false);
-        parachute.SetActive(false);
         fadeScreen          = GameObject.Find("FadeScreen");
         boosterSky          = gm.boosterSky;
         boosterSpace        = gm.boosterSpace;
@@ -133,9 +132,9 @@ public class SpaceShipScript : MonoBehaviour
 
         if (transform.position.y >= 150f && levelInfo.levelNumber == 1)
         {
-            StartCoroutine(ChangeLevel(0));
+            StartCoroutine(ChangeLevel(6));
         }
-        
+
 
         if (canMove)
         {
