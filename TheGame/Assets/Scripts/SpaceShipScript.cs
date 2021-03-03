@@ -130,7 +130,7 @@ public class SpaceShipScript : MonoBehaviour
         }
         */
 
-        if (transform.position.y >= 150f && levelInfo.levelNumber == 1)
+        if (transform.position.y >= 150f)
         {
             StartCoroutine(ChangeLevel(6));
         }

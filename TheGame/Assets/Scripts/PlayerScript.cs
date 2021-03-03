@@ -387,6 +387,11 @@ public class PlayerScript : MonoBehaviour
             {
                 gm.goldenTurnipsGrassLands += 1;
             }
+
+            if (gm.levelInfo.levelNumber == 2)
+            {
+                gm.goldenTurnipsDesert += 1;
+            }
         }
 
         if (other.gameObject.tag == "GasTank")

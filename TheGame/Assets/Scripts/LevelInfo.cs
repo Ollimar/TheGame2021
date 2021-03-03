@@ -13,6 +13,12 @@ public class LevelInfo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        /*
+        cam = Camera.main;
+        player.GetComponent<PlayerScript>().canMove = false;
+        */
+
         if(levelNumber == 4)
         {
             cam = Camera.main;

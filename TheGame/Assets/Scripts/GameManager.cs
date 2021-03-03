@@ -19,8 +19,10 @@ public class GameManager : MonoBehaviour
     public float staminaMultipliers = 1f;
 
     public int goldenTurnips;
+    public GameObject[] goldenTurnipObjects;
 
     public int goldenTurnipsGrassLands;
+    public int goldenTurnipsDesert;
 
     public float timer;
     public float changeTimer;
