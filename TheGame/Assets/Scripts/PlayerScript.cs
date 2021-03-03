@@ -383,6 +383,10 @@ public class PlayerScript : MonoBehaviour
             other.gameObject.transform.eulerAngles = new Vector3(0f, 90f, 0f);
             goldenTurnipCollected.SetActive(true);
             gm.goldenTurnips += 1;
+            if(gm.levelInfo.levelNumber == 1)
+            {
+                gm.goldenTurnipsGrassLands += 1;
+            }
         }
 
         if (other.gameObject.tag == "GasTank")

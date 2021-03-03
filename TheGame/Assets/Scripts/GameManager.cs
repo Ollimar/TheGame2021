@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
 
     public int goldenTurnips;
 
+    public int goldenTurnipsGrassLands;
+
     public float timer;
     public float changeTimer;
     public float moveTimer;

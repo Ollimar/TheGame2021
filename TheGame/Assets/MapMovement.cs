@@ -9,7 +9,11 @@ using UnityEngine.Rendering.PostProcessing;
 public class MapMovement : MonoBehaviour
 {
     public GameObject landingPrompt;
+    public GameObject landOrLeave;
+    public GameObject[] turnipImages;
+    public Sprite goldenTurnipCollected;
     public int levelToLoad;
+    public string levelName;
 
     public bool zoomToLevel = false;
     public bool zoomed = false;
@@ -20,16 +24,20 @@ public class MapMovement : MonoBehaviour
     private Vector3 cameraReturnposition;
     private Quaternion cameraReturnRotation;
 
+    private GameManager gm;
+
     // PostProcessEffects
     public PostProcessVolume postProcess;
     public DepthOfField depthOfField;
 
     private void Start()
     {
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         postProcess = GameObject.Find("PP").GetComponent<PostProcessVolume>();
         postProcess.profile.TryGetSettings(out depthOfField);
         cameraReturnPos = GameObject.Find("CameraPos").transform;
         landingPrompt.SetActive(false);
+        landOrLeave.SetActive(false);
         cameraParent = transform.parent;
     }
 
@@ -50,13 +58,26 @@ public class MapMovement : MonoBehaviour
             Camera.main.transform.rotation = Quaternion.Lerp(Camera.main.transform.rotation, cameraTarget.transform.rotation, 2f * Time.deltaTime);
             depthOfField.focusDistance.value = 7f;
             depthOfField.focalLength.value = 48.51f;
+            landOrLeave.SetActive(true);
+            landOrLeave.GetComponentInChildren<Text>().text = levelName.ToString();
+            for(int i=0; i<gm.goldenTurnipsGrassLands; i++)
+            {
+                turnipImages[i].GetComponent<Image>().sprite = goldenTurnipCollected;
+            }
+
             StartCoroutine("Zoomed");
+        }
+
+        if (zoomed && Input.GetButtonDown("Fire1"))
+        {
+            zoomToLevel = false;
         }
 
         if (zoomed && Input.GetButtonDown("Jump"))
         {
-            zoomToLevel = false;
+            SceneManager.LoadScene(levelToLoad);
         }
+
 
         if (!zoomToLevel)
         {
@@ -72,6 +93,7 @@ public class MapMovement : MonoBehaviour
         {
             landingPrompt.SetActive(true);
             landingPrompt.GetComponentInChildren<Text>().text = other.gameObject.GetComponent<LanderAreaScript>().planetName;
+            levelName = other.gameObject.GetComponent<LanderAreaScript>().planetName;
             levelToLoad = other.gameObject.GetComponent<LanderAreaScript>().levelNumber;
             cameraTarget = other.gameObject.GetComponent<LanderAreaScript>().cameraTarget;
         }
@@ -98,6 +120,7 @@ public class MapMovement : MonoBehaviour
         Camera.main.transform.rotation = Quaternion.Lerp(Camera.main.transform.rotation, cameraReturnPos.rotation, 3f * Time.deltaTime);
         depthOfField.focusDistance.value = 28.7f;
         depthOfField.focalLength.value = 85f;
+        landOrLeave.SetActive(false);
         //zoomToLevel = false;
     }
 }
