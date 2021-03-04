@@ -28,6 +28,7 @@ GameObject:
   - component: {fileID: 5643829727982332024}
   - component: {fileID: 5643829727982332025}
   - component: {fileID: 5643829727982332023}
+  - component: {fileID: 3318370798138336797}
   m_Layer: 0
   m_Name: TurnipGold
   m_TagString: Golden Turnip
@@ -4844,6 +4845,20 @@ Halo:
     serializedVersion: 2
     rgba: 4278217846
   m_Size: 3.37
+--- !u!114 &3318370798138336797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4797319787118073130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7427de70fead8247b11aee45d2e3d5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnipNumber: 0
+  collected: 0
 --- !u!1001 &5643829728475896511
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -66,7 +66,6 @@ public class GameManager : MonoBehaviour
     // Camera
     private CameraScript cam;
 
-
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -88,6 +87,12 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        goldenTurnipObjects = GameObject.FindGameObjectsWithTag("Golden Turnip");
+        List < CollectableGoldenTurnip > goldenTurnipObjectsList = new List<CollectableGoldenTurnip>();
+        foreach(CollectableGoldenTurnip turnip in goldenTurnipObjectsList)
+        {
+
+        }
         wheel       = GameObject.FindGameObjectsWithTag("Wheel");
         player      = GameObject.FindGameObjectWithTag("Player");
         spaceShip   = GameObject.FindGameObjectWithTag("SpaceShip");
