@@ -22,8 +22,16 @@ public class MovingPlatform : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
+        transform.Translate(movement * speed * Time.deltaTime);
+
+        if (timer > changeTime)
+        {
+            speed = -speed;
+            timer = 0f;
+        }
     }
 
+    /*
     void FixedUpdate()
     {
         myRB.MovePosition(transform.position + movement * speed * Time.fixedDeltaTime);
@@ -34,4 +42,5 @@ public class MovingPlatform : MonoBehaviour
             timer = 0f;
         }
     }
+    */
 }

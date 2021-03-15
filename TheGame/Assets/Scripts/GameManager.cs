@@ -88,11 +88,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         goldenTurnipObjects = GameObject.FindGameObjectsWithTag("Golden Turnip");
-        List < CollectableGoldenTurnip > goldenTurnipObjectsList = new List<CollectableGoldenTurnip>();
-        foreach(CollectableGoldenTurnip turnip in goldenTurnipObjectsList)
-        {
-
-        }
         wheel       = GameObject.FindGameObjectsWithTag("Wheel");
         player      = GameObject.FindGameObjectWithTag("Player");
         spaceShip   = GameObject.FindGameObjectWithTag("SpaceShip");
@@ -104,7 +99,12 @@ public class GameManager : MonoBehaviour
         stairsToSky = GameObject.FindGameObjectsWithTag("StairsToSky");
         startFromBed = true;
 
-        for(int i=0; i>stairsToSky.Length; i++)
+        for (int i = 0; i < goldenTurnipObjects.Length; i++)
+        {
+            goldenTurnipObjects[i].SetActive(true);
+        }
+
+        for (int i=0; i>stairsToSky.Length; i++)
         {
             stairsToSky[i].SetActive(false);
         }
@@ -118,7 +118,12 @@ public class GameManager : MonoBehaviour
         fadeScreen  = GameObject.Find("FadeScreen");
         levelInfo   = GameObject.Find("LevelInfo").GetComponent<LevelInfo>();
 
-        if(levelInfo.levelNumber == 0)
+        for(int i=0; i< goldenTurnipObjects.Length;i++)
+        {
+            goldenTurnipObjects[i].GetComponent<CollectableGoldenTurnip>().CheckTurnips();
+        }
+
+        if (levelInfo.levelNumber == 0)
         {
             if(startFromBed)
             {
@@ -161,6 +166,8 @@ public class GameManager : MonoBehaviour
 
         wheel       = GameObject.FindGameObjectsWithTag("Wheel");
         npc         = GameObject.FindGameObjectsWithTag("NPC");
+
+        // Old. Check later if this can be removed
         spaceShip.GetComponent<SpaceShipScript>().staminaMultiplier = staminaMultipliers;
     }
 

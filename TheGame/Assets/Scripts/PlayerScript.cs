@@ -13,6 +13,7 @@ public class PlayerScript : MonoBehaviour
     public float snowBallRollVelocity;
     public float jumpSpeed = 12f;
     public bool jumpSqueeze = false;
+    public bool isJumping = false;
     public float turnSmoothing = 10f;
     public bool canJump = false;
     public bool canFly = false;
@@ -47,7 +48,7 @@ public class PlayerScript : MonoBehaviour
     public Light windowLight;
     public GameObject lightDust;
 
-    private Vector3 movement;
+    public Vector3 movement;
     private Rigidbody myRB;
     private Animator myAnim;
 
@@ -112,8 +113,8 @@ public class PlayerScript : MonoBehaviour
         turnipCarryingVelocity = speed * 0.5f;
         storedSpeed = speed;
         SnowBallRollPrompt.SetActive(false);
-        footL = GameObject.Find("FootStepL").transform;
-        footR = GameObject.Find("FootStepR").transform;
+        //footL = GameObject.Find("FootStepL").transform;
+        //footR = GameObject.Find("FootStepR").transform;
     }
 
     // Update is called once per frame
@@ -123,10 +124,16 @@ public class PlayerScript : MonoBehaviour
       
         if (Input.GetButtonDown("Jump") && canJump && canMove && !holdingTurnip)
         {
+            if(transform.parent != null)
+            {
+                myRB.isKinematic = false;
+                myRB.useGravity = true;
+                transform.parent = null;
+            }
+            isJumping = true;
             myAnim.SetBool("isJumping",true);
             myRB.AddForce(Vector3.up * jumpSpeed);
         }
-
 
         if(Input.GetButtonDown("Fire1"))
         {
@@ -226,6 +233,11 @@ public class PlayerScript : MonoBehaviour
 
         if(hor !=0f || ver !=0f)
         {
+
+            GetComponent<Rigidbody>().isKinematic = false;
+            GetComponent<Rigidbody>().useGravity = true;
+            transform.parent = null;
+
             coolDownTime += Time.deltaTime;
             if (steps.isStopped && canJump)
             {
@@ -283,6 +295,11 @@ public class PlayerScript : MonoBehaviour
             Move(hor, ver);
         }
 
+        if(myRB.velocity.y < -0.1f && isJumping)
+        {
+            isJumping = false;
+        }
+
         cameraTarget.position = new Vector3(transform.position.x, cameraPoint, transform.position.z);
 
         if(Physics.Raycast(transform.position,Vector3.down,out hit, rayCheckLength))
@@ -298,15 +315,6 @@ public class PlayerScript : MonoBehaviour
                     jumpSqueeze = true;
                     Instantiate(stepPuff, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation);
                 }
-            }
-
-            if(hit.transform.tag == "Wheel")
-            {
-                transform.position = transform.position + hit.transform.position;
-            }
-            else
-            {
-                transform.parent = null;
             }
 
             if(hit.transform.tag == "SandCube" && Input.GetButtonDown("Fire1"))
@@ -470,6 +478,17 @@ public class PlayerScript : MonoBehaviour
         if(other.gameObject.tag == "Sand")
         {
             createFootSteps = true;
+        }
+
+    }
+
+    public void OnCollisionStay(Collision other)
+    {
+        if (other.gameObject.tag == "MovingPlatform" && movement == new Vector3(0f, 0f, 0f) && !isJumping)
+        {
+            GetComponent<Rigidbody>().isKinematic = true;
+            GetComponent<Rigidbody>().useGravity = false;
+            transform.parent = other.transform;
         }
     }
 
