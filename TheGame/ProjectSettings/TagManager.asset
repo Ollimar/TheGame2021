@@ -29,6 +29,7 @@ TagManager:
   - SpawnPoint
   - SinkingPlatform
   - Golden Turnip
+  - Golden Turnip Spot
   layers:
   - Default
   - TransparentFX

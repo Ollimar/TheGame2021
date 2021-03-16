@@ -86,6 +86,30 @@ public class MapMovement : MonoBehaviour
                 }
             }
 
+            if (levelToLoad == 3)
+            {
+                for (int i = 0; i < gm.goldenTurnipsSnowland; i++)
+                {
+                    turnipImages[i].GetComponent<Image>().sprite = goldenTurnipCollected;
+                }
+            }
+
+            if (levelToLoad == 4)
+            {
+                for (int i = 0; i < gm.goldenTurnipsBlockTown; i++)
+                {
+                    turnipImages[i].GetComponent<Image>().sprite = goldenTurnipCollected;
+                }
+            }
+
+            if (levelToLoad == 5)
+            {
+                for (int i = 0; i < gm.goldenTurnipsForest; i++)
+                {
+                    turnipImages[i].GetComponent<Image>().sprite = goldenTurnipCollected;
+                }
+            }
+
             StartCoroutine("Zoomed");
         }
 

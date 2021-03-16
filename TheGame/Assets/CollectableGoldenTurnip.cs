@@ -14,66 +14,57 @@ public class CollectableGoldenTurnip : MonoBehaviour
     public Material goldMaterial;
     public Material glassMaterial;
 
+    public GameObject[] goldenTurnipSpots;
+
+    private ParticleSystem myParticle;
     private GameManager gm;
 
+    
     private void OnEnable()
     {
-        //SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneLoaded += CheckTurnips;
     }
-
+    
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
-        gameObject.SetActive(true);
-        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-
-        if(gm.levelInfo.levelNumber != correctlevel)
+        myParticle = GetComponent<ParticleSystem>();
+        if (!collected)
         {
-            gameObject.SetActive(false);
+            childObject.GetComponent<Renderer>().material = goldMaterial;
         }
 
-        else if(gm.levelInfo.levelNumber == correctlevel)
+        if (collected)
         {
-            gameObject.SetActive(true);
-
-            if (!collected)
-            {
-                childObject.GetComponent<Renderer>().material = goldMaterial;
-            }
-
-            if (collected)
-            {
-                childObject.GetComponent<Renderer>().material = glassMaterial;
-            }
+            childObject.GetComponent<Renderer>().material = glassMaterial;
+            myParticle.Stop();
         }
     }
 
     // Called from gamemanager every time level changes 
-    public void CheckTurnips()
+
+       
+    public void CheckTurnips(Scene scene, LoadSceneMode mode)
     {
-        gameObject.SetActive(true);
-        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        goldenTurnipSpots = GameObject.FindGameObjectsWithTag("Golden Turnip Spot");
 
-        if (gm.levelInfo.levelNumber != correctlevel)
+        for(int i=0; i<goldenTurnipSpots.Length;i++)
         {
-            gameObject.SetActive(false);
-        }
-
-        else if (gm.levelInfo.levelNumber == correctlevel)
-        {
-            gameObject.SetActive(true);
-
-            if (!collected)
+            if(turnipNumber == goldenTurnipSpots[i].GetComponent<GoldenTurnipSpotScript>().turnipNumber)
             {
-                childObject.GetComponent<Renderer>().material = goldMaterial;
-            }
-
-            if (collected)
-            {
-                childObject.GetComponent<Renderer>().material = glassMaterial;
+                transform.position = goldenTurnipSpots[i].transform.position;
             }
         }
-    }
 
+        if (!collected)
+        {
+            childObject.GetComponent<Renderer>().material = goldMaterial;
+        }
 
+        if (collected)
+        {
+            childObject.GetComponent<Renderer>().material = glassMaterial;
+            myParticle.Stop();
+        }
+    }  
 }

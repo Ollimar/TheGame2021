@@ -6,6 +6,9 @@ using UnityEngine.Rendering.PostProcessing;
 public class CameraScript : MonoBehaviour
 {
     public Transform target;
+    public Transform spaceShipTarget;
+
+    public PlayerScript player;
 
     // Camera Targets
 
@@ -32,8 +35,13 @@ public class CameraScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>();
+        target = GameObject.Find("CameraTarget").transform;
+        landTarget = GameObject.Find("CameraTarget").transform;
         postProcess = GameObject.Find("PP").GetComponent<PostProcessVolume>();
         postProcess.profile.TryGetSettings(out depthOfField);
+        spaceShipTarget = GameObject.Find("SpaceShip").transform;
+        player.gameStarted = false;
         ReturnCamera();
     }
 

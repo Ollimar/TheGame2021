@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerScript : MonoBehaviour
 {
 
+    public bool gameStarted = true;
     public bool canMove = true;
     public float speed = 10f;
     public float storedSpeed = 10f;
@@ -49,7 +50,7 @@ public class PlayerScript : MonoBehaviour
     public GameObject lightDust;
 
     public Vector3 movement;
-    private Rigidbody myRB;
+    public Rigidbody myRB;
     private Animator myAnim;
 
     // Camera variables
@@ -89,16 +90,11 @@ public class PlayerScript : MonoBehaviour
     {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         startPoint = GameObject.Find("StartPosition").transform;
+        cameraTarget = GameObject.Find("CameraTarget").transform;
         eyesNeutral.SetActive(true);
         eyesHappy.SetActive(false);
         transform.position = startPoint.position;
         transform.eulerAngles = startPoint.eulerAngles;
-
-        if (gm.levelInfo.levelNumber == 0)
-        {
-            toBedPrompt.SetActive(false);
-        }
-
         myRB = GetComponent<Rigidbody>();
         myAnim = GetComponentInChildren<Animator>();
         fadeScreen = GameObject.Find("FadeScreen");
@@ -301,8 +297,8 @@ public class PlayerScript : MonoBehaviour
         }
 
         cameraTarget.position = new Vector3(transform.position.x, cameraPoint, transform.position.z);
-
-        if(Physics.Raycast(transform.position,Vector3.down,out hit, rayCheckLength))
+        
+        if (Physics.Raycast(transform.position,Vector3.down,out hit, rayCheckLength))
         {
 
             cameraPoint = hit.point.y;
@@ -372,33 +368,60 @@ public class PlayerScript : MonoBehaviour
 
         if(other.gameObject.tag == "Golden Turnip")
         {
-            canMove = false;
-            if(goldenTurnip !=null)
+            if(!other.GetComponent<CollectableGoldenTurnip>().collected)
             {
-                goldenTurnip.SetActive(true);
-            }
-            steps.Stop();
-            eyesNeutral.SetActive(false);
-            eyesHappy.SetActive(true);
-            myAnim.SetBool("GoldCollected",true);
-            goldenTurnip = other.gameObject;
-            cameraScript.DialogueCamera();
-            myRB.velocity = Vector3.zero;
-            myRB.useGravity = false;
-            transform.eulerAngles = new Vector3(0f, 180f, 0f);
-            other.gameObject.transform.position = new Vector3(transform.position.x, transform.position.y + 3.5f, transform.position.z);
-            other.gameObject.GetComponentInChildren<SpinningObject>().speed = 0f;
-            other.gameObject.transform.eulerAngles = new Vector3(0f, 90f, 0f);
-            goldenTurnipCollected.SetActive(true);
-            gm.goldenTurnips += 1;
-            if(gm.levelInfo.levelNumber == 1)
-            {
-                gm.goldenTurnipsGrassLands += 1;
-            }
+                canMove = false;
 
-            if (gm.levelInfo.levelNumber == 2)
-            {
-                gm.goldenTurnipsDesert += 1;
+                if (goldenTurnip != null)
+                {
+                    goldenTurnip.SetActive(true);
+                }
+
+                steps.Stop();
+                eyesNeutral.SetActive(false);
+                eyesHappy.SetActive(true);
+                myAnim.SetBool("GoldCollected", true);
+                goldenTurnip = other.gameObject;
+                cameraScript.DialogueCamera();
+                myRB.velocity = Vector3.zero;
+                myRB.useGravity = false;
+                transform.eulerAngles = new Vector3(0f, 180f, 0f);
+                other.gameObject.transform.position = new Vector3(transform.position.x, transform.position.y + 3.5f, transform.position.z);
+                other.gameObject.GetComponentInChildren<SpinningObject>().speed = 0f;
+                other.gameObject.transform.eulerAngles = new Vector3(0f, 90f, 0f);
+                goldenTurnipCollected.SetActive(true);
+                gm.goldenTurnips += 1;
+                other.gameObject.GetComponent<CollectableGoldenTurnip>().collected = true;
+
+                if (gm.levelInfo.levelNumber == 1)
+                {
+                    gm.goldenTurnipsGrassLands += 1;
+                }
+
+                if (gm.levelInfo.levelNumber == 2)
+                {
+                    gm.goldenTurnipsDesert += 1;
+                }
+
+                if (gm.levelInfo.levelNumber == 3)
+                {
+                    gm.goldenTurnipsSnowland += 1;
+                }
+
+                if (gm.levelInfo.levelNumber == 4)
+                {
+                    gm.goldenTurnipsBlockTown += 1;
+                }
+
+                if (gm.levelInfo.levelNumber == 5)
+                {
+                    gm.goldenTurnipsForest += 1;
+                }
+
+                if (gm.levelInfo.levelNumber == 6)
+                {
+                    gm.goldenTurnipsMoon += 1;
+                }
             }
         }
 
@@ -591,6 +614,16 @@ public class PlayerScript : MonoBehaviour
         fadeScreen.GetComponent<Animator>().SetTrigger("ChangeLevel");
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene(levelNumber);
+    }
+
+    public IEnumerator Fade()
+    {
+        canMove = false;
+        myAnim.SetBool("isRunning", false);
+        steps.Stop();
+        fadeScreen.GetComponent<Animator>().SetTrigger("ChangeLevel");
+        yield return new WaitForSeconds(1);
+        canMove = true;
     }
 
     public IEnumerator GoToBed()

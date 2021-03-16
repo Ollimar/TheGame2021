@@ -23,6 +23,10 @@ public class GameManager : MonoBehaviour
 
     public int goldenTurnipsGrassLands;
     public int goldenTurnipsDesert;
+    public int goldenTurnipsSnowland;
+    public int goldenTurnipsBlockTown;
+    public int goldenTurnipsForest;
+    public int goldenTurnipsMoon;
 
     public float timer;
     public float changeTimer;
@@ -112,15 +116,19 @@ public class GameManager : MonoBehaviour
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        cam = Camera.main.GetComponent<CameraScript>();
+        fadeScreen = GameObject.Find("FadeScreen");
+        levelInfo = GameObject.Find("LevelInfo").GetComponent<LevelInfo>();
         player      = GameObject.FindGameObjectWithTag("Player");
         spaceShip   = GameObject.FindGameObjectWithTag("SpaceShip");
-        cam         = Camera.main.GetComponent<CameraScript>();
-        fadeScreen  = GameObject.Find("FadeScreen");
-        levelInfo   = GameObject.Find("LevelInfo").GetComponent<LevelInfo>();
 
-        for(int i=0; i< goldenTurnipObjects.Length;i++)
+        for (int i = 0; i < goldenTurnipObjects.Length; i++)
         {
-            goldenTurnipObjects[i].GetComponent<CollectableGoldenTurnip>().CheckTurnips();
+            goldenTurnipObjects[i].SetActive(true);
+            if(goldenTurnipObjects[i].GetComponent<CollectableGoldenTurnip>().correctlevel != levelInfo.levelNumber)
+            {
+                goldenTurnipObjects[i].SetActive(false);
+            }
         }
 
         if (levelInfo.levelNumber == 0)
