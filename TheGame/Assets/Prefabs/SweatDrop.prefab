@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2709828396881660024}
   - component: {fileID: 1311925199237203933}
   - component: {fileID: 3877619403142607639}
+  - component: {fileID: 1237421735392800219}
   m_Layer: 0
   m_Name: SweatDrop
   m_TagString: Untagged
@@ -58,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e7d135ca9d799154082e0d5381d8e265, type: 2}
+  - {fileID: 2100000, guid: e637b0075163d294db1a759584423a6e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -79,3 +80,15 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1237421735392800219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3373458067949982402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eab33da7471e8104abe457d8f1c789e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

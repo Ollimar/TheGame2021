@@ -30,6 +30,7 @@ TagManager:
   - SinkingPlatform
   - Golden Turnip
   - Golden Turnip Spot
+  - SweatDrop
   layers:
   - Default
   - TransparentFX

@@ -68,8 +68,12 @@ public class PlayerScript : MonoBehaviour
     // Variables for turnip carrying and throwing
     public bool canPickTurnip = false;
     public bool holdingTurnip = false;
+    public Transform turnipParent;
     public GameObject activeTurnip;
     public GameObject goldenTurnip;
+    public bool sweating = false;
+    public GameObject[] sweatEmitter;
+    public GameObject sweat;
 
     // Variables for snowball carrying and throwing
     public Transform snowBallPosition;
@@ -97,6 +101,11 @@ public class PlayerScript : MonoBehaviour
         transform.eulerAngles = startPoint.eulerAngles;
         myRB = GetComponent<Rigidbody>();
         myAnim = GetComponentInChildren<Animator>();
+        sweatEmitter = GameObject.FindGameObjectsWithTag("SweatDrop");
+        for(int i = 0; i< sweatEmitter.Length; i++)
+        {
+            sweatEmitter[i].SetActive(false);
+        }
         fadeScreen = GameObject.Find("FadeScreen");
         dialogueManager = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
         cameraScript = Camera.main.GetComponent<CameraScript>();
@@ -213,6 +222,26 @@ public class PlayerScript : MonoBehaviour
         if (!jumpSqueeze && transform.localScale.y != 1.5f)
         {
             transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1.5f, 1.5f, 1.5f), 10f * Time.deltaTime);
+        }
+
+        if(holdingTurnip && !IsInvoking("Sweat"))
+        {
+            InvokeRepeating("Sweat",0.1f,Random.Range(0.4f,0.6f));
+        }
+
+        else if(!holdingTurnip && IsInvoking("Sweat"))
+        {
+            CancelInvoke();
+        }
+
+    }
+
+    public void Sweat()
+    {
+        int r = Random.Range(0, 4);
+        for(int i=0; i< r; i++)
+        {
+            Instantiate(sweat, sweatEmitter[i].transform.position, sweatEmitter[i].transform.rotation);
         }
     }
 
@@ -599,6 +628,7 @@ public class PlayerScript : MonoBehaviour
 
     public IEnumerator ThrowTurnip()
     {
+        myAnim.SetTrigger("Throw");
         yield return new WaitForSeconds(0.5f);
         speed = storedSpeed;
         canMove = true;
