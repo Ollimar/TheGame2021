@@ -7,6 +7,7 @@ public class LanderAreaScript : MonoBehaviour
     public Transform landingSpot;
     public string planetName;
     public Transform cameraTarget;
+    public Transform spaceShipPosition;
     public int levelNumber;
 
     // Start is called before the first frame update
