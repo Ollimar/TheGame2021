@@ -55,6 +55,8 @@ public class PlayerScript : MonoBehaviour
 
     // Camera variables
     public Transform cameraTarget;
+    public Transform cameraFollow;
+    public Transform cameraMaximum;
     public float cameraPoint;
     public CameraScript cameraScript;
     public GameObject fadeScreen;
@@ -95,6 +97,8 @@ public class PlayerScript : MonoBehaviour
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         startPoint = GameObject.Find("StartPosition").transform;
         cameraTarget = GameObject.Find("CameraTarget").transform;
+        cameraFollow = GameObject.Find("CameraFollow").transform;
+        cameraMaximum = GameObject.Find("CameraMaximum").transform;
         eyesNeutral.SetActive(true);
         eyesHappy.SetActive(false);
         transform.position = startPoint.position;
@@ -253,16 +257,17 @@ public class PlayerScript : MonoBehaviour
 
         if(hor == 0f && ver == 0f)
         {
-            myRB.velocity = new Vector3(0f,myRB.velocity.y,0f);
+            myRB.velocity = new Vector3(0f, myRB.velocity.y, 0f);
+
+            cameraFollow.position = Vector3.Lerp(cameraFollow.position,transform.position,1f*Time.deltaTime);
         }
 
         if(hor !=0f || ver !=0f)
         {
-
             GetComponent<Rigidbody>().isKinematic = false;
             GetComponent<Rigidbody>().useGravity = true;
             transform.parent = null;
-
+            cameraFollow.position = Vector3.Lerp(cameraFollow.position, cameraMaximum.position, 1f * Time.deltaTime);
             coolDownTime += Time.deltaTime;
             if (steps.isStopped && canJump)
             {
@@ -325,11 +330,10 @@ public class PlayerScript : MonoBehaviour
             isJumping = false;
         }
 
-        cameraTarget.position = new Vector3(transform.position.x, cameraPoint, transform.position.z);
+        cameraTarget.position = new Vector3(cameraFollow.position.x, cameraPoint, cameraFollow.position.z);
         
         if (Physics.Raycast(transform.position,Vector3.down,out hit, rayCheckLength))
         {
-
             cameraPoint = hit.point.y;
 
             if (!canJump)
