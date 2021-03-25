@@ -203,7 +203,7 @@ public class PlayerScript : MonoBehaviour
 
         if(Input.GetButtonDown("Jump") && canFly)
         {
-            StartFlight();
+            StartCoroutine("StartFlight");
         }
 
         if(Input.GetButtonDown("Fire1") && canGoToBed)
@@ -251,7 +251,6 @@ public class PlayerScript : MonoBehaviour
 
     public void Move(float hor, float ver)
     {
-
         movement.Set(hor, 0f, ver);
         movement = movement.normalized * speed * Time.deltaTime;
 
@@ -259,7 +258,10 @@ public class PlayerScript : MonoBehaviour
         {
             myRB.velocity = new Vector3(0f, myRB.velocity.y, 0f);
 
-            cameraFollow.position = Vector3.Lerp(cameraFollow.position,transform.position,1f*Time.deltaTime);
+            Vector3 playerStopPoint;
+            playerStopPoint = transform.position;
+
+            cameraFollow.position = Vector3.Lerp(cameraFollow.position, playerStopPoint, 1f*Time.deltaTime);
         }
 
         if(hor !=0f || ver !=0f)
@@ -267,8 +269,8 @@ public class PlayerScript : MonoBehaviour
             GetComponent<Rigidbody>().isKinematic = false;
             GetComponent<Rigidbody>().useGravity = true;
             transform.parent = null;
-            cameraFollow.position = Vector3.Lerp(cameraFollow.position, cameraMaximum.position, 1f * Time.deltaTime);
             coolDownTime += Time.deltaTime;
+
             if (steps.isStopped && canJump)
             {
                 steps.Play();
@@ -279,6 +281,11 @@ public class PlayerScript : MonoBehaviour
             if(activeSnowball != null)
             {
                 activeSnowball.GetComponent<SnowballScript>().rolling = true;
+            }
+
+            if(coolDownTime>1f)
+            {
+                cameraFollow.position = Vector3.Lerp(cameraFollow.position, cameraMaximum.position, 0.1f * Time.deltaTime);
             }
         }
         else
@@ -674,8 +681,14 @@ public class PlayerScript : MonoBehaviour
         SceneManager.LoadScene("Test2D");
     }
 
-    public void StartFlight()
+    public IEnumerator StartFlight()
     {
+        eyesNeutral.SetActive(false);
+        eyesHappy.SetActive(true);
+        transform.eulerAngles = new Vector3(0f, -180f, 0f);
+        myAnim.SetTrigger("Wave");
+        yield return new WaitForSeconds(1f);
+        transform.eulerAngles = new Vector3(0f, 0f, 0f);
         gm.ActivateFly();
         canFly = false;
         launchButton.SetActive(false);
