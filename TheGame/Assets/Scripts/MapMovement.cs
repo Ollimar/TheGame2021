@@ -8,6 +8,9 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class MapMovement : MonoBehaviour
 {
+    // rotation of the object when level starts
+    private Vector3 objectRotation;
+
     public RotatorScript rotator;
     public GameObject landingPrompt;
     public GameObject landOrLeave;
@@ -19,6 +22,7 @@ public class MapMovement : MonoBehaviour
 
     public bool zoomToLevel = false;
     public bool zoomed = false;
+    public bool levelLoading = false;
 
     private Transform cameraParent;
     private Transform cameraTarget;
@@ -62,12 +66,12 @@ public class MapMovement : MonoBehaviour
 
         if(zoomToLevel)
         {
-            playerReturnPos = rocket.transform.position;
-            rocket.transform.position = playerPos.position;
+            playerReturnPos = rocket.transform.position;           
             landingPrompt.SetActive(false);
             rotator.canMove = false;
             Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, cameraTarget.transform.position, 2.5f * Time.deltaTime);
             Camera.main.transform.rotation = Quaternion.Lerp(Camera.main.transform.rotation, cameraTarget.transform.rotation, 2.5f * Time.deltaTime);
+            rocket.transform.position = playerPos.position;
             rocket.transform.rotation = playerPos.transform.rotation;
             depthOfField.focusDistance.value = 7f;
             depthOfField.focalLength.value = 48.51f;
@@ -130,9 +134,8 @@ public class MapMovement : MonoBehaviour
 
         if (zoomed && Input.GetButtonDown("Jump"))
         {
-            SceneManager.LoadScene(levelToLoad);
+            StartCoroutine("NewLevel");
         }
-
 
         if (!zoomToLevel)
         {
@@ -167,6 +170,13 @@ public class MapMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         zoomed = true;
+    }
+
+    public IEnumerator NewLevel()
+    {
+        levelLoading = true;
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(levelToLoad);
     }
 
     public void ReturnCamera()

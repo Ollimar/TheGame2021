@@ -683,6 +683,7 @@ public class PlayerScript : MonoBehaviour
 
     public IEnumerator StartFlight()
     {
+        canMove = false;
         eyesNeutral.SetActive(false);
         eyesHappy.SetActive(true);
         transform.eulerAngles = new Vector3(0f, -180f, 0f);

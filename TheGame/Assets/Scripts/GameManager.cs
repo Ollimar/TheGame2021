@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public GameObject spaceShip;
 
     public LevelInfo levelInfo;
+    public int previousLevel;
 
     // Variables for allowing player to travel between different heights
     public bool boosterSky              = false;
@@ -150,6 +151,11 @@ public class GameManager : MonoBehaviour
             }
 
             reverseDirection = true;
+        }
+
+        if(levelInfo.levelNumber == 1)
+        {
+
         }
 
         if(levelInfo.levelNumber == 2 && reverseDirection)
