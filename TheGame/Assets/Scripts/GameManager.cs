@@ -136,6 +136,9 @@ public class GameManager : MonoBehaviour
             }
         }
 
+
+        // Old code. The idea was that player would start from the bed in his/her room
+        /*
         if (levelInfo.levelNumber == 0)
         {
             if(startFromBed)
@@ -152,6 +155,7 @@ public class GameManager : MonoBehaviour
 
             reverseDirection = true;
         }
+        */
 
         if(levelInfo.levelNumber == 1)
         {
@@ -251,6 +255,7 @@ public class GameManager : MonoBehaviour
         player.transform.parent = spaceShip.transform;
         player.transform.position = new Vector3(0f, 0.309f, 0.359f);
         player.GetComponent<PlayerScript>().enabled = false;
+        spaceShip.GetComponent<SpaceShipScript>().Activate();
     }
 
     public void ActivateWalk()

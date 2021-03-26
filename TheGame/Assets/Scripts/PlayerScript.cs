@@ -203,6 +203,7 @@ public class PlayerScript : MonoBehaviour
 
         if(Input.GetButtonDown("Jump") && canFly)
         {
+            launchButton.SetActive(false);
             StartCoroutine("StartFlight");
         }
 
@@ -509,7 +510,7 @@ public class PlayerScript : MonoBehaviour
         if(other.gameObject.name == "SpaceShipTrigger")
         {
             launchButton.SetActive(true);
-            canFly = true;
+            canFly = true;            
         }
 
         if(other.gameObject.name == "HiPowerEngine")
@@ -553,6 +554,7 @@ public class PlayerScript : MonoBehaviour
             GetComponent<Rigidbody>().useGravity = false;
             transform.parent = other.transform;
         }
+
     }
 
     public void OnCollisionExit(Collision other)
@@ -582,6 +584,11 @@ public class PlayerScript : MonoBehaviour
                 canMove = false;
                 cameraScript.DialogueCamera();
             }
+        }
+
+        if (other.gameObject.name == "SpaceShipTrigger")
+        {
+            canJump = false;
         }
     }
 
@@ -614,6 +621,7 @@ public class PlayerScript : MonoBehaviour
         {
             launchButton.SetActive(false);
             canFly = false;
+            canJump = true;
         }
 
         if (other.gameObject.name == "ToBed")
@@ -690,6 +698,7 @@ public class PlayerScript : MonoBehaviour
         myAnim.SetTrigger("Wave");
         yield return new WaitForSeconds(1f);
         transform.eulerAngles = new Vector3(0f, 0f, 0f);
+        yield return new WaitForSeconds(1f);
         gm.ActivateFly();
         canFly = false;
         launchButton.SetActive(false);

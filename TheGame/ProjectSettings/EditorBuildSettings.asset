@@ -50,4 +50,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/JustOneBigIsland.unity
     guid: f9ef2c2db6dce9d43aa2384eeeb06b0e
+  - enabled: 1
+    path: Assets/Scenes/HomeLevelReturn.unity
+    guid: 6565cab0577369549920504662c9d4ad
   m_configObjects: {}

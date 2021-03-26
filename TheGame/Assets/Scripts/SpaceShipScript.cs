@@ -283,6 +283,7 @@ public class SpaceShipScript : MonoBehaviour
         canMove = false;
         fadeScreen.GetComponent<Animator>().SetTrigger("ChangeLevel");
         yield return new WaitForSeconds(1);
+        gm.previousLevel = gm.levelInfo.levelNumber;
         SceneManager.LoadScene(levelNumber);
     }
 }
