@@ -28,6 +28,8 @@ public class CameraScript : MonoBehaviour
     // Cameras
     public Camera doorCamera;
 
+    public GameObject door;
+
     // PostProcessEffects
     public PostProcessVolume     postProcess;
     public DepthOfField          depthOfField;
@@ -40,6 +42,8 @@ public class CameraScript : MonoBehaviour
         landTarget = GameObject.Find("CameraTarget").transform;
         postProcess = GameObject.Find("PP").GetComponent<PostProcessVolume>();
         postProcess.profile.TryGetSettings(out depthOfField);
+        door = GameObject.Find("Door");
+        doorCamera = GameObject.Find("Door Camera").GetComponent<Camera>();
         spaceShipTarget = GameObject.Find("SpaceShip").transform;
         player.gameStarted = false;
         ReturnCamera();
@@ -106,12 +110,22 @@ public class CameraScript : MonoBehaviour
         depthOfField.focusDistance.value = 13f;
     }
 
+    public void Open()
+    {
+        player.canMove = false;
+        Camera.main.depth = -1;
+        doorCamera.depth = 0;
+        door.GetComponent<Animator>().enabled = true;
+        StartCoroutine("DoorToPlayer");
+    }
+
     //Coroutine called from the KeyScript which returns the camera from showing the unlocked door to the player
     public IEnumerator DoorToPlayer()
     {
         yield return new WaitForSeconds(3f);
         Camera.main.depth = 0;
         doorCamera.depth = -1;
+        ReturnCamera();
         GameObject.Find("Player").GetComponent<PlayerScript>().canMove = true;
     }
 }

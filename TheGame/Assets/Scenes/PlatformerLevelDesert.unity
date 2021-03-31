@@ -14994,6 +14994,7 @@ MonoBehaviour:
   landingSpot: {fileID: 274495612}
   planetName: 
   cameraTarget: {fileID: 0}
+  spaceShipPosition: {fileID: 0}
   levelNumber: 0
 --- !u!65 &292659731
 BoxCollider:
@@ -16438,6 +16439,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 373232918022653683, guid: 5d93d6dd8679f4245b0a595755a324f9,
+        type: 3}
+      propertyPath: m_Name
+      value: Door Camera
+      objectReference: {fileID: 0}
     - target: {fileID: 373232919817779887, guid: 5d93d6dd8679f4245b0a595755a324f9,
         type: 3}
       propertyPath: m_TagString
@@ -16457,6 +16463,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2871983978938903348, guid: 5d93d6dd8679f4245b0a595755a324f9,
+        type: 3}
+      propertyPath: character
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3473474698334723063, guid: 5d93d6dd8679f4245b0a595755a324f9,
         type: 3}
@@ -16655,6 +16666,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 13400000, guid: 7a394f1763e9c8545ba3d6b36d87b9a4,
         type: 2}
+    - target: {fileID: 8208120968864505934, guid: 5d93d6dd8679f4245b0a595755a324f9,
+        type: 3}
+      propertyPath: m_TagString
+      value: SandCube
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d93d6dd8679f4245b0a595755a324f9, type: 3}
 --- !u!1001 &343134493
@@ -31450,6 +31466,7 @@ MonoBehaviour:
   landingSpot: {fileID: 274495612}
   planetName: 
   cameraTarget: {fileID: 0}
+  spaceShipPosition: {fileID: 0}
   levelNumber: 0
 --- !u!1001 &958173608
 PrefabInstance:
@@ -31787,7 +31804,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.42261788, y: -0, z: -0, w: 0.906308}
-  m_LocalPosition: {x: 56, y: -8, z: 323}
+  m_LocalPosition: {x: 70.2, y: 26.8, z: 269.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -31817,6 +31834,7 @@ MonoBehaviour:
   canMoveCamera: 1
   dialogueOn: 0
   doorCamera: {fileID: 0}
+  door: {fileID: 0}
   postProcess: {fileID: 0}
   depthOfField: {fileID: 0}
 --- !u!114 &963194230
@@ -41638,6 +41656,7 @@ MonoBehaviour:
   landingSpot: {fileID: 247468993}
   planetName: 
   cameraTarget: {fileID: 0}
+  spaceShipPosition: {fileID: 0}
   levelNumber: 0
 --- !u!1001 &1367927627
 PrefabInstance:
@@ -46876,6 +46895,7 @@ MonoBehaviour:
   player: {fileID: 0}
   spaceShip: {fileID: 0}
   levelInfo: {fileID: 0}
+  previousLevel: 0
   boosterSky: 0
   boosterSpace: 0
   staminaMultipliers: 1
@@ -46883,6 +46903,10 @@ MonoBehaviour:
   goldenTurnipObjects: []
   goldenTurnipsGrassLands: 0
   goldenTurnipsDesert: 0
+  goldenTurnipsSnowland: 0
+  goldenTurnipsBlockTown: 0
+  goldenTurnipsForest: 0
+  goldenTurnipsMoon: 0
   timer: 0
   changeTimer: 5
   moveTimer: 0
@@ -50598,6 +50622,7 @@ MonoBehaviour:
   dialogueNumber: 0
   lineFull: 1
   cameraScript: {fileID: 0}
+  npc: {fileID: 0}
 --- !u!4 &1701653993
 Transform:
   m_ObjectHideFlags: 0
@@ -56706,6 +56731,7 @@ MonoBehaviour:
   landingSpot: {fileID: 274495612}
   planetName: 
   cameraTarget: {fileID: 0}
+  spaceShipPosition: {fileID: 0}
   levelNumber: 0
 --- !u!1001 &1764306783
 PrefabInstance:
@@ -70544,7 +70570,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2146972660}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 57.73, y: -24.22, z: 290.11}
+  m_LocalPosition: {x: 68.5, y: 17.6, z: 277.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

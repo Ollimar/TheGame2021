@@ -126,7 +126,7 @@ public class GameManager : MonoBehaviour
         levelInfo = GameObject.Find("LevelInfo").GetComponent<LevelInfo>();
         player      = GameObject.FindGameObjectWithTag("Player");
         spaceShip   = GameObject.FindGameObjectWithTag("SpaceShip");
-
+ 
         for (int i = 0; i < goldenTurnipObjects.Length; i++)
         {
             goldenTurnipObjects[i].SetActive(true);
@@ -135,7 +135,7 @@ public class GameManager : MonoBehaviour
                 goldenTurnipObjects[i].SetActive(false);
             }
         }
-
+        
 
         // Old code. The idea was that player would start from the bed in his/her room
         /*
@@ -190,7 +190,7 @@ public class GameManager : MonoBehaviour
         npc         = GameObject.FindGameObjectsWithTag("NPC");
 
         // Old. Check later if this can be removed
-        spaceShip.GetComponent<SpaceShipScript>().staminaMultiplier = staminaMultipliers;
+        //spaceShip.GetComponent<SpaceShipScript>().staminaMultiplier = staminaMultipliers;
     }
 
     // Update is called once per frame

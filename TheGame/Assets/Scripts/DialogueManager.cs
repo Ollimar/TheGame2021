@@ -30,6 +30,7 @@ public class DialogueManager : MonoBehaviour
     public bool lineFull = true;
 
     public CameraScript cameraScript;
+    public NPCScript npc;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +40,7 @@ public class DialogueManager : MonoBehaviour
         dialogueWindow.SetActive(false);
         dialogueText.text = currentLine;
         cameraScript = Camera.main.GetComponent<CameraScript>();
+        npc = GameObject.FindGameObjectWithTag("NPC").GetComponentInChildren<NPCScript>();
     }
 
     // Update is called once per frame
@@ -54,7 +56,6 @@ public class DialogueManager : MonoBehaviour
     {
         lineNumber = 0;
         StartCoroutine("ShowText");
-
 
         if (diNum == 1)
         {
@@ -113,9 +114,7 @@ public class DialogueManager : MonoBehaviour
 
         if (lineNumber > dialogueLines.Length-1)
         {
-            cameraScript.ReturnCamera();
-            dialogueWindow.SetActive(false);
-            player.canMove = true;
+            CloseDialogue();
             //lineNumber = 0;
         }
 
@@ -129,9 +128,18 @@ public class DialogueManager : MonoBehaviour
 
     public void CloseDialogue()
     {
-        cameraScript.ReturnCamera();
-        lineNumber = 0;
-        dialogueWindow.SetActive(false);
+        if(npc.missionComplete)
+        {
+            Camera.main.GetComponent<CameraScript>().StartCoroutine("Open");
+            lineNumber = 0;
+            dialogueWindow.SetActive(false);
+        }
+        else
+        {
+            cameraScript.ReturnCamera();
+            dialogueWindow.SetActive(false);
+            player.canMove = true;
+        }
     }
 
     public void ReturnLevel()

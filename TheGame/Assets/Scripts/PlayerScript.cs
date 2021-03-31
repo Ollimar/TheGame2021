@@ -183,10 +183,10 @@ public class PlayerScript : MonoBehaviour
             if(goldenTurnipCollected.activeSelf)
             {
                 canMove = true;
+                goldenTurnip.SetActive(false);
                 goldenTurnipCollected.SetActive(false);
                 myAnim.SetBool("GoldCollected", false);
-                myRB.useGravity = false;
-                goldenTurnip.SetActive(false);
+                myRB.useGravity = false;              
                 myRB.useGravity = true;
                 eyesNeutral.SetActive(true);
                 eyesHappy.SetActive(false);
@@ -358,7 +358,6 @@ public class PlayerScript : MonoBehaviour
             {
                 print("OnSand");
                 hit.transform.gameObject.SetActive(false);
-                canDig = true;
             }
 
             canJump = true;
@@ -412,7 +411,7 @@ public class PlayerScript : MonoBehaviour
             if(!other.GetComponent<CollectableGoldenTurnip>().collected)
             {
                 canMove = false;
-
+                goldenTurnip = other.gameObject;
                 if (goldenTurnip != null)
                 {
                     goldenTurnip.SetActive(true);
@@ -422,7 +421,7 @@ public class PlayerScript : MonoBehaviour
                 eyesNeutral.SetActive(false);
                 eyesHappy.SetActive(true);
                 myAnim.SetBool("GoldCollected", true);
-                goldenTurnip = other.gameObject;
+                
                 cameraScript.DialogueCamera();
                 myRB.velocity = Vector3.zero;
                 myRB.useGravity = false;
