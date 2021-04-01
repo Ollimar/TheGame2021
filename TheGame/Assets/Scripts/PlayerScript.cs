@@ -168,7 +168,6 @@ public class PlayerScript : MonoBehaviour
                 //myRB.velocity = Vector3.zero;
                 StartCoroutine("ThrowTurnip");
             }
-
         }
 
         if(Input.GetButton("Fire1"))
@@ -177,6 +176,7 @@ public class PlayerScript : MonoBehaviour
             {
                 SnowBallRollPrompt.SetActive(false);
                 activeSnowball.transform.position = snowBallPosition.position;
+                activeSnowball.GetComponent<Rigidbody>().isKinematic = true;
                 speed = snowBallRollVelocity;
             }
 
@@ -574,6 +574,7 @@ public class PlayerScript : MonoBehaviour
 
         if (other.gameObject.tag == "DialogueTrigger")
         {
+            canPickTurnip = false;
             npc = other.gameObject.GetComponent<NPCScript>();
             if (Input.GetButtonDown("Fire1") && !dialogueManager.dialogueWindow.activeSelf)
             {
@@ -627,6 +628,11 @@ public class PlayerScript : MonoBehaviour
         {
             toBedPrompt.SetActive(false);
             canGoToBed = false;
+        }
+
+        if (other.gameObject.tag == "DialogueTrigger")
+        {
+            canPickTurnip = true;
         }
     }
 
