@@ -129,8 +129,12 @@ public class GameManager : MonoBehaviour
  
         for (int i = 0; i < goldenTurnipObjects.Length; i++)
         {
-            goldenTurnipObjects[i].SetActive(true);
-            if(goldenTurnipObjects[i].GetComponent<CollectableGoldenTurnip>().correctlevel != levelInfo.levelNumber)
+            if(goldenTurnipObjects[i] != null)
+            {
+                goldenTurnipObjects[i].SetActive(true);
+
+            }
+            if (goldenTurnipObjects[i].GetComponent<CollectableGoldenTurnip>().correctlevel != levelInfo.levelNumber)
             {
                 goldenTurnipObjects[i].SetActive(false);
             }
