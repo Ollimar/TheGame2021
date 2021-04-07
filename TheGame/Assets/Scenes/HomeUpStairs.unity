@@ -8754,9 +8754,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d85454f4341dae44faeaab087ac44dab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  spaceShip: {fileID: 0}
-  cam: {fileID: 0}
   levelNumber: 0
 --- !u!4 &476161141
 Transform:
@@ -13381,7 +13378,7 @@ PrefabInstance:
         type: 3}
       propertyPath: cameraTarget
       value: 
-      objectReference: {fileID: 1063327745}
+      objectReference: {fileID: 0}
     - target: {fileID: 6166678707729301855, guid: 5246ddd2c2ce36140ba0516fce71ea7e,
         type: 3}
       propertyPath: speed
@@ -13424,12 +13421,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5246ddd2c2ce36140ba0516fce71ea7e, type: 3}
---- !u!4 &1063327745 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6166678708763339655, guid: 5246ddd2c2ce36140ba0516fce71ea7e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1063327744}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1089460385
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14575,7 +14566,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: de7e055ae537654499f331c5fa554d1c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -17.588
+      value: -17.12
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: de7e055ae537654499f331c5fa554d1c,
         type: 3}
@@ -19409,9 +19400,18 @@ MonoBehaviour:
   player: {fileID: 0}
   spaceShip: {fileID: 0}
   levelInfo: {fileID: 0}
+  previousLevel: 0
   boosterSky: 0
   boosterSpace: 0
   staminaMultipliers: 1
+  goldenTurnips: 0
+  goldenTurnipObjects: []
+  goldenTurnipsGrassLands: 0
+  goldenTurnipsDesert: 0
+  goldenTurnipsSnowland: 0
+  goldenTurnipsBlockTown: 0
+  goldenTurnipsForest: 0
+  goldenTurnipsMoon: 0
   timer: 0
   changeTimer: 5
   moveTimer: 0
