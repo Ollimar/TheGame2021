@@ -23,7 +23,7 @@ public class CloudInSpaceScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        holder.eulerAngles = new Vector3(transform.eulerAngles.x, spaceShip.transform.eulerAngles.y, transform.eulerAngles.z);
+        //holder.eulerAngles = new Vector3(transform.eulerAngles.x, spaceShip.transform.eulerAngles.y, transform.eulerAngles.z);
     }
 
     private void OnTriggerEnter(Collider other)

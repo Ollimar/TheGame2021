@@ -266,6 +266,7 @@ public class SpaceShipScript : MonoBehaviour
         yield return new WaitForSeconds(1f);
         stage1 = true;
         activate = true;
+
         if(boosterSky && levelInfo.levelNumber == 1)
         {
             canLaunch = true;
@@ -276,6 +277,11 @@ public class SpaceShipScript : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         canLaunch = true;
+    }
+
+    public void ChangeLevel()
+    {
+        StartCoroutine(ChangeLevel(6));
     }
 
     public IEnumerator ChangeLevel(int levelNumber)

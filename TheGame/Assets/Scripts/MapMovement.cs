@@ -156,6 +156,11 @@ public class MapMovement : MonoBehaviour
             cameraTarget = other.gameObject.GetComponent<LanderAreaScript>().cameraTarget;
             playerPos = other.gameObject.GetComponent<LanderAreaScript>().spaceShipPosition;
         }
+
+        if(other.gameObject.tag == "WorldMapPickUp")
+        {
+            Destroy(other.gameObject);
+        }
     }
 
     void OnTriggerExit(Collider other)

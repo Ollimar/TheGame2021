@@ -7,6 +7,7 @@ public class PlayerScript : MonoBehaviour
 {
 
     public bool gameStarted = true;
+    public bool paused = false;
     public bool canMove = true;
     public float speed = 10f;
     public float storedSpeed = 10f;
@@ -41,6 +42,7 @@ public class PlayerScript : MonoBehaviour
     public GameObject gasTankInfo;
     public GameObject SnowBallRollPrompt;
     public GameObject goldenTurnipCollected;
+    public GameObject pauseMenu;
 
 
     // Bedtime variables
@@ -95,10 +97,12 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        pauseMenu = GameObject.Find("PauseMenu");
         startPoint = GameObject.Find("StartPosition").transform;
         cameraTarget = GameObject.Find("CameraTarget").transform;
         cameraFollow = GameObject.Find("CameraFollow").transform;
         cameraMaximum = GameObject.Find("CameraMaximum").transform;
+        pauseMenu.SetActive(false);
         eyesNeutral.SetActive(true);
         eyesHappy.SetActive(false);
         transform.position = startPoint.position;
@@ -237,6 +241,28 @@ public class PlayerScript : MonoBehaviour
         else if(!holdingTurnip && IsInvoking("Sweat"))
         {
             CancelInvoke();
+        }
+
+        if(Input.GetButtonDown("Fire3") && !paused)
+        {
+            paused = true;
+            pauseMenu.SetActive(true);
+        }
+
+        else if (Input.GetButtonDown("Fire3") && paused)
+        {
+            paused = false;
+            pauseMenu.SetActive(false);
+        }
+
+        if(paused)
+        {
+            Time.timeScale = 0f;
+        }
+
+        else if (!paused)
+        {
+            Time.timeScale = 1.0f;
         }
 
     }
@@ -680,6 +706,10 @@ public class PlayerScript : MonoBehaviour
         canMove = true;
     }
 
+
+    // Old. Check if it can be deleted
+
+    /*
     public IEnumerator GoToBed()
     {
         canMove = false;
@@ -693,6 +723,7 @@ public class PlayerScript : MonoBehaviour
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("Test2D");
     }
+    */
 
     public IEnumerator StartFlight()
     {
