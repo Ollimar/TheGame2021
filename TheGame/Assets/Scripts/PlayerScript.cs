@@ -138,7 +138,7 @@ public class PlayerScript : MonoBehaviour
     {
         myAnim.SetFloat("yVelocity",myRB.velocity.y);
       
-        if (Input.GetButtonDown("Jump") && canJump && canMove && !holdingTurnip)
+        if (Input.GetButtonDown("Jump") && canJump && canMove && !holdingTurnip && !paused)
         {
             if(transform.parent != null)
             {
@@ -291,7 +291,9 @@ public class PlayerScript : MonoBehaviour
             Vector3 playerStopPoint;
             playerStopPoint = transform.position;
 
-            cameraFollow.position = Vector3.Lerp(cameraFollow.position, playerStopPoint, 1f*Time.deltaTime);
+
+           cameraFollow.position = Vector3.Lerp(cameraFollow.position, playerStopPoint, 1f * Time.deltaTime);
+
         }
 
         if(hor !=0f || ver !=0f)
@@ -494,15 +496,6 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
-        if (other.gameObject.tag == "GasTank")
-        {
-            gm.SpaceShipStaminaUpdate();
-            canMove = false;
-            steps.Stop();
-            myAnim.SetBool("isRunning",false);
-            gasTankInfo.SetActive(true);
-            Destroy(other.gameObject);
-        }
 
         if (other.gameObject.name == "ForestArea")
         {
@@ -731,6 +724,7 @@ public class PlayerScript : MonoBehaviour
     public IEnumerator StartFlight()
     {
         canMove = false;
+       
         eyesNeutral.SetActive(false);
         eyesHappy.SetActive(true);
         transform.eulerAngles = new Vector3(0f, -180f, 0f);

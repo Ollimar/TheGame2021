@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenuScript : MonoBehaviour
 {
+    public GameObject exitHighlight;
+
     public bool exitState = false;
     public SpaceShipScript spaceShipScript;
 
@@ -18,10 +20,12 @@ public class PauseMenuScript : MonoBehaviour
     void Update()
     {
         float v = Input.GetAxis("Vertical");
+        print(v);
 
         if(v <= -0.1f && !exitState)
         {
             exitState = true;
+            print("exit state");
         }
 
         else if(v >= 0.1f && exitState)

@@ -255,10 +255,19 @@ public class SpaceShipScript : MonoBehaviour
     // This event is activated from spaceship animation
     public void Activate()
     {
+        launchParticles.Play();
+        myAnim.enabled = true;
+        //myAnim.SetTrigger("Air");
+        //GetComponentInChildren<Animator>().SetTrigger("Air");
         myRB.useGravity = true;
         myRB.isKinematic = false;
+        StartCoroutine("Fly");
+    }
+
+    public IEnumerator Fly()
+    {
+        yield return new WaitForSeconds(1f);
         myRB.AddForce(Vector3.up * launchPower);
-        spaceShipStaminaImage.transform.parent.gameObject.SetActive(false);
     }
     
     public IEnumerator Relaunch()

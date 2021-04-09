@@ -24,10 +24,14 @@ public class CollectableGoldenTurnip : MonoBehaviour
     {
         SceneManager.sceneLoaded += CheckTurnips;
     }
-    
-    private void Start()
+
+    private void Awake()
     {
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    {
         myParticle = GetComponent<ParticleSystem>();
         if (!collected)
         {

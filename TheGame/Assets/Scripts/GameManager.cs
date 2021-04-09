@@ -16,9 +16,6 @@ public class GameManager : MonoBehaviour
     public bool boosterSky              = false;
     public bool boosterSpace            = false;
 
-    // Used for old spaceship stamina system
-    public float staminaMultipliers = 1f;
-
     public int goldenTurnips;
     public GameObject[] goldenTurnipObjects;
 
@@ -78,20 +75,21 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        if(gameManager == null)
+
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+        if (gameManager == null)
         {
             DontDestroyOnLoad(gameObject);
             gameManager = this;
         }
 
-        else if(gameManager != this)
+        else if (gameManager != this)
         {
             Destroy(gameObject);
         }
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
         goldenTurnipObjects = GameObject.FindGameObjectsWithTag("Golden Turnip");
         wheel       = GameObject.FindGameObjectsWithTag("Wheel");
         player      = GameObject.FindGameObjectWithTag("Player");
@@ -100,7 +98,6 @@ public class GameManager : MonoBehaviour
         sun         = GameObject.Find("Sun");
         fadeScreen  = GameObject.Find("FadeScreen");
         levelInfo   = GameObject.Find("LevelInfo").GetComponent<LevelInfo>();
-        spaceShip.GetComponent<SpaceShipScript>().staminaMultiplier = staminaMultipliers;
         stairsToSky = GameObject.FindGameObjectsWithTag("StairsToSky");
         startFromBed = true;
 
@@ -278,12 +275,6 @@ public class GameManager : MonoBehaviour
         player.transform.position = new Vector3(spaceShip.transform.position.x,spaceShip.transform.position.y,spaceShip.transform.position.z+5f);
         player.GetComponent<PlayerScript>().enabled = true;
         player.SetActive(true);
-    }
-
-    public void SpaceShipStaminaUpdate()
-    {
-        staminaMultipliers -= 0.1f;
-        spaceShip.GetComponent<SpaceShipScript>().staminaMultiplier = staminaMultipliers;
     }
 
     public IEnumerator LoadLevel(int levelNumber)
