@@ -25,6 +25,9 @@ public class PlayerScript : MonoBehaviour
     public Transform startPoint;
     public Transform spawnPoint;
 
+    //Variables for raycast positions
+    public Transform[] rayCastPositions;
+
     // Variables for footsteps
     public bool createFootSteps;
     public GameObject footStep;
@@ -366,7 +369,7 @@ public class PlayerScript : MonoBehaviour
 
         cameraTarget.position = new Vector3(cameraFollow.position.x, cameraPoint, cameraFollow.position.z);
         
-        if (Physics.Raycast(transform.position,Vector3.down,out hit, rayCheckLength))
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, rayCheckLength))
         {
             cameraPoint = hit.point.y;
 
