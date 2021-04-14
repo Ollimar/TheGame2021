@@ -16474,6 +16474,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5204538761235095604, guid: 5d93d6dd8679f4245b0a595755a324f9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7323991280718866961, guid: 5d93d6dd8679f4245b0a595755a324f9,
         type: 3}
       propertyPath: m_Material
@@ -46899,7 +46904,6 @@ MonoBehaviour:
   previousLevel: 0
   boosterSky: 0
   boosterSpace: 0
-  staminaMultipliers: 1
   goldenTurnips: 0
   goldenTurnipObjects: []
   goldenTurnipsGrassLands: 0

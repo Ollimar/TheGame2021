@@ -28,6 +28,9 @@ public class PlayerScript : MonoBehaviour
     //Variables for raycast positions
     public Transform[] rayCastPositions;
 
+    // Time delay for coyote jump
+    public float mayJump = 0.5f;
+
     // Variables for footsteps
     public bool createFootSteps;
     public GameObject footStep;
@@ -137,6 +140,12 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         myAnim.SetFloat("yVelocity",myRB.velocity.y);
+        mayJump -= Time.deltaTime;
+
+        if(mayJump >= 0f)
+        {
+            canJump = true;
+        }
       
         if (Input.GetButtonDown("Jump") && canJump && canMove && !holdingTurnip && !paused)
         {
@@ -148,6 +157,7 @@ public class PlayerScript : MonoBehaviour
             }
             isJumping = true;
             myAnim.SetBool("isJumping",true);
+            myRB.velocity = Vector3.zero;
             myRB.AddForce(Vector3.up * jumpSpeed);
         }
 
@@ -377,6 +387,7 @@ public class PlayerScript : MonoBehaviour
             || (Physics.Raycast(rayCastPositions[3].position, Vector3.down, out hit, rayCheckLength))
             || (Physics.Raycast(rayCastPositions[4].position, Vector3.down, out hit, rayCheckLength)))
         {
+            mayJump = 0.5f;
             print("On ground");
             cameraPoint = hit.point.y;
 
