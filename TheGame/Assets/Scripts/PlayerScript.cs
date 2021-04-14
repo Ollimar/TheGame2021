@@ -371,8 +371,13 @@ public class PlayerScript : MonoBehaviour
 
         cameraTarget.position = new Vector3(cameraFollow.position.x, cameraPoint, cameraFollow.position.z);
         
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, rayCheckLength))
+        if ((Physics.Raycast(rayCastPositions[0].position, Vector3.down, out hit, rayCheckLength))
+            || (Physics.Raycast(rayCastPositions[1].position, Vector3.down, out hit, rayCheckLength))
+            || (Physics.Raycast(rayCastPositions[2].position, Vector3.down, out hit, rayCheckLength))
+            || (Physics.Raycast(rayCastPositions[3].position, Vector3.down, out hit, rayCheckLength))
+            || (Physics.Raycast(rayCastPositions[4].position, Vector3.down, out hit, rayCheckLength)))
         {
+            print("On ground");
             cameraPoint = hit.point.y;
 
             if (!canJump)
