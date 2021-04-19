@@ -18,6 +18,7 @@ public class PlayerScript : MonoBehaviour
     public bool isJumping = false;
     public float turnSmoothing = 10f;
     public bool canJump = false;
+    public bool inRocketArea = false;       // boolean to disable jumping in the rocket area
     public bool canFly = false;
     public bool canGoToBed = false;
     public float coolDownTime = 0f;
@@ -27,6 +28,7 @@ public class PlayerScript : MonoBehaviour
 
     //Variables for raycast positions
     public Transform[] rayCastPositions;
+    public LayerMask groundHitLayerMask;
 
     // Time delay for coyote jump
     public float mayJump = 0.5f;
@@ -147,7 +149,8 @@ public class PlayerScript : MonoBehaviour
             canJump = true;
         }
       
-        if (Input.GetButtonDown("Jump") && canJump && canMove && !holdingTurnip && !paused)
+        if (Input.GetButtonDown("Jump") && canJump && canMove && !holdingTurnip && !isJumping && !paused && !inRocketArea
+            )
         {
             if(transform.parent != null)
             {
@@ -381,13 +384,13 @@ public class PlayerScript : MonoBehaviour
 
         cameraTarget.position = new Vector3(cameraFollow.position.x, cameraPoint, cameraFollow.position.z);
         
-        if ((Physics.Raycast(rayCastPositions[0].position, Vector3.down, out hit, rayCheckLength))
-            || (Physics.Raycast(rayCastPositions[1].position, Vector3.down, out hit, rayCheckLength))
-            || (Physics.Raycast(rayCastPositions[2].position, Vector3.down, out hit, rayCheckLength))
-            || (Physics.Raycast(rayCastPositions[3].position, Vector3.down, out hit, rayCheckLength))
-            || (Physics.Raycast(rayCastPositions[4].position, Vector3.down, out hit, rayCheckLength)))
+        if ((Physics.Raycast(rayCastPositions[0].position, Vector3.down, out hit, rayCheckLength, groundHitLayerMask))
+            || (Physics.Raycast(rayCastPositions[1].position, Vector3.down, out hit, rayCheckLength, groundHitLayerMask))
+            || (Physics.Raycast(rayCastPositions[2].position, Vector3.down, out hit, rayCheckLength, groundHitLayerMask))
+            || (Physics.Raycast(rayCastPositions[3].position, Vector3.down, out hit, rayCheckLength, groundHitLayerMask))
+            || (Physics.Raycast(rayCastPositions[4].position, Vector3.down, out hit, rayCheckLength, groundHitLayerMask)))
         {
-            mayJump = 0.5f;
+            mayJump = 0.25f;
             print("On ground");
             cameraPoint = hit.point.y;
 
@@ -408,6 +411,7 @@ public class PlayerScript : MonoBehaviour
             }
 
             canJump = true;
+            
         }
 
         else
@@ -520,7 +524,7 @@ public class PlayerScript : MonoBehaviour
 
         if(other.gameObject.name == "DoorOutToIn")
         {
-            StartCoroutine(ChangeLevel(2));
+            StartCoroutine(ChangeLevel(9));
         }
 
         if (other.gameObject.name == "DoorInToOut")
@@ -546,7 +550,9 @@ public class PlayerScript : MonoBehaviour
 
         if(other.gameObject.name == "SpaceShipTrigger")
         {
+            inRocketArea = true;
             launchButton.SetActive(true);
+            canJump = false;
             canFly = true;            
         }
 
@@ -657,6 +663,7 @@ public class PlayerScript : MonoBehaviour
 
         if (other.gameObject.name == "SpaceShipTrigger")
         {
+            inRocketArea = false;
             launchButton.SetActive(false);
             canFly = false;
             canJump = true;

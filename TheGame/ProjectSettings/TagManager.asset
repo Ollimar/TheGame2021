@@ -32,6 +32,7 @@ TagManager:
   - Golden Turnip Spot
   - SweatDrop
   - WorldMapPickUp
+  - AttachPoint
   layers:
   - Default
   - TransparentFX
@@ -51,7 +52,7 @@ TagManager:
   - Ground
   - Turnip
   - Water
-  - 
+  - Tongue
   - 
   - 
   - 
