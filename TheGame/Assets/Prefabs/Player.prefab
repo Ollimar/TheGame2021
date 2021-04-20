@@ -5532,6 +5532,7 @@ MonoBehaviour:
   isJumping: 0
   turnSmoothing: 20
   canJump: 0
+  inRocketArea: 0
   canFly: 0
   canGoToBed: 0
   coolDownTime: 0
@@ -5543,6 +5544,10 @@ MonoBehaviour:
   - {fileID: 359275775285476897}
   - {fileID: 1749363059728309224}
   - {fileID: 5914831896558750112}
+  groundHitLayerMask:
+    serializedVersion: 2
+    m_Bits: 32768
+  mayJump: 0.5
   createFootSteps: 0
   footStep: {fileID: 5866219897779368366, guid: bd61424094b5173408ca7f7b2d88a77b,
     type: 3}
@@ -5570,7 +5575,7 @@ MonoBehaviour:
   cameraScript: {fileID: 0}
   fadeScreen: {fileID: 0}
   seed: {fileID: 2372837908926096725, guid: 3401ac93e3ad0734182abbe7273fbb40, type: 3}
-  rayCheckLength: 0.4
+  rayCheckLength: 0.2
   steps: {fileID: 6166678707337591369}
   stepPuff: {fileID: 4292256292670278181, guid: 2db0c31cd2927dc488633b5e0c3f49cc,
     type: 3}
