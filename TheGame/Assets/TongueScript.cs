@@ -10,7 +10,10 @@ public class TongueScript : MonoBehaviour
     public float tongueTimer = 1f;
     public float originalTongueTimer = 1f;
     public Transform originalPosition;
+    public GameObject scalingOject;
     public Vector3 hitPoint;
+
+    public GameObject attachedObject;
 
     public PlayerScript playerScript;
 
@@ -23,19 +26,22 @@ public class TongueScript : MonoBehaviour
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>();
         originalPosition = GameObject.FindGameObjectWithTag("Player").transform;
         originalTongueTimer = tongueTimer;
+        scalingOject = GameObject.Find("TongueStretch");
     }
 
     // Update is called once per frame
     void Update()
     {
+        float dist = Vector3.Distance(originalPosition.transform.position, transform.position*2f);
+        print(dist);
         tongueTimer -= Time.deltaTime;
         transform.Translate(originalPosition.forward * speed * Time.deltaTime);
+        //scalingOject.transform.localScale = new Vector3(1f, dist, 1f);
 
         if (tongueTimer <= 0f && !attached && !tongueReturned)
         {
             speed = -tongueSpeed;
-            playerScript.canMove = true;
-            
+            //playerScript.canMove = true;           
         }
  
         if(Input.GetButtonDown("Fire1"))
@@ -54,10 +60,8 @@ public class TongueScript : MonoBehaviour
         }
 
         else if(Input.GetButtonUp("Fire1") && !attached)
-        {
-            
+        {           
             speed = -tongueSpeed;
-
         }
 
         if(attached)
@@ -74,6 +78,11 @@ public class TongueScript : MonoBehaviour
             originalPosition.GetComponent<Rigidbody>().isKinematic = false;
             originalPosition.GetComponent<Rigidbody>().useGravity = true;
         }
+
+        if(attachedObject != null)
+        {
+            attachedObject.transform.position = transform.position;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -86,13 +95,24 @@ public class TongueScript : MonoBehaviour
             speed = 0f;
             originalPosition.GetComponent<Rigidbody>().isKinematic = false;
             originalPosition.GetComponent<Rigidbody>().useGravity = true;
+            //gameObject.GetComponentInChildren<Renderer>().enabled = false;
+
+            if(attachedObject != null)
+            {
+                Destroy(attachedObject);
+            }
         }
 
-        if(other.gameObject.tag == "AttachPoint")
+        if (other.gameObject.tag == "AttachPoint")
         {
             playerScript.canMove = false;
             attached = true;
             hitPoint = other.transform.position;
+        }
+
+        if (other.gameObject.tag == "Enemy")
+        {
+            attachedObject = other.gameObject;
         }
     }
 
