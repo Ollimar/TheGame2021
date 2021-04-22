@@ -5548,7 +5548,7 @@ MonoBehaviour:
   groundHitLayerMask:
     serializedVersion: 2
     m_Bits: 32768
-  mayJump: 0.5
+  mayJump: 0.2
   createFootSteps: 0
   footStep: {fileID: 5866219897779368366, guid: bd61424094b5173408ca7f7b2d88a77b,
     type: 3}
