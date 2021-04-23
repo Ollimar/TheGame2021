@@ -42,6 +42,11 @@ public class TongueScript : MonoBehaviour
         tongueTimer -= Time.deltaTime;
         transform.Translate(originalPosition.forward * speed * Time.deltaTime);
 
+        if(GetComponentInChildren<Renderer>().enabled)
+        {
+            transform.position = new Vector3(transform.position.x, originalPosition.position.y+1f, transform.position.z);
+        }
+
         if (tongueTimer <= 0f || attachedObject != null)
         {
             if(!tongueReturned)
@@ -53,13 +58,11 @@ public class TongueScript : MonoBehaviour
             {
                 speed = 0f;
                 originalPosition.GetComponentInChildren<Animator>().SetBool("Eat", false);
-            }
-            
+            }           
         }
 
         else if (Input.GetButton("Fire1") && tongueTimer > 0f)
         {
-
             tongueReturned = false;
             scalingOject.GetComponent<Renderer>().enabled = true;
             originalPosition.GetComponentInChildren<Animator>().SetBool("Eat",true);
@@ -67,7 +70,6 @@ public class TongueScript : MonoBehaviour
             gameObject.GetComponentInChildren<Renderer>().enabled = true;
             playerScript.canMove = false;
             speed = tongueSpeed;
-
         }
 
         if (Input.GetButtonDown("Fire1"))
@@ -139,9 +141,10 @@ public class TongueScript : MonoBehaviour
             hitPoint = other.transform.position;
         }
 
-        if (other.gameObject.tag == "Enemy")
+        if (other.gameObject.tag == "Enemy" && attachedObject == null)
         {
             attachedObject = other.gameObject;
+            attachedObject.GetComponent<Collider>().isTrigger = true;
         }
     }
 

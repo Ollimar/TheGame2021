@@ -164,6 +164,7 @@ public class PlayerScript : MonoBehaviour
             myRB.AddForce(Vector3.up * jumpSpeed);
         }
 
+        /*
         if(Input.GetButtonDown("Fire1"))
         {
             if(canPickTurnip && !holdingTurnip)
@@ -189,6 +190,7 @@ public class PlayerScript : MonoBehaviour
                 StartCoroutine("ThrowTurnip");
             }
         }
+        */
 
         if(Input.GetButton("Fire1"))
         {
@@ -206,7 +208,7 @@ public class PlayerScript : MonoBehaviour
                 goldenTurnip.SetActive(false);
                 goldenTurnipCollected.SetActive(false);
                 myAnim.SetBool("GoldCollected", false);
-                myRB.useGravity = false;              
+                myRB.isKinematic = false;              
                 myRB.useGravity = true;
                 eyesNeutral.SetActive(true);
                 eyesHappy.SetActive(false);
@@ -404,12 +406,13 @@ public class PlayerScript : MonoBehaviour
                 }
             }
 
+            /*
             if(hit.transform.tag == "SandCube" && Input.GetButtonDown("Fire1"))
             {
                 print("OnSand");
                 hit.transform.gameObject.SetActive(false);
             }
-
+            */
             canJump = true;
             
         }
