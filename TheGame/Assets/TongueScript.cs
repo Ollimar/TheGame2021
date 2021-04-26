@@ -11,6 +11,7 @@ public class TongueScript : MonoBehaviour
     public float tongueTimer = 1f;
     public float originalTongueTimer = 1f;
     public Transform originalPosition;
+    public Transform tonguePosition;
     public GameObject scalingOject;
     public Vector3 hitPoint;
 
@@ -26,9 +27,10 @@ public class TongueScript : MonoBehaviour
     {
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>();
         originalPosition = GameObject.FindGameObjectWithTag("Player").transform;
+        tonguePosition = GameObject.Find("TonguePosition").transform;
         originalTongueTimer = tongueTimer;
         scalingOject = GameObject.Find("TongueStretch");
-        transform.position = new Vector3(originalPosition.position.x, originalPosition.position.y + 1f, originalPosition.position.z);
+        transform.position = new Vector3(tonguePosition.position.x, tonguePosition.position.y, tonguePosition.position.z);
         scalingOject.GetComponent<Renderer>().enabled = false;
     }
 
@@ -37,10 +39,9 @@ public class TongueScript : MonoBehaviour
     {
 
         float dist = Vector3.Distance(scalingOject.transform.position, transform.position);
-        scalingOject.transform.localScale = new Vector3(transform.localScale.x, dist*3.5f, transform.localScale.z);
+        scalingOject.transform.localScale = new Vector3(transform.localScale.x, dist*3.3f, transform.localScale.z);
 
         tongueTimer -= Time.deltaTime;
-        transform.Translate(originalPosition.forward * speed * Time.deltaTime);
 
         if(GetComponentInChildren<Renderer>().enabled)
         {
@@ -61,6 +62,7 @@ public class TongueScript : MonoBehaviour
             }           
         }
 
+        
         else if (Input.GetButton("Fire1") && tongueTimer > 0f)
         {
             tongueReturned = false;
@@ -71,27 +73,32 @@ public class TongueScript : MonoBehaviour
             playerScript.canMove = false;
             speed = tongueSpeed;
         }
+        
 
         if (Input.GetButtonDown("Fire1"))
         {
             playerScript.canMove = false;
-            tongueReturned = false;
-            transform.position = new Vector3(originalPosition.position.x, originalPosition.position.y+1f, originalPosition.position.z);
+            scalingOject.GetComponent<Renderer>().enabled = true;
+            transform.position = new Vector3(tonguePosition.position.x, tonguePosition.position.y, tonguePosition.position.z);
             tongueTimer = originalTongueTimer;
             gameObject.GetComponentInChildren<Renderer>().enabled = true;
             gameObject.GetComponentInChildren<Collider>().enabled = true;
+
         }
 
-        else if(Input.GetButtonUp("Fire1") && !attached)
+        
+        else if(Input.GetButtonUp("Fire1") && !attached )
         {           
             speed = -tongueSpeed;
         }
+        
 
         if(attached)
         {
             transform.position = hitPoint;
             originalPosition.transform.LookAt(transform.position);
             originalPosition.transform.Translate(transform.forward * tongueSpeed * Time.deltaTime);
+            playerScript.LaunchEffectStart();
             originalPosition.GetComponent<Rigidbody>().isKinematic = true;
             originalPosition.GetComponent<Rigidbody>().useGravity = false;
             gameObject.GetComponentInChildren<Collider>().enabled = false;
@@ -106,6 +113,7 @@ public class TongueScript : MonoBehaviour
         {
             originalPosition.GetComponent<Rigidbody>().isKinematic = false;
             originalPosition.GetComponent<Rigidbody>().useGravity = true;
+            playerScript.LaunchEffectStop();
         }
 
         if(attachedObject != null)
@@ -114,8 +122,14 @@ public class TongueScript : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        transform.Translate(originalPosition.forward * speed*Time.deltaTime);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
+        
         if(other.gameObject.tag == "Player")
         {
             playerScript.canMove = true;
@@ -127,12 +141,14 @@ public class TongueScript : MonoBehaviour
             gameObject.GetComponentInChildren<Collider>().enabled = false;
             gameObject.GetComponentInChildren<Renderer>().enabled = false;
             scalingOject.GetComponent<Renderer>().enabled = false;
+            transform.position = new Vector3(tonguePosition.position.x, tonguePosition.position.y, tonguePosition.position.z);
 
             if (attachedObject != null)
             {
                 Destroy(attachedObject);
             }
         }
+        
 
         if (other.gameObject.tag == "AttachPoint")
         {
@@ -145,7 +161,20 @@ public class TongueScript : MonoBehaviour
         {
             attachedObject = other.gameObject;
             attachedObject.GetComponent<Collider>().isTrigger = true;
+            tongueTimer = 0f;
         }
+
+        
+        if(transform.eulerAngles.x >0f || transform.eulerAngles.x < 0f || transform.eulerAngles.z > 0f || transform.eulerAngles.z < 0f)
+        {
+            transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y,0f);
+        }
+
+        if(other.gameObject.tag == "Untagged")
+        {
+            tongueTimer = 0f;
+        }
+
     }
 
     private void OnTriggerExit(Collider other)
@@ -153,10 +182,16 @@ public class TongueScript : MonoBehaviour
         if(other.gameObject.tag == "AttachPoint")
         {
             attached = false;
-            transform.position = new Vector3(originalPosition.position.x, originalPosition.position.y + 1f, originalPosition.position.z);
+            transform.position = new Vector3(tonguePosition.position.x, tonguePosition.position.y, tonguePosition.position.z);
             originalPosition.GetComponent<Rigidbody>().isKinematic = false;
             originalPosition.GetComponent<Rigidbody>().useGravity = true;
         }
 
+    }
+
+    public IEnumerator Return()
+    {
+        yield return new WaitForSeconds(tongueTimer);
+        speed = -tongueSpeed;
     }
 }

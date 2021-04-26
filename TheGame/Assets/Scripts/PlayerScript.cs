@@ -76,6 +76,7 @@ public class PlayerScript : MonoBehaviour
     public float rayCheckLength = 0.4f;
     public ParticleSystem steps;
     public ParticleSystem stepPuff;
+    public ParticleSystem launchPuff;
 
     // Variables for turnip carrying and throwing
     public bool canPickTurnip = false;
@@ -110,6 +111,7 @@ public class PlayerScript : MonoBehaviour
         cameraTarget = GameObject.Find("CameraTarget").transform;
         cameraFollow = GameObject.Find("CameraFollow").transform;
         cameraMaximum = GameObject.Find("CameraMaximum").transform;
+        launchPuff.Stop();
         pauseMenu.SetActive(false);
         eyesNeutral.SetActive(true);
         eyesHappy.SetActive(false);
@@ -778,5 +780,15 @@ public class PlayerScript : MonoBehaviour
         {
             Instantiate(footStepR, footR.position, transform.rotation);
         }
+    }
+
+    public void LaunchEffectStart()
+    {
+        launchPuff.Play();
+    }
+
+    public void LaunchEffectStop()
+    {
+        launchPuff.Stop();
     }
 }
