@@ -91,7 +91,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 1.06
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8741438201538250974
 GameObject:
@@ -145,6 +145,7 @@ MonoBehaviour:
   tongueTimer: 0.5
   originalTongueTimer: 1
   originalPosition: {fileID: 0}
+  tonguePosition: {fileID: 0}
   scalingOject: {fileID: 0}
   hitPoint: {x: 0, y: 0, z: 0}
   attachedObject: {fileID: 0}
