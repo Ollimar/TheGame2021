@@ -162,6 +162,10 @@ public class TongueScript : MonoBehaviour
             attachedObject = other.gameObject;
             attachedObject.GetComponent<Collider>().isTrigger = true;
             tongueTimer = 0f;
+            if (attachedObject.GetComponent<Animator>())
+            {
+                attachedObject.GetComponent<Animator>().SetBool("EnemyEaten",true);
+            }
         }
 
         
