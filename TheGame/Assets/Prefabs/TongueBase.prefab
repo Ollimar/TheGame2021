@@ -102,9 +102,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8741438201538250972}
-  - component: {fileID: 8741438201538250973}
   - component: {fileID: 8741438201538250971}
   - component: {fileID: 8741438201538250970}
+  - component: {fileID: 4849553037846949547}
   m_Layer: 18
   m_Name: TongueBase
   m_TagString: Untagged
@@ -127,31 +127,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8741438201538250973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8741438201538250974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f988bd797f3a0d948a63ccd98d571590, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0
-  tongueSpeed: 25
-  tongueCoolDown: 0.5
-  tongueTimer: 0.5
-  originalTongueTimer: 1
-  originalPosition: {fileID: 0}
-  tonguePosition: {fileID: 0}
-  scalingOject: {fileID: 0}
-  hitPoint: {x: 0, y: 0, z: 0}
-  attachedObject: {fileID: 0}
-  playerScript: {fileID: 0}
-  tongueReturned: 0
-  attached: 0
 --- !u!65 &8741438201538250971
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -181,3 +156,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4849553037846949547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8741438201538250974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e0ba73ed460b31449f7c587480b7ee1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tongueActive: 0
+  playerObject: {fileID: 0}
+  tongueStart: {fileID: 0}
+  tongueEnd: {fileID: 0}
+  tonguePosition: {fileID: 0}
+  attachedObject: {fileID: 0}
+  tongueSpeed: 10
+  lickDuration: 0.5
+  attached: 0

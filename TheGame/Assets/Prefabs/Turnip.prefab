@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 7979597197279069286}
   - component: {fileID: 8754061984102029543}
   m_Layer: 0
-  m_Name: TurnipLP
-  m_TagString: Turnip
+  m_Name: Turnip
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -91,5 +91,5 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.6760452, y: 2.3912365, z: 3.5819583}
-  m_Center: {x: -0.48029256, y: -0.013181816, z: -0.15277235}
+  m_Size: {x: 3.6760452, y: 6.4458437, z: 3.5819585}
+  m_Center: {x: -0.48029247, y: 0.7349874, z: -0.15277237}
