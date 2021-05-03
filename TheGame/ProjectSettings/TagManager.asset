@@ -33,6 +33,8 @@ TagManager:
   - SweatDrop
   - WorldMapPickUp
   - AttachPoint
+  - Water
+  - WoodSwallow
   layers:
   - Default
   - TransparentFX

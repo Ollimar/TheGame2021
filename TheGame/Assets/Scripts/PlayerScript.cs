@@ -432,7 +432,7 @@ public class PlayerScript : MonoBehaviour
             spawnPoint = other.gameObject.transform;
         }
 
-        if(other.gameObject.tag == "DeathZone")
+        if(other.gameObject.tag == "DeathZone" || other.gameObject.tag == "Water")
         {
             if(spawnPoint !=null)
             {
