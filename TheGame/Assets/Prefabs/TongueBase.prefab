@@ -178,5 +178,5 @@ MonoBehaviour:
   attachedObject: {fileID: 0}
   launchPuff: {fileID: 0}
   tongueSpeed: 10
-  lickDuration: 1
+  lickDuration: 0.5
   attached: 0

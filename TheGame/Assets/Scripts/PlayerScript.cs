@@ -334,7 +334,7 @@ public class PlayerScript : MonoBehaviour
 
             if(coolDownTime>1f)
             {
-                cameraFollow.position = Vector3.Lerp(cameraFollow.position, cameraMaximum.position, 0.1f * Time.deltaTime);
+                cameraFollow.position = Vector3.Lerp(cameraFollow.position, transform.position, 0.1f * Time.deltaTime);
             }
         }
         else

@@ -35,6 +35,7 @@ TagManager:
   - AttachPoint
   - Water
   - WoodSwallow
+  - PullObject
   layers:
   - Default
   - TransparentFX

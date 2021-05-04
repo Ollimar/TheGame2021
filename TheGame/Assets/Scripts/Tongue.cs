@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Tongue : MonoBehaviour
 {
-    public bool canLick = true;
     public bool tongueActive = false;
 
     private PlayerScript player;
@@ -61,20 +60,30 @@ public class Tongue : MonoBehaviour
             playerObject.transform.position = Vector3.Lerp(playerObject.transform.position,transform.position,10f*Time.deltaTime);
         }
 
-        if (Input.GetButtonDown("Fire1") && canLick)
+        if (Input.GetButtonDown("Fire1") && attachedObject == null)
         {
+            playerObject.GetComponentInChildren<Animator>().SetBool("Eat", true);
+            player.steps.Stop();
             gameObject.GetComponentInChildren<Renderer>().enabled = true;
             tongueStretch.GetComponent<Renderer>().enabled = true;
             tongueActive = true;
             player.canMove = false;
             tonguePosition.transform.position = tongueEnd.transform.position;
             StartCoroutine("Return");
-            canLick = false;
+            
         }
 
         if (attachedObject != null)
         {
-            attachedObject.transform.position = transform.position;
+            if(attachedObject.tag == "PullObject")
+            {
+                print("PullObject");
+                transform.position = attachedObject.transform.position;
+            }
+            else
+            {
+                attachedObject.transform.position = transform.position;
+            }
         }
     }
 
@@ -96,6 +105,20 @@ public class Tongue : MonoBehaviour
             {
                 tonguePosition.transform.position = other.transform.position;
                 attachedObject = other.gameObject;
+                other.GetComponent<Rigidbody>().isKinematic = false;
+                other.GetComponent<Rigidbody>().useGravity = true;
+                StartCoroutine("Pull");
+            }
+        }
+
+        if (other.gameObject.tag == "PullObject")
+        {
+            if (tongueActive && attachedObject == null)
+            {
+                //tonguePosition.transform.position = other.transform.position;
+                attachedObject = other.gameObject;
+                other.gameObject.GetComponent<PullObject>().StartCoroutine("StartPull");
+                StartCoroutine("Return");
                 StartCoroutine("Pull");
             }
         }
@@ -122,15 +145,17 @@ public class Tongue : MonoBehaviour
                 tonguePosition.transform.position = tongueStart.transform.position;
                 attachedObject = other.gameObject;
                 player.holdingTurnip = true;
+                tongueActive = false;
             }
         }
 
         if(other.gameObject.tag == "Player")
         {
+            playerObject.GetComponentInChildren<Animator>().SetBool("Eat", false);
             player.canMove = true;
             gameObject.GetComponentInChildren<Renderer>().enabled = false;
             tongueStretch.GetComponent<Renderer>().enabled = false;
-            canLick = true; 
+
             if (attached)
             {
                 launchPuff.Stop();
@@ -155,8 +180,7 @@ public class Tongue : MonoBehaviour
         tonguePosition.transform.position = tongueStart.transform.position;
 
         tongueActive = false;
-        canLick = true;
-
+       
     }
 
     public IEnumerator Pull()
