@@ -36,6 +36,7 @@ TagManager:
   - Water
   - WoodSwallow
   - PullObject
+  - SeaShell
   layers:
   - Default
   - TransparentFX

@@ -14,6 +14,8 @@ public class Tongue : MonoBehaviour
 
     public GameObject tongueStretch;
 
+    public GameObject mouth;
+
     public GameObject tonguePosition;
     public GameObject attachedObject;
 
@@ -28,6 +30,8 @@ public class Tongue : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        mouth = GameObject.Find("MouthOpenAnimated");
+        mouth.GetComponent<Animator>().enabled = false;
         tongueStart = GameObject.Find("TongueStart");
         tongueEnd = GameObject.Find("TongueMaximum");
         tonguePosition = GameObject.Find("TonguePosition");
@@ -62,6 +66,8 @@ public class Tongue : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1") && attachedObject == null)
         {
+            mouth.GetComponent<Animator>().enabled = true;
+            mouth.GetComponent<Animator>().SetBool("Open",true);
             playerObject.GetComponentInChildren<Animator>().SetBool("Eat", true);
             player.steps.Stop();
             gameObject.GetComponentInChildren<Renderer>().enabled = true;
@@ -93,9 +99,14 @@ public class Tongue : MonoBehaviour
         {
             if(tongueActive && attachedObject == null)
             {
-                tonguePosition.transform.position = tongueStart.transform.position;
+                tonguePosition.transform.position = other.transform.position;
                 attachedObject = other.gameObject;
                 other.gameObject.GetComponent<Collider>().isTrigger = true;
+                if(other.GetComponent<Animator>())
+                {
+                    other.GetComponent<Animator>().SetBool("EnemyEaten", true);
+                }
+                StartCoroutine("Pull");
             }
         }
 
@@ -105,9 +116,27 @@ public class Tongue : MonoBehaviour
             {
                 tonguePosition.transform.position = other.transform.position;
                 attachedObject = other.gameObject;
+                if(other.GetComponent<Rigidbody>())
+                {
+                    other.GetComponent<Rigidbody>().isKinematic = false;
+                    other.GetComponent<Rigidbody>().useGravity = true;
+                }
+                if (other.GetComponent<Collider>())
+                {
+                    other.GetComponent<Collider>().isTrigger = true;
+                }
+                StartCoroutine("Pull");
+            }
+        }
+
+        if (other.gameObject.tag == "SeaShell")
+        {
+            if (tongueActive && attachedObject == null)
+            {
+                tonguePosition.transform.position = tongueStart.transform.position;
+                attachedObject = other.gameObject;
                 other.GetComponent<Rigidbody>().isKinematic = false;
                 other.GetComponent<Rigidbody>().useGravity = true;
-                StartCoroutine("Pull");
             }
         }
 
@@ -169,8 +198,16 @@ public class Tongue : MonoBehaviour
 
             if (attachedObject != null)
             {
-                Destroy(attachedObject);
+                if(attachedObject.tag == "Enemy")
+                {
+                    attachedObject.GetComponent<Enemy>().eaten = true;
+                }
+                else
+                {
+                    Destroy(attachedObject);
+                }                
             }
+            mouth.GetComponent<Animator>().SetBool("Open", false);
         }
     }
 
@@ -178,7 +215,7 @@ public class Tongue : MonoBehaviour
     {
         yield return new WaitForSeconds(lickDuration);
         tonguePosition.transform.position = tongueStart.transform.position;
-
+        
         tongueActive = false;
        
     }
@@ -186,6 +223,10 @@ public class Tongue : MonoBehaviour
     public IEnumerator Pull()
     {
         yield return new WaitForSeconds(1f);
+        if(attachedObject != null && attachedObject.tag == "Enemy")
+        {
+            attachedObject.GetComponent<Enemy>().puff.Play();
+        }
         tonguePosition.transform.position = tongueStart.transform.position;
     }
 }
