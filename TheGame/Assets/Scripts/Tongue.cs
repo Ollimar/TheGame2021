@@ -70,6 +70,7 @@ public class Tongue : MonoBehaviour
             mouth.GetComponent<Animator>().SetBool("Open",true);
             playerObject.GetComponentInChildren<Animator>().SetBool("Eat", true);
             player.steps.Stop();
+            player.myRB.velocity = new Vector3(0f, player.myRB.velocity.y, 0f);
             gameObject.GetComponentInChildren<Renderer>().enabled = true;
             tongueStretch.GetComponent<Renderer>().enabled = true;
             tongueActive = true;
@@ -142,13 +143,22 @@ public class Tongue : MonoBehaviour
 
         if (other.gameObject.tag == "PullObject")
         {
-            if (tongueActive && attachedObject == null)
+            if(other.gameObject.GetComponent<PullObject>().canPull)
             {
-                //tonguePosition.transform.position = other.transform.position;
-                attachedObject = other.gameObject;
-                other.gameObject.GetComponent<PullObject>().StartCoroutine("StartPull");
-                StartCoroutine("Return");
-                StartCoroutine("Pull");
+                if (tongueActive && attachedObject == null)
+                {
+                    tonguePosition.transform.position = tongueStart.transform.position;
+                    attachedObject = other.gameObject;
+
+                    if (!player.IsInvoking("Sweat"))
+                    {
+                        player.InvokeRepeating("Sweat", 0.1f, Random.Range(0.4f, 0.6f));
+                    }
+
+                    other.gameObject.GetComponent<PullObject>().StartCoroutine("StartPull");
+                    //StartCoroutine("Return");
+                    //StartCoroutine("Pull");
+                }
             }
         }
 
@@ -202,6 +212,10 @@ public class Tongue : MonoBehaviour
                 {
                     attachedObject.GetComponent<Enemy>().eaten = true;
                 }
+                else if(attachedObject.tag == "PullObject")
+                {
+                    return;
+                }
                 else
                 {
                     Destroy(attachedObject);
@@ -222,11 +236,15 @@ public class Tongue : MonoBehaviour
 
     public IEnumerator Pull()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.1f);
         if(attachedObject != null && attachedObject.tag == "Enemy")
         {
             attachedObject.GetComponent<Enemy>().puff.Play();
         }
         tonguePosition.transform.position = tongueStart.transform.position;
+        if(player.IsInvoking("Sweat"))
+        {
+            CancelInvoke();
+        }
     }
 }

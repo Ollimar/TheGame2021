@@ -396,6 +396,7 @@ public class PlayerScript : MonoBehaviour
         {
             mayJump = 0.25f;
             print("On ground");
+            isJumping = false;
             cameraPoint = hit.point.y;
 
             if (!canJump)
