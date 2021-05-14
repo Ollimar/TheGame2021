@@ -26,6 +26,8 @@ public class Tongue : MonoBehaviour
 
     public bool attached = false;
 
+    public ParticleSystem eatParticle;
+
 
     // Start is called before the first frame update
     void Start()
@@ -102,6 +104,7 @@ public class Tongue : MonoBehaviour
             {
                 tonguePosition.transform.position = other.transform.position;
                 attachedObject = other.gameObject;
+                other.GetComponent<Enemy>().caught = true;
                 other.gameObject.GetComponent<Collider>().isTrigger = true;
                 if(other.GetComponent<Animator>())
                 {
@@ -134,10 +137,14 @@ public class Tongue : MonoBehaviour
         {
             if (tongueActive && attachedObject == null)
             {
+                tonguePosition.transform.position = other.transform.position;
                 tonguePosition.transform.position = tongueStart.transform.position;
                 attachedObject = other.gameObject;
-                other.GetComponent<Rigidbody>().isKinematic = false;
-                other.GetComponent<Rigidbody>().useGravity = true;
+                if(other.GetComponent<Rigidbody>())
+                {
+                    other.GetComponent<Rigidbody>().isKinematic = false;
+                    other.GetComponent<Rigidbody>().useGravity = true;
+                }
             }
         }
 
@@ -210,6 +217,8 @@ public class Tongue : MonoBehaviour
             {
                 if(attachedObject.tag == "Enemy")
                 {
+                  
+                    attachedObject.GetComponent<Enemy>().puff.transform.parent = null;
                     attachedObject.GetComponent<Enemy>().eaten = true;
                 }
                 else if(attachedObject.tag == "PullObject")

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public bool caught = false;
     public bool eaten = false;
 
     public bool moving = false;
@@ -33,6 +34,11 @@ public class Enemy : MonoBehaviour
         if (timer > Random.Range(3f,10f))
         {
             moving = true;
+        }
+
+        if(caught)
+        {
+            transform.localScale -= new Vector3(1, 1, 1) * Time.deltaTime;
         }
 
         if(eaten)

@@ -5985,9 +5985,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d85454f4341dae44faeaab087ac44dab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  spaceShip: {fileID: 0}
-  cam: {fileID: 0}
   levelNumber: 2
 --- !u!4 &660101188
 Transform:
@@ -17402,6 +17399,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 69
   m_LocalEulerAnglesHint: {x: -4.208, y: 19.478, z: -179.67902}
+--- !u!1 &1792237446
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1792237447}
+  m_Layer: 0
+  m_Name: StartPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1792237447
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1792237446}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.00000058114523}
+  m_LocalPosition: {x: 120.18, y: 2.76, z: 215.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 104
+  m_LocalEulerAnglesHint: {x: 0, y: -180.00002, z: 0}
 --- !u!4 &1797768674 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8271125519032214654, guid: a20e410e024612a4c94f28dd57a98a05,
@@ -20212,7 +20239,7 @@ PrefabInstance:
         type: 3}
       propertyPath: cameraTarget
       value: 
-      objectReference: {fileID: 2088172887}
+      objectReference: {fileID: 0}
     - target: {fileID: 6166678707729301855, guid: 5246ddd2c2ce36140ba0516fce71ea7e,
         type: 3}
       propertyPath: speed
@@ -20230,12 +20257,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5246ddd2c2ce36140ba0516fce71ea7e, type: 3}
---- !u!4 &2088172887 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6166678708763339655, guid: 5246ddd2c2ce36140ba0516fce71ea7e,
-    type: 3}
-  m_PrefabInstance: {fileID: 2088172886}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2117674244 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8271125519032214654, guid: a20e410e024612a4c94f28dd57a98a05,
