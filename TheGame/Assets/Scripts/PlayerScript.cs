@@ -78,6 +78,10 @@ public class PlayerScript : MonoBehaviour
     public ParticleSystem stepPuff;
     public ParticleSystem launchPuff;
 
+    // Variables for tongue scanning
+    public GameObject[] scanners;
+    public GameObject targetPoint;
+
     // Variables for turnip carrying and throwing
     public bool canPickTurnip = false;
     public bool holdingTurnip = false;
@@ -372,6 +376,7 @@ public class PlayerScript : MonoBehaviour
     private void FixedUpdate()
     {
         RaycastHit hit;
+        RaycastHit scannerHit;
 
         float hor = Input.GetAxis("Horizontal");
         float ver = Input.GetAxis("Vertical");
@@ -423,6 +428,23 @@ public class PlayerScript : MonoBehaviour
         else
         {
             canJump = false;
+        }
+
+        if ((Physics.Raycast(scanners[0].transform.position, scanners[0].transform.forward, out scannerHit, 10f))
+            || (Physics.Raycast(scanners[1].transform.position, scanners[1].transform.forward, out scannerHit, 10f))
+            || (Physics.Raycast(scanners[2].transform.position, scanners[2].transform.forward, out scannerHit, 10f))
+            || (Physics.Raycast(scanners[3].transform.position, scanners[3].transform.forward, out scannerHit, 10f))
+            || (Physics.Raycast(scanners[4].transform.position, scanners[4].transform.forward, out scannerHit, 10f)))
+        {
+            if(scannerHit.transform.tag == "SeaShell" || scannerHit.transform.tag == "Enemy" || scannerHit.transform.tag == "Turnip" || scannerHit.transform.tag == "AttachPoint")
+            {
+                print(scannerHit.transform.gameObject.name);
+                targetPoint = scannerHit.transform.gameObject;
+            }
+        }
+        else
+        {
+            targetPoint = null;
         }
     }
 

@@ -68,6 +68,10 @@ public class Tongue : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1") && attachedObject == null)
         {
+            if(player.targetPoint != null)
+            {
+                playerObject.transform.LookAt(player.targetPoint.transform);
+            }
             mouth.GetComponent<Animator>().enabled = true;
             mouth.GetComponent<Animator>().SetBool("Open",true);
             playerObject.GetComponentInChildren<Animator>().SetBool("Eat", true);
@@ -78,8 +82,7 @@ public class Tongue : MonoBehaviour
             tongueActive = true;
             player.canMove = false;
             tonguePosition.transform.position = tongueEnd.transform.position;
-            StartCoroutine("Return");
-            
+            StartCoroutine("Return");           
         }
 
         if (attachedObject != null)

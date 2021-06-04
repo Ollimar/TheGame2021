@@ -68,14 +68,14 @@ Material:
     - _ENABLE_GRADIENT: 0
     - _ENABLE_SHADOWS: 0
     - _ENABLE_VC: 0
-    - _EdgeFade: 1.89
-    - _FoamDistortion: 0.48
-    - _FoamOpacity: 0.14
+    - _EdgeFade: 2.67
+    - _FoamDistortion: 0.82
+    - _FoamOpacity: 0.32
     - _FoamSize: 0
     - _FoamSpeed: 0.2
     - _FoamTiling: 2
     - _Fresnelexponent: 2.37
-    - _Glossiness: 0.22
+    - _Glossiness: 0.17
     - _Gradient: 0
     - _HighlightPanning: 0
     - _IntersectionDistortion: 0.1
@@ -95,7 +95,7 @@ Material:
     - _ReflectionFresnel: 2.43
     - _ReflectionRefraction: 0.014
     - _ReflectionStrength: 0
-    - _RefractionAmount: 0.024
+    - _RefractionAmount: 0.061
     - _RimDistance: 1.91
     - _RimDistortion: 0.24
     - _RimSize: 2.3
@@ -110,12 +110,12 @@ Material:
     - _TessPhongStrength: 0.5
     - _Tessellation: 20
     - _Tiling: 2.9489994
-    - _Transparency: 0.92
+    - _Transparency: 0.97
     - _USE_VC_INTERSECTION: 0
     - _Unlit: 0
     - _UseIntersectionFoam: 1
     - _UseIntersectionHighlight: 1
-    - _WaveFoam: 0.25
+    - _WaveFoam: 0.27
     - _WaveHeight: 0
     - _WaveSize: 0.1
     - _Wavefoam: 1

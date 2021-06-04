@@ -37,6 +37,7 @@ TagManager:
   - WoodSwallow
   - PullObject
   - SeaShell
+  - Pickup
   layers:
   - Default
   - TransparentFX
