@@ -42,7 +42,7 @@ public class RotatorScript : MonoBehaviour
 
         if (gm.previousLevel == 3)
         {
-            transform.eulerAngles = new Vector3(0.403f, 39.17f, -20.685f);
+            transform.eulerAngles = new Vector3(5.775f, -14.521f, -69.05701f);
             ship.transform.position = shipCollider.transform.position;
         }
 
@@ -55,6 +55,12 @@ public class RotatorScript : MonoBehaviour
         if (gm.previousLevel == 5)
         {
             transform.eulerAngles = new Vector3(-6.634f, 70.78001f, -173.567f);
+            ship.transform.position = shipCollider.transform.position;
+        }
+
+        if (gm.previousLevel == 11)
+        {
+            transform.eulerAngles = new Vector3(7.109f, -14.533f, -22.671f);
             ship.transform.position = shipCollider.transform.position;
         }
 

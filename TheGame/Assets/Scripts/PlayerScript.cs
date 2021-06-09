@@ -134,7 +134,10 @@ public class PlayerScript : MonoBehaviour
         gasTankInfo = GameObject.Find("gasTankInfo");
         launchButton.SetActive(false);
         goldenTurnipCollected.SetActive(false);
-        gasTankInfo.SetActive(false);
+        if(gasTankInfo != null)
+        {
+            gasTankInfo.SetActive(false);
+        }
         snowBallPosition = GameObject.Find("SnowBallPosition").transform;
         snowBallRollVelocity = speed * 0.6f;
         turnipCarryingVelocity = speed * 0.5f;
@@ -541,6 +544,11 @@ public class PlayerScript : MonoBehaviour
                 {
                     gm.goldenTurnipsMoon += 1;
                 }
+
+                if (gm.levelInfo.levelNumber == 11)
+                {
+                    gm.goldenTurnipsIce += 1;
+                }
             }
         }
 
@@ -557,18 +565,18 @@ public class PlayerScript : MonoBehaviour
 
         if (other.gameObject.name == "DoorInToOut")
         {
-            StartCoroutine(ChangeLevel(7));
+            StartCoroutine(ChangeLevel(0));
             dialogueManager.ReturnLevel();
         }
 
         if (other.gameObject.name == "DoorToHomeUpStairs")
         {
-            StartCoroutine(ChangeLevel(0));
+            StartCoroutine(ChangeLevel(7));
         }
 
         if(other.gameObject.name == "DoorToDownStairs")
         {
-            StartCoroutine(ChangeLevel(2));
+            StartCoroutine(ChangeLevel(9));
         }
 
         if (other.gameObject.name == "DoorToFirePlace")

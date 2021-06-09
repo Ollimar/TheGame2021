@@ -124,6 +124,15 @@ public class MapMovement : MonoBehaviour
                 }
             }
 
+            if (levelToLoad == 11)
+            {
+                for (int i = 0; i < gm.goldenTurnipsIce; i++)
+                {
+                    turnipImages[i].GetComponent<Image>().sprite = goldenTurnipCollected;
+                }
+            }
+
+
             StartCoroutine("Zoomed");
         }
 

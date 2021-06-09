@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     public int goldenTurnipsBlockTown;
     public int goldenTurnipsForest;
     public int goldenTurnipsMoon;
+    public int goldenTurnipsIce;
 
     public float timer;
     public float changeTimer;
@@ -232,22 +233,6 @@ public class GameManager : MonoBehaviour
                 rotate = false;
             }
         }
-    }
-
-    void FixedUpdate()
-    {
-
-        // This is for rotating the wooden cogs
-
-        /*
-            if (rotate)
-            {
-                wheel[0].transform.Rotate(Vector3.up * wheelSpeed);
-                wheel[1].transform.Rotate(Vector3.up * -wheelSpeed);
-                wheel[2].transform.Rotate(Vector3.up * -wheelSpeed);
-            }
-        */
-
     }
 
     public void ActivateFly()
