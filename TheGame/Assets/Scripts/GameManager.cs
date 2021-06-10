@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     public bool boosterSky              = false;
     public bool boosterSpace            = false;
 
+    public int coins;
+    public Text CoinTracker;
+
     public int goldenTurnips;
     public GameObject[] goldenTurnipObjects;
 
@@ -108,6 +111,7 @@ public class GameManager : MonoBehaviour
             {
                 goldenTurnipObjects[i].SetActive(true);
             }
+
             if (goldenTurnipObjects[i].GetComponent<CollectableGoldenTurnip>().correctlevel != levelInfo.levelNumber)
             {
                 goldenTurnipObjects[i].SetActive(false);
@@ -127,6 +131,8 @@ public class GameManager : MonoBehaviour
         levelInfo = GameObject.Find("LevelInfo").GetComponent<LevelInfo>();
         player      = GameObject.FindGameObjectWithTag("Player");
         spaceShip   = GameObject.FindGameObjectWithTag("SpaceShip");
+        CoinTracker = GameObject.Find("CoinTracker").GetComponent<Text>();
+        CoinTracker.text = "x" + coins;
  
         for (int i = 0; i < goldenTurnipObjects.Length; i++)
         {

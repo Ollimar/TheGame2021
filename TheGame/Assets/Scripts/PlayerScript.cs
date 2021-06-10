@@ -569,6 +569,12 @@ public class PlayerScript : MonoBehaviour
             dialogueManager.ReturnLevel();
         }
 
+        if (other.gameObject.name == "DoorToSpace")
+        {
+            StartCoroutine(ChangeLevel(6));
+            dialogueManager.ReturnLevel();
+        }
+
         if (other.gameObject.name == "DoorToHomeUpStairs")
         {
             StartCoroutine(ChangeLevel(7));
