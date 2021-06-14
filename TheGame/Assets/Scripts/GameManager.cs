@@ -104,6 +104,8 @@ public class GameManager : MonoBehaviour
         levelInfo   = GameObject.Find("LevelInfo").GetComponent<LevelInfo>();
         stairsToSky = GameObject.FindGameObjectsWithTag("StairsToSky");
         startFromBed = true;
+        CoinTracker = GameObject.Find("CoinTracker").GetComponent<Text>();
+        CoinTracker.text = "x" + coins;
 
         for (int i = 0; i < goldenTurnipObjects.Length; i++)
         {
@@ -133,6 +135,7 @@ public class GameManager : MonoBehaviour
         spaceShip   = GameObject.FindGameObjectWithTag("SpaceShip");
         CoinTracker = GameObject.Find("CoinTracker").GetComponent<Text>();
         CoinTracker.text = "x" + coins;
+        print(coins);
  
         for (int i = 0; i < goldenTurnipObjects.Length; i++)
         {
@@ -143,12 +146,9 @@ public class GameManager : MonoBehaviour
                 {
                     goldenTurnipObjects[i].SetActive(false);
                 }
-
             }
-
         }
         
-
         // Old code. The idea was that player would start from the bed in his/her room
         /*
         if (levelInfo.levelNumber == 0)

@@ -11,13 +11,15 @@ GameObject:
   - component: {fileID: 9148523346082299657}
   - component: {fileID: 5285482233200996524}
   - component: {fileID: 7979597197279069286}
-  - component: {fileID: 8754061984102029543}
-  m_Layer: 0
+  - component: {fileID: 1714772344}
+  - component: {fileID: 1714772343}
+  - component: {fileID: 2392221089347904989}
+  m_Layer: 15
   m_Name: Turnip
-  m_TagString: Enemy
+  m_TagString: Turnip
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 24
   m_IsActive: 1
 --- !u!4 &9148523346082299657
 Transform:
@@ -26,9 +28,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8484154081846896051}
-  m_LocalRotation: {x: 0.0030962208, y: -0.9990121, z: 0.04403596, w: 0.005117673}
+  m_LocalRotation: {x: 0.0030968452, y: -0.99901193, z: 0.0440402, w: 0.0051136906}
   m_LocalPosition: {x: 0.9400066, y: -19.006567, z: 1.454998}
-  m_LocalScale: {x: 0.56594, y: 0.56593996, z: 0.56594}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -80,7 +82,36 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &8754061984102029543
+--- !u!54 &1714772344
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8484154081846896051}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!135 &1714772343
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8484154081846896051}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 1.1956183
+  m_Center: {x: 0.001199097, y: -0.013174236, z: 0.0402899}
+--- !u!65 &2392221089347904989
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,5 +122,5 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.6760452, y: 6.4458437, z: 3.5819585}
-  m_Center: {x: -0.48029247, y: 0.7349874, z: -0.15277237}
+  m_Size: {x: 2.363723, y: 2.8732154, z: 2.4438994}
+  m_Center: {x: -0.04323578, y: 0.22780775, z: 0.03311264}

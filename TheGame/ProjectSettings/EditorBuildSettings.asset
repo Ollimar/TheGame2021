@@ -44,6 +44,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ShopLevel.unity
     guid: 91cf566b9c45b88489d7f6ac01806e2c
+  - enabled: 1
+    path: Assets/Scenes/PlatformLevelMoon.unity
+    guid: 959b9f888e662a84898722d3aaed3288
   - enabled: 0
     path: 
     guid: bb0396c0ec7a3b741bf432fd1894a74d

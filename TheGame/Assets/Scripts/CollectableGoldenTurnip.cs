@@ -33,6 +33,7 @@ public class CollectableGoldenTurnip : MonoBehaviour
     private void Start()
     {
         myParticle = GetComponent<ParticleSystem>();
+
         if (!collected)
         {
             childObject.GetComponent<Renderer>().material = goldMaterial;

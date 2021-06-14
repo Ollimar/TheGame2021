@@ -81,6 +81,7 @@ public class PlayerScript : MonoBehaviour
     // Variables for tongue scanning
     public GameObject[] scanners;
     public GameObject targetPoint;
+    public float scannerLength = 100f;
 
     // Variables for turnip carrying and throwing
     public bool canPickTurnip = false;
@@ -433,22 +434,46 @@ public class PlayerScript : MonoBehaviour
             canJump = false;
         }
 
-        if ((Physics.Raycast(scanners[0].transform.position, scanners[0].transform.forward, out scannerHit, 10f))
-            || (Physics.Raycast(scanners[1].transform.position, scanners[1].transform.forward, out scannerHit, 10f))
-            || (Physics.Raycast(scanners[2].transform.position, scanners[2].transform.forward, out scannerHit, 10f))
-            || (Physics.Raycast(scanners[3].transform.position, scanners[3].transform.forward, out scannerHit, 10f))
-            || (Physics.Raycast(scanners[4].transform.position, scanners[4].transform.forward, out scannerHit, 10f)))
+        Debug.DrawRay(scanners[0].transform.position, scanners[0].transform.forward* scannerLength, Color.red);
+        Debug.DrawRay(scanners[0].transform.position, scanners[1].transform.forward* scannerLength, Color.red);
+        Debug.DrawRay(scanners[0].transform.position, scanners[2].transform.forward* scannerLength, Color.red);
+        Debug.DrawRay(scanners[0].transform.position, scanners[3].transform.forward* scannerLength, Color.red);
+        Debug.DrawRay(scanners[0].transform.position, scanners[4].transform.forward* scannerLength, Color.red);
+        Debug.DrawRay(scanners[0].transform.position, scanners[5].transform.forward* scannerLength, Color.red);
+        Debug.DrawRay(scanners[0].transform.position, scanners[6].transform.forward* scannerLength, Color.red);
+        Debug.DrawRay(scanners[0].transform.position, scanners[7].transform.forward* scannerLength, Color.red);
+        Debug.DrawRay(scanners[0].transform.position, scanners[8].transform.forward* scannerLength, Color.red);
+        Debug.DrawRay(scanners[0].transform.position, scanners[9].transform.forward* scannerLength, Color.red);
+        Debug.DrawRay(scanners[0].transform.position, scanners[10].transform.forward* scannerLength, Color.red);
+        Debug.DrawRay(scanners[0].transform.position, scanners[11].transform.forward* scannerLength, Color.red);
+        Debug.DrawRay(scanners[0].transform.position, scanners[12].transform.forward* scannerLength, Color.red);
+
+        if ((Physics.Raycast(scanners[0].transform.position, scanners[0].transform.forward, out scannerHit, scannerLength))
+            || (Physics.Raycast(scanners[1].transform.position, scanners[1].transform.forward, out scannerHit, scannerLength))
+            || (Physics.Raycast(scanners[2].transform.position, scanners[2].transform.forward, out scannerHit, scannerLength))
+            || (Physics.Raycast(scanners[3].transform.position, scanners[3].transform.forward, out scannerHit, scannerLength))
+            || (Physics.Raycast(scanners[4].transform.position, scanners[4].transform.forward, out scannerHit, scannerLength))
+            || (Physics.Raycast(scanners[5].transform.position, scanners[5].transform.forward, out scannerHit, scannerLength))
+            || (Physics.Raycast(scanners[6].transform.position, scanners[6].transform.forward, out scannerHit, scannerLength))
+            || (Physics.Raycast(scanners[7].transform.position, scanners[7].transform.forward, out scannerHit, scannerLength))
+            || (Physics.Raycast(scanners[7].transform.position, scanners[8].transform.forward, out scannerHit, scannerLength))
+            || (Physics.Raycast(scanners[7].transform.position, scanners[9].transform.forward, out scannerHit, scannerLength))
+            || (Physics.Raycast(scanners[7].transform.position, scanners[10].transform.forward, out scannerHit, scannerLength))
+            || (Physics.Raycast(scanners[7].transform.position, scanners[11].transform.forward, out scannerHit, scannerLength))
+            || (Physics.Raycast(scanners[8].transform.position, scanners[12].transform.forward, out scannerHit, scannerLength)))
         {
             if(scannerHit.transform.tag == "SeaShell" || scannerHit.transform.tag == "Enemy" || scannerHit.transform.tag == "Turnip" || scannerHit.transform.tag == "AttachPoint")
             {
                 print(scannerHit.transform.gameObject.name);
                 targetPoint = scannerHit.transform.gameObject;
             }
+
+            else
+            {
+                targetPoint = null;
+            }
         }
-        else
-        {
-            targetPoint = null;
-        }
+
     }
 
     private void OnTriggerEnter(Collider other)
