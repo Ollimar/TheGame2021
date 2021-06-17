@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 
     public LevelInfo levelInfo;
     public int previousLevel;
+    public bool[] levelUnlocked;
 
     // Variables for allowing player to travel between different heights
     public bool boosterSky              = false;
@@ -20,6 +21,8 @@ public class GameManager : MonoBehaviour
     public Text CoinTracker;
 
     public int goldenTurnips;
+    public Text turnipTracker;
+
     public GameObject[] goldenTurnipObjects;
 
     public int goldenTurnipsGrassLands;
@@ -106,6 +109,8 @@ public class GameManager : MonoBehaviour
         startFromBed = true;
         CoinTracker = GameObject.Find("CoinTracker").GetComponent<Text>();
         CoinTracker.text = "x" + coins;
+        turnipTracker = GameObject.Find("TurnipTracker").GetComponent<Text>();
+        turnipTracker.text = "x" + goldenTurnips;
 
         for (int i = 0; i < goldenTurnipObjects.Length; i++)
         {
@@ -135,7 +140,10 @@ public class GameManager : MonoBehaviour
         spaceShip   = GameObject.FindGameObjectWithTag("SpaceShip");
         CoinTracker = GameObject.Find("CoinTracker").GetComponent<Text>();
         CoinTracker.text = "x" + coins;
+        turnipTracker = GameObject.Find("TurnipTracker").GetComponent<Text>();
+        turnipTracker.text = "x" + goldenTurnips;
         print(coins);
+        print(goldenTurnips);
  
         for (int i = 0; i < goldenTurnipObjects.Length; i++)
         {
@@ -286,5 +294,11 @@ public class GameManager : MonoBehaviour
     {
         boosterSky = true;
         spaceShip.GetComponent<SpaceShipScript>().boosterSky = true;
+    }
+
+    public void GoldenTurnipCollected()
+    {
+        goldenTurnips += 1;
+        turnipTracker.text = "x" + goldenTurnips;
     }
 }

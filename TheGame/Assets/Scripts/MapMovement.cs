@@ -8,6 +8,8 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class MapMovement : MonoBehaviour
 {
+    public bool canMove = true;
+
     // rotation of the object when level starts
     private Vector3 objectRotation;
 
@@ -23,9 +25,10 @@ public class MapMovement : MonoBehaviour
     public bool zoomToLevel = false;
     public bool zoomed = false;
     public bool levelLoading = false;
+    public bool newLevelUnlocked = false;
 
     private Transform cameraParent;
-    private Transform cameraTarget;
+    public Transform cameraTarget;
     private Transform cameraReturnPos;
     private Vector3 cameraReturnposition;
     private Quaternion cameraReturnRotation;
@@ -75,62 +78,66 @@ public class MapMovement : MonoBehaviour
             rocket.transform.rotation = playerPos.transform.rotation;
             depthOfField.focusDistance.value = 7f;
             depthOfField.focalLength.value = 48.51f;
-            landOrLeave.SetActive(true);
-            landOrLeave.GetComponentInChildren<Text>().text = levelName.ToString();
-
-
-            for (int i=0; i<turnipImages.Length; i++)
+            if(!newLevelUnlocked)
             {
-                turnipImages[i].GetComponent<Image>().sprite = noTurnipCollected;
-            }
+                landOrLeave.SetActive(true);
+                landOrLeave.GetComponentInChildren<Text>().text = levelName.ToString();
 
-            if (levelToLoad == 1)
-            {
-                for (int i = 0; i < gm.goldenTurnipsGrassLands; i++)
+
+                for (int i = 0; i < turnipImages.Length; i++)
                 {
-                    turnipImages[i].GetComponent<Image>().sprite = goldenTurnipCollected;
+                    turnipImages[i].GetComponent<Image>().sprite = noTurnipCollected;
+                }
+
+                if (levelToLoad == 1)
+                {
+                    for (int i = 0; i < gm.goldenTurnipsGrassLands; i++)
+                    {
+                        turnipImages[i].GetComponent<Image>().sprite = goldenTurnipCollected;
+                    }
+                }
+
+                if (levelToLoad == 2)
+                {
+                    for (int i = 0; i < gm.goldenTurnipsDesert; i++)
+                    {
+                        turnipImages[i].GetComponent<Image>().sprite = goldenTurnipCollected;
+                    }
+                }
+
+                if (levelToLoad == 3)
+                {
+                    for (int i = 0; i < gm.goldenTurnipsSnowland; i++)
+                    {
+                        turnipImages[i].GetComponent<Image>().sprite = goldenTurnipCollected;
+                    }
+                }
+
+                if (levelToLoad == 4)
+                {
+                    for (int i = 0; i < gm.goldenTurnipsBlockTown; i++)
+                    {
+                        turnipImages[i].GetComponent<Image>().sprite = goldenTurnipCollected;
+                    }
+                }
+
+                if (levelToLoad == 5)
+                {
+                    for (int i = 0; i < gm.goldenTurnipsForest; i++)
+                    {
+                        turnipImages[i].GetComponent<Image>().sprite = goldenTurnipCollected;
+                    }
+                }
+
+                if (levelToLoad == 11)
+                {
+                    for (int i = 0; i < gm.goldenTurnipsIce; i++)
+                    {
+                        turnipImages[i].GetComponent<Image>().sprite = goldenTurnipCollected;
+                    }
                 }
             }
 
-            if (levelToLoad == 2)
-            {
-                for (int i = 0; i < gm.goldenTurnipsDesert; i++)
-                {
-                    turnipImages[i].GetComponent<Image>().sprite = goldenTurnipCollected;
-                }
-            }
-
-            if (levelToLoad == 3)
-            {
-                for (int i = 0; i < gm.goldenTurnipsSnowland; i++)
-                {
-                    turnipImages[i].GetComponent<Image>().sprite = goldenTurnipCollected;
-                }
-            }
-
-            if (levelToLoad == 4)
-            {
-                for (int i = 0; i < gm.goldenTurnipsBlockTown; i++)
-                {
-                    turnipImages[i].GetComponent<Image>().sprite = goldenTurnipCollected;
-                }
-            }
-
-            if (levelToLoad == 5)
-            {
-                for (int i = 0; i < gm.goldenTurnipsForest; i++)
-                {
-                    turnipImages[i].GetComponent<Image>().sprite = goldenTurnipCollected;
-                }
-            }
-
-            if (levelToLoad == 11)
-            {
-                for (int i = 0; i < gm.goldenTurnipsIce; i++)
-                {
-                    turnipImages[i].GetComponent<Image>().sprite = goldenTurnipCollected;
-                }
-            }
 
 
             StartCoroutine("Zoomed");
@@ -204,4 +211,32 @@ public class MapMovement : MonoBehaviour
         rotator.canMove = true;
         //zoomToLevel = false;
     }
+
+    /*
+    public void NewLevelUnlocked()
+    {
+        cameraReturnposition = Camera.main.transform.position;
+        cameraReturnRotation = Camera.main.transform.rotation;
+        Camera.main.transform.parent = null;
+
+        print("new level unlocked!");
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        rotator = GameObject.Find("Rotator").GetComponent<RotatorScript>();
+        postProcess = GameObject.Find("PP").GetComponent<PostProcessVolume>();
+        postProcess.profile.TryGetSettings(out depthOfField);
+        cameraReturnPos = GameObject.Find("CameraPos").transform;
+        playerReturnPos = rocket.transform.position;
+        cameraParent = transform.parent;
+        rocket = GameObject.Find("SpaceShip");
+        //landingPrompt.SetActive(false);
+        rotator = GameObject.Find("Rotator").GetComponent<RotatorScript>();
+        rotator.canMove = false;
+        Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, cameraTarget.transform.position, 2.5f * Time.deltaTime);
+        Camera.main.transform.rotation = Quaternion.Lerp(Camera.main.transform.rotation, cameraTarget.transform.rotation, 2.5f * Time.deltaTime);
+        depthOfField.focusDistance.value = 7f;
+        depthOfField.focalLength.value = 48.51f;
+
+        StartCoroutine("Zoomed");
+    }
+    */
 }

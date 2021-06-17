@@ -15467,11 +15467,13 @@ MonoBehaviour:
   spaceShip: {fileID: 0}
   levelInfo: {fileID: 0}
   previousLevel: 0
+  levelUnlocked: 
   boosterSky: 0
   boosterSpace: 0
   coins: 0
   CoinTracker: {fileID: 0}
   goldenTurnips: 0
+  turnipTracker: {fileID: 0}
   goldenTurnipObjects: []
   goldenTurnipsGrassLands: 0
   goldenTurnipsDesert: 0
@@ -16268,10 +16270,13 @@ MonoBehaviour:
   levels:
   - {fileID: 1872962319}
   - {fileID: 715109775135161909}
+  - {fileID: 1306499492}
   - {fileID: 2769022095611801829}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 3137413515550108337}
+  - {fileID: 1764287989}
+  levelUnlocked: 000000000000
+  newLevelEffect: {fileID: 7569583744412633940, guid: d874526484ed8fd4399f48dc2ac0d442,
+    type: 3}
 --- !u!1 &445040694
 GameObject:
   m_ObjectHideFlags: 0
@@ -16494,8 +16499,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 448896082}
-  m_LocalRotation: {x: 0.16828305, y: 0.09397053, z: -0.013696825, w: 0.9811538}
-  m_LocalPosition: {x: 0.0488, y: 0.4466, z: 0.1611}
+  m_LocalRotation: {x: -0.0772095, y: 0.78343254, z: 0.29478988, w: 0.54163754}
+  m_LocalPosition: {x: -0.2351, y: 0.3798, z: 0.1853}
   m_LocalScale: {x: 0.09482426, y: 0.091785476, z: 0.09482426}
   m_Children:
   - {fileID: 977927242}
@@ -16505,7 +16510,7 @@ Transform:
   - {fileID: 682230115}
   m_Father: {fileID: 1571985013}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 19.439001, y: 10.991, z: 0.289}
+  m_LocalEulerAnglesHint: {x: -33.061, y: 106.602005, z: 13.691001}
 --- !u!135 &448896084
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -42340,37 +42345,37 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d7f8eef7b1306c2419a11930d35a269f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.4194
+      value: -0.036
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7f8eef7b1306c2419a11930d35a269f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0363
+      value: 0.449
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7f8eef7b1306c2419a11930d35a269f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.2909
+      value: 0.245
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7f8eef7b1306c2419a11930d35a269f,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.21035463
+      value: 0.20748937
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7f8eef7b1306c2419a11930d35a269f,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.2103545
+      value: -0.12122181
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7f8eef7b1306c2419a11930d35a269f,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.67509335
+      value: 0.020745859
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7f8eef7b1306c2419a11930d35a269f,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.67509323
+      value: 0.97047573
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7f8eef7b1306c2419a11930d35a269f,
         type: 3}
@@ -42380,17 +42385,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d7f8eef7b1306c2419a11930d35a269f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 24.064001
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7f8eef7b1306c2419a11930d35a269f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 34.613003
+      value: -14.374001
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7f8eef7b1306c2419a11930d35a269f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -90.00001
+      value: -0.63000005
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d7f8eef7b1306c2419a11930d35a269f,
         type: 3}
@@ -55535,6 +55540,12 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4068373912626513877, guid: d7f8eef7b1306c2419a11930d35a269f, type: 3}
+--- !u!1 &1764287989 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d7f8eef7b1306c2419a11930d35a269f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1764287983}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1770939640
 GameObject:
   m_ObjectHideFlags: 0
@@ -60575,6 +60586,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbcb0c444ac86994787b02ced2618f88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canMove: 1
   rotator: {fileID: 0}
   landingPrompt: {fileID: 1297452878}
   landOrLeave: {fileID: 188647228}
@@ -60592,6 +60604,8 @@ MonoBehaviour:
   zoomToLevel: 0
   zoomed: 0
   levelLoading: 0
+  newLevelUnlocked: 0
+  cameraTarget: {fileID: 0}
   playerPos: {fileID: 0}
   rocket: {fileID: 378871238}
   postProcess: {fileID: 0}
