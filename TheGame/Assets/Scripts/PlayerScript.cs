@@ -617,7 +617,7 @@ public class PlayerScript : MonoBehaviour
 
         if (other.gameObject.name == "DoorInToOut")
         {
-            StartCoroutine(ChangeLevel(0));
+            StartCoroutine(ChangeLevel(17));
             dialogueManager.ReturnLevel();
         }
 

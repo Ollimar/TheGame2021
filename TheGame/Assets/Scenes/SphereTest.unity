@@ -15463,6 +15463,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb026c04bc60eb949a88d5aef547f28b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  logo: {fileID: 0}
+  startButtonPrompt: {fileID: 0}
   player: {fileID: 0}
   spaceShip: {fileID: 0}
   levelInfo: {fileID: 0}
@@ -15852,6 +15854,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CrabAnimated (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8652328153853650258, guid: 893d7eb0c79e3af4d9a3d65c1ba315af,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 893d7eb0c79e3af4d9a3d65c1ba315af, type: 3}
@@ -17776,7 +17783,7 @@ MonoBehaviour:
   planetName: Home
   cameraTarget: {fileID: 1944758009}
   spaceShipPosition: {fileID: 308067834}
-  levelNumber: 14
+  levelNumber: 17
 --- !u!65 &505260171
 BoxCollider:
   m_ObjectHideFlags: 0

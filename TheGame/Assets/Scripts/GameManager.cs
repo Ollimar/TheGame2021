@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject logo;
+    public GameObject startButtonPrompt;
+
     public GameObject player;
     public GameObject spaceShip;
 
@@ -129,6 +132,13 @@ public class GameManager : MonoBehaviour
         {
             stairsToSky[i].SetActive(false);
         }
+
+        if (levelInfo.levelNumber == 0)
+        {
+            player.GetComponent<PlayerScript>().canMove = false;
+            logo.SetActive(true);
+            startButtonPrompt.SetActive(true);
+        }
     }
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -177,10 +187,7 @@ public class GameManager : MonoBehaviour
         }
         */
 
-        if(levelInfo.levelNumber == 1)
-        {
 
-        }
 
         if(levelInfo.levelNumber == 2 && reverseDirection)
         {
@@ -229,6 +236,15 @@ public class GameManager : MonoBehaviour
             mySkybox.Lerp(mySkybox, skyBoxNight, 0.1f * Time.deltaTime);
         }
         */
+        if(levelInfo.levelNumber == 0)
+        {
+            if(Input.anyKey)
+            {
+                logo.SetActive(false);
+                startButtonPrompt.SetActive(false);
+                player.GetComponent<PlayerScript>().canMove = true;
+            }
+        }
 
         if(levelInfo.levelNumber != 0f)
         {

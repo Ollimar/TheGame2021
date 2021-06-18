@@ -34,7 +34,6 @@ public class MapScreenScript : MonoBehaviour
         {
             levels[1].SetActive(true);
             levels[1].GetComponentInChildren<Renderer>().enabled = false;
-            //levels[2].SetActive(true);
             if(!levelUnlocked[1])
             {
                 StartCoroutine(ShowNewLevel(1));
@@ -42,19 +41,48 @@ public class MapScreenScript : MonoBehaviour
 
         }
 
+        if (gm.goldenTurnips >= 6)
+        {
+            levels[2].SetActive(true);
+            levels[2].GetComponentInChildren<Renderer>().enabled = false;
+
+            if (!levelUnlocked[2])
+            {
+                StartCoroutine(ShowNewLevel(2));
+            }
+        }
+
         if (gm.goldenTurnips >= 10)
         {
             levels[3].SetActive(true);
-        }
+            levels[3].GetComponentInChildren<Renderer>().enabled = false;
 
-        if (gm.goldenTurnips >= 12)
-        {
-            levels[4].SetActive(true);
+            if (!levelUnlocked[3])
+            {
+                StartCoroutine(ShowNewLevel(3));
+            }
         }
 
         if (gm.goldenTurnips >= 15)
         {
             levels[4].SetActive(true);
+            levels[4].GetComponentInChildren<Renderer>().enabled = false;
+
+            if (!levelUnlocked[4])
+            {
+                StartCoroutine(ShowNewLevel(4));
+            }
+        }
+
+        if (gm.goldenTurnips >= 22)
+        {
+            levels[5].SetActive(true);
+            levels[5].GetComponentInChildren<Renderer>().enabled = false;
+
+            if (!levelUnlocked[5])
+            {
+                StartCoroutine(ShowNewLevel(5));
+            }
         }
     }
 
@@ -72,7 +100,7 @@ public class MapScreenScript : MonoBehaviour
         mapMovement.zoomToLevel = true;
         mapMovement.newLevelUnlocked = true;
         yield return new WaitForSeconds(1f);
-        Instantiate(newLevelEffect, levels[1].transform.position, levels[1].transform.rotation);
+        Instantiate(newLevelEffect, levels[levelNumber].transform.position, levels[levelNumber].transform.rotation);
         levels[1].GetComponentInChildren<Renderer>().enabled = true;
         yield return new WaitForSeconds(3f);
         mapMovement.zoomToLevel = false;
