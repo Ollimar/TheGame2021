@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
         sun         = GameObject.Find("Sun");
         fadeScreen  = GameObject.Find("FadeScreen");
         levelInfo   = GameObject.Find("LevelInfo").GetComponent<LevelInfo>();
-        stairsToSky = GameObject.FindGameObjectsWithTag("StairsToSky");
+        //stairsToSky = GameObject.FindGameObjectsWithTag("StairsToSky");
         startFromBed = true;
         CoinTracker = GameObject.Find("CoinTracker").GetComponent<Text>();
         CoinTracker.text = "x" + coins;
@@ -236,9 +236,10 @@ public class GameManager : MonoBehaviour
             mySkybox.Lerp(mySkybox, skyBoxNight, 0.1f * Time.deltaTime);
         }
         */
-        if(levelInfo.levelNumber == 0)
+        if(levelInfo.levelNumber == 0 && logo.activeSelf)
         {
-            if(Input.anyKey)
+            player.GetComponent<PlayerScript>().canMove = false;
+            if (Input.GetButton("Jump") || Input.GetButton("Fire1"))
             {
                 logo.SetActive(false);
                 startButtonPrompt.SetActive(false);
