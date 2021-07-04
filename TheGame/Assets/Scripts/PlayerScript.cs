@@ -159,8 +159,7 @@ public class PlayerScript : MonoBehaviour
             canJump = true;
         }
       
-        if (Input.GetButtonDown("Jump") && canJump && canMove && !holdingTurnip && !isJumping && !paused && !inRocketArea
-            )
+        if (Input.GetButtonDown("Jump") && canJump && canMove && !holdingTurnip && !isJumping && !paused && !inRocketArea)
         {
             if(transform.parent != null)
             {
@@ -202,7 +201,7 @@ public class PlayerScript : MonoBehaviour
         }
         */
 
-        if(Input.GetButton("Fire1"))
+        if(Input.GetButton("Jump"))
         {
             if (canPickSnowball)
             {
@@ -223,6 +222,7 @@ public class PlayerScript : MonoBehaviour
                 eyesNeutral.SetActive(true);
                 eyesHappy.SetActive(false);
                 cameraScript.ReturnCamera();
+                GameObject.Find("TongueBase").GetComponent<Tongue>().enabled = true;
             }
         }
 
@@ -544,6 +544,7 @@ public class PlayerScript : MonoBehaviour
         {
             if(!other.GetComponent<CollectableGoldenTurnip>().collected)
             {
+                GameObject.Find("TongueBase").GetComponent<Tongue>().enabled = false;
                 canMove = false;
                 goldenTurnip = other.gameObject;
                 if (goldenTurnip != null)

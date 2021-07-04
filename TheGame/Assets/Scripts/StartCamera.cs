@@ -10,6 +10,7 @@ public class StartCamera : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>();
+        player.canMove = false;
     }
 
     // Update is called once per frame
