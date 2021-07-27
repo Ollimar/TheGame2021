@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -25,6 +26,10 @@ public class PlayerScript : MonoBehaviour
 
     public Transform startPoint;
     public Transform spawnPoint;
+
+    private AudioSource myAudio;
+    public AudioClip   landingSound;
+    public AudioClip   pickupSound;
 
     //Variables for raycast positions
     public Transform[] rayCastPositions;
@@ -105,12 +110,19 @@ public class PlayerScript : MonoBehaviour
     // Variables for digging mechanic
     public bool canDig = false;
 
+    // Variables for text objects
+    public Text coinsCollected;
+    public Text turnipsCollected;
+
     // Variable for gamemanager that is persistent throughout the game
     private GameManager gm;
 
     void Start()
     {
+        myAudio = GetComponent<AudioSource>();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        coinsCollected.text = "X " + gm.coins.ToString();
+        turnipsCollected.text = "X " + gm.goldenTurnips.ToString();
         pauseMenu = GameObject.Find("PauseMenu");
         startPoint = GameObject.Find("StartPosition").transform;
         cameraTarget = GameObject.Find("CameraTarget").transform;
@@ -248,12 +260,15 @@ public class PlayerScript : MonoBehaviour
         if(jumpSqueeze)
         {
             transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(2f, 1f, 2f), 7f * Time.deltaTime);
+            if (!myAudio.isPlaying)
+            {
+                myAudio.PlayOneShot(landingSound);
+            }
         }
 
         if(transform.localScale.y <= 1.1f)
         {
             jumpSqueeze = false;
-
         }
 
         if (!jumpSqueeze && transform.localScale.y != 1.5f)
@@ -505,6 +520,11 @@ public class PlayerScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if(other.gameObject.tag == "Pickup")
+        {
+            myAudio.PlayOneShot(pickupSound);
+        }
+
         if(other.gameObject.tag == "SpawnPoint")
         {
             spawnPoint = other.gameObject.transform;

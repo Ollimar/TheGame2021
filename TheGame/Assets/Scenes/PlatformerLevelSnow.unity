@@ -78773,15 +78773,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb026c04bc60eb949a88d5aef547f28b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  logo: {fileID: 0}
+  startButtonPrompt: {fileID: 0}
   player: {fileID: 0}
   spaceShip: {fileID: 0}
   levelInfo: {fileID: 0}
   previousLevel: 0
+  levelUnlocked: 
   boosterSky: 0
   boosterSpace: 0
   coins: 0
   CoinTracker: {fileID: 0}
   goldenTurnips: 0
+  turnipTracker: {fileID: 0}
   goldenTurnipObjects: []
   goldenTurnipsGrassLands: 0
   goldenTurnipsDesert: 0
@@ -81459,6 +81463,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Center.x
       value: 0.209065
+      objectReference: {fileID: 0}
+    - target: {fileID: 2001490331330626788, guid: a8c47772ef15ef948ba324d1da9d07a9,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.2069768
+      objectReference: {fileID: 0}
+    - target: {fileID: 2001490331330626788, guid: a8c47772ef15ef948ba324d1da9d07a9,
+        type: 3}
+      propertyPath: m_Center.y
+      value: -0.4482269
       objectReference: {fileID: 0}
     - target: {fileID: 2001490331513510490, guid: a8c47772ef15ef948ba324d1da9d07a9,
         type: 3}
@@ -88044,17 +88058,27 @@ PrefabInstance:
     - target: {fileID: 2001490331330626788, guid: a8c47772ef15ef948ba324d1da9d07a9,
         type: 3}
       propertyPath: m_Size.z
-      value: 0.55478144
+      value: 4.5442505
       objectReference: {fileID: 0}
     - target: {fileID: 2001490331330626788, guid: a8c47772ef15ef948ba324d1da9d07a9,
         type: 3}
       propertyPath: m_Center.z
-      value: 0.036489382
+      value: -1.9582452
       objectReference: {fileID: 0}
     - target: {fileID: 2001490331330626788, guid: a8c47772ef15ef948ba324d1da9d07a9,
         type: 3}
       propertyPath: m_Center.x
-      value: 0.209065
+      value: 0.20906499
+      objectReference: {fileID: 0}
+    - target: {fileID: 2001490331330626788, guid: a8c47772ef15ef948ba324d1da9d07a9,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.95903903
+      objectReference: {fileID: 0}
+    - target: {fileID: 2001490331330626788, guid: a8c47772ef15ef948ba324d1da9d07a9,
+        type: 3}
+      propertyPath: m_Center.y
+      value: -0.3242582
       objectReference: {fileID: 0}
     - target: {fileID: 2001490331513510490, guid: a8c47772ef15ef948ba324d1da9d07a9,
         type: 3}

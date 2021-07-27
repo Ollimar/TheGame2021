@@ -28,10 +28,16 @@ public class Tongue : MonoBehaviour
 
     public ParticleSystem eatParticle;
 
+    private AudioSource myAudio;
+    public AudioClip pullSound;
+    public AudioClip tongueSound;
+    public AudioClip swallowSound;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        myAudio = GetComponent<AudioSource>();
         mouth = GameObject.Find("MouthOpenAnimated");
         mouth.GetComponent<Animator>().enabled = false;
         tongueStart = GameObject.Find("TongueStart");
@@ -64,14 +70,17 @@ public class Tongue : MonoBehaviour
             playerObject.GetComponent<Rigidbody>().useGravity = false;
             playerObject.GetComponent<Rigidbody>().isKinematic = true;
             playerObject.transform.position = Vector3.Lerp(playerObject.transform.position,transform.position,10f*Time.deltaTime);
+
         }
 
-        if (Input.GetButtonDown("Fire1") && attachedObject == null)
+        if (Input.GetButtonDown("Fire1") && attachedObject == null && !tongueActive)
         {
             if(player.targetPoint != null)
             {
                 playerObject.transform.LookAt(player.targetPoint.transform);
             }
+            myAudio.pitch = Random.Range(0.9f,1.1f); 
+            myAudio.PlayOneShot(tongueSound);
             mouth.GetComponent<Animator>().enabled = true;
             mouth.GetComponent<Animator>().SetBool("Open",true);
             playerObject.GetComponentInChildren<Animator>().SetBool("Eat", true);
@@ -204,7 +213,6 @@ public class Tongue : MonoBehaviour
             player.canMove = true;
             gameObject.GetComponentInChildren<Renderer>().enabled = false;
             tongueStretch.GetComponent<Renderer>().enabled = false;
-
             if (attached)
             {
                 launchPuff.Stop();
@@ -218,9 +226,9 @@ public class Tongue : MonoBehaviour
 
             if (attachedObject != null)
             {
-                if(attachedObject.tag == "Enemy")
+                myAudio.PlayOneShot(swallowSound);
+                if (attachedObject.tag == "Enemy")
                 {
-                  
                     attachedObject.GetComponent<Enemy>().puff.transform.parent = null;
                     attachedObject.GetComponent<Enemy>().eaten = true;
                 }

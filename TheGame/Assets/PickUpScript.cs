@@ -7,11 +7,15 @@ public class PickUpScript : MonoBehaviour
 {
     public GameObject effect;
     public Text coinTracker;
+    private AudioSource myAudio;
     private GameManager gm;
+
+    public AudioClip collected;
 
     // Start is called before the first frame update
     void Start()
     {
+        myAudio = GetComponent<AudioSource>();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         coinTracker = GameObject.Find("CoinTracker").GetComponent<Text>();
     }
@@ -27,9 +31,21 @@ public class PickUpScript : MonoBehaviour
         if(other.gameObject.tag == "Player")
         {
             gm.coins += 1;
-            coinTracker.text = "x" + gm.coins;
+            coinTracker.text = "X " + gm.coins;
             Instantiate(effect, transform.position, transform.rotation);
-            Destroy(gameObject);
+            GetComponent<Renderer>().enabled = false;
+            GetComponent<Collider>().enabled = false;
+            if(!myAudio.isPlaying)
+            {
+                myAudio.PlayOneShot(collected);
+            }
+            StartCoroutine("TimeToDisappear");
         }
+    }
+
+    public IEnumerator TimeToDisappear()
+    {
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
     }
 }

@@ -110,10 +110,7 @@ public class GameManager : MonoBehaviour
         levelInfo   = GameObject.Find("LevelInfo").GetComponent<LevelInfo>();
         //stairsToSky = GameObject.FindGameObjectsWithTag("StairsToSky");
         startFromBed = true;
-        CoinTracker = GameObject.Find("CoinTracker").GetComponent<Text>();
-        CoinTracker.text = "x" + coins;
         turnipTracker = GameObject.Find("TurnipTracker").GetComponent<Text>();
-        turnipTracker.text = "x" + goldenTurnips;
 
         for (int i = 0; i < goldenTurnipObjects.Length; i++)
         {
@@ -148,13 +145,10 @@ public class GameManager : MonoBehaviour
         levelInfo = GameObject.Find("LevelInfo").GetComponent<LevelInfo>();
         player      = GameObject.FindGameObjectWithTag("Player");
         spaceShip   = GameObject.FindGameObjectWithTag("SpaceShip");
-        CoinTracker = GameObject.Find("CoinTracker").GetComponent<Text>();
-        CoinTracker.text = "x" + coins;
         turnipTracker = GameObject.Find("TurnipTracker").GetComponent<Text>();
-        turnipTracker.text = "x" + goldenTurnips;
         print(coins);
         print(goldenTurnips);
- 
+
         for (int i = 0; i < goldenTurnipObjects.Length; i++)
         {
             if(goldenTurnipObjects[i] != null)
@@ -316,6 +310,6 @@ public class GameManager : MonoBehaviour
     public void GoldenTurnipCollected()
     {
         goldenTurnips += 1;
-        turnipTracker.text = "x" + goldenTurnips;
+        turnipTracker.text = "X " + goldenTurnips;
     }
 }
