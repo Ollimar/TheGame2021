@@ -22,6 +22,16 @@ public class UpStairsData : MonoBehaviour
         {
             decorationItems[0].SetActive(true);
         }
+
+        if (gm.missions[1])
+        {
+            decorationItems[1].SetActive(true);
+        }
+
+        if (gm.missions[2])
+        {
+            decorationItems[2].SetActive(true);
+        }
     }
 
     // Update is called once per frame

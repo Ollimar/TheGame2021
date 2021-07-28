@@ -794,6 +794,7 @@ public class PlayerScript : MonoBehaviour
         {
             canPickTurnip = true;
         }
+
     }
 
     public IEnumerator PullTurnip()

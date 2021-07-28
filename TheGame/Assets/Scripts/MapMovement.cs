@@ -44,8 +44,16 @@ public class MapMovement : MonoBehaviour
     public PostProcessVolume postProcess;
     public DepthOfField depthOfField;
 
+    //Audio
+    private AudioSource myAudio;
+    public AudioClip levelPromptSound;
+    public AudioClip levelZoom;
+    public AudioClip levelSelected;
+    public AudioClip levelCancel;
+
     private void Start()
     {
+        myAudio = GetComponent<AudioSource>();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         rotator = GameObject.Find("Rotator").GetComponent<RotatorScript>();
         postProcess = GameObject.Find("PP").GetComponent<PostProcessVolume>();
@@ -65,6 +73,7 @@ public class MapMovement : MonoBehaviour
             cameraReturnRotation = Camera.main.transform.rotation;
             Camera.main.transform.parent = null;
             zoomToLevel = true;
+            myAudio.PlayOneShot(levelZoom);
         }
 
         if(zoomToLevel)
@@ -146,10 +155,12 @@ public class MapMovement : MonoBehaviour
         if (zoomed && Input.GetButtonDown("Fire1"))
         {
             zoomToLevel = false;
+            myAudio.PlayOneShot(levelCancel);
         }
 
         if (zoomed && Input.GetButtonDown("Jump"))
         {
+            myAudio.PlayOneShot(levelSelected);
             StartCoroutine("NewLevel");
         }
 
@@ -165,12 +176,14 @@ public class MapMovement : MonoBehaviour
     {
         if(other.gameObject.tag == "LandingPlatform")
         {
+            myAudio.PlayOneShot(levelPromptSound);
             landingPrompt.SetActive(true);
             landingPrompt.GetComponentInChildren<Text>().text = other.gameObject.GetComponent<LanderAreaScript>().planetName;
             levelName = other.gameObject.GetComponent<LanderAreaScript>().planetName;
             levelToLoad = other.gameObject.GetComponent<LanderAreaScript>().levelNumber;
             cameraTarget = other.gameObject.GetComponent<LanderAreaScript>().cameraTarget;
             playerPos = other.gameObject.GetComponent<LanderAreaScript>().spaceShipPosition;
+            
         }
 
         if(other.gameObject.tag == "WorldMapPickUp")

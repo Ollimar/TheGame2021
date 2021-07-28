@@ -50,9 +50,14 @@ public class SpaceShipScript : MonoBehaviour
     private GameManager gm;
     private LevelInfo levelInfo;
 
+    // Sound variables
+    private AudioSource myAudio;
+    public  AudioClip   rocketSound;
+
     // Start is called before the first frame update
     void Start()
     {
+        myAudio             = GetComponent<AudioSource>();
         gm                  = GameObject.Find("GameManager").GetComponent<GameManager>();
         myRB                = GetComponent<Rigidbody>();
         myAnim              = GetComponent<Animator>();
@@ -255,6 +260,7 @@ public class SpaceShipScript : MonoBehaviour
     // This event is activated from spaceship animation
     public void Activate()
     {
+        myAudio.PlayOneShot(rocketSound);
         launchParticles.Play();
         myAnim.enabled = true;
         //myAnim.SetTrigger("Air");

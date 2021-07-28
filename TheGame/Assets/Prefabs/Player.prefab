@@ -137,13 +137,13 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.94
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 104
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -181,7 +181,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.96
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -6483,7 +6483,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -7792,12 +7792,12 @@ PrefabInstance:
     - target: {fileID: 8892802047608000678, guid: 3439c252be52f1648882374ea52a44b3,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.666
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8892802047608000678, guid: 3439c252be52f1648882374ea52a44b3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.28
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8892802047608000678, guid: 3439c252be52f1648882374ea52a44b3,
         type: 3}
@@ -7838,6 +7838,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999086120491267330, guid: 3439c252be52f1648882374ea52a44b3,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8999086120491267333, guid: 3439c252be52f1648882374ea52a44b3,
         type: 3}

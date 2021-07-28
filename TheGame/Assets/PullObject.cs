@@ -13,9 +13,14 @@ public class PullObject : MonoBehaviour
 
     public ParticleSystem[] effects;
 
+    private AudioSource myAudio;
+    public  AudioClip   openSound;
+    public bool soundPlayed = false;
+
     // Start is called before the first frame update
     void Start()
     {
+        myAudio = GetComponent<AudioSource>();
         effects[0].Stop();
         effects[1].Stop();
     }
@@ -25,6 +30,11 @@ public class PullObject : MonoBehaviour
     {
         if(pull && canPull)
         {
+            if (!myAudio.isPlaying && !soundPlayed)
+            {
+                myAudio.PlayOneShot(openSound);
+                soundPlayed = true;
+            }
             effects[0].Play();
             effects[1].Play();
             transform.position = Vector3.Lerp(transform.position, endPosition.position, 10f * Time.deltaTime);
