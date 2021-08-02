@@ -872,7 +872,7 @@ public class PlayerScript : MonoBehaviour
         transform.eulerAngles = new Vector3(0f, 0f, 0f);
         yield return new WaitForSeconds(1f);
         gm.ActivateFly();
-        canFly = false;
+        //canFly = false;
         launchButton.SetActive(false);
         gameObject.SetActive(false);
     }

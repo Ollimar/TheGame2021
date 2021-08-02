@@ -94,6 +94,7 @@ public class MapScreenScript : MonoBehaviour
 
     public IEnumerator ShowNewLevel(int levelNumber)
     {
+        mapMovement.canEnterLevel = false;
         yield return new WaitForSeconds(2f);
         mapMovement.cameraTarget = levels[levelNumber].transform.GetComponentInChildren<LanderAreaScript>().cameraTarget;
         mapMovement.playerPos = GameObject.Find("SpaceShip").transform;
@@ -106,5 +107,6 @@ public class MapScreenScript : MonoBehaviour
         mapMovement.zoomToLevel = false;
         mapMovement.newLevelUnlocked = false;
         gm.levelUnlocked[levelNumber] = true;
+        mapMovement.canEnterLevel = true;
     }
 }

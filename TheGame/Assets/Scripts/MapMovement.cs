@@ -9,6 +9,7 @@ using UnityEngine.Rendering.PostProcessing;
 public class MapMovement : MonoBehaviour
 {
     public bool canMove = true;
+    public bool canEnterLevel = true;
 
     // rotation of the object when level starts
     private Vector3 objectRotation;
@@ -158,7 +159,7 @@ public class MapMovement : MonoBehaviour
             myAudio.PlayOneShot(levelCancel);
         }
 
-        if (zoomed && Input.GetButtonDown("Jump"))
+        if (zoomed && Input.GetButtonDown("Jump") && canEnterLevel && landOrLeave.activeSelf)
         {
             myAudio.PlayOneShot(levelSelected);
             StartCoroutine("NewLevel");
@@ -169,7 +170,6 @@ public class MapMovement : MonoBehaviour
             ReturnCamera();
             zoomed = false;
         }
-
     }
 
     void OnTriggerEnter(Collider other)

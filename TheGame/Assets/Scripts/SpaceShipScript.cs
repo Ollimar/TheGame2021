@@ -95,10 +95,12 @@ public class SpaceShipScript : MonoBehaviour
             launchTimer = 0f;
         }
 
+        /*
         if(Input.GetButton("Jump") && canLand)
         {
             Landing();
         }
+        */
 
         if (falling)
         {
@@ -118,7 +120,7 @@ public class SpaceShipScript : MonoBehaviour
             {
                 stage1 = false;
                 landingTarget = GameObject.Find("CubeHome").transform.GetChild(0);
-                Landing();
+                //Landing();
             }
 
             if (transform.position.y <= 75f && levelInfo.levelNumber == 4)
@@ -206,7 +208,7 @@ public class SpaceShipScript : MonoBehaviour
             if(falling)
             {
                 landingTarget = other.GetComponent<LanderAreaScript>().landingSpot;
-                Landing();
+                //Landing();
             }
         }
     }
@@ -232,6 +234,8 @@ public class SpaceShipScript : MonoBehaviour
         myRB.velocity = Vector3.zero;
     }
 
+
+    /*
     public void Landing()
     {
         for (int i = 0; i < trails.Length; i++)
@@ -256,6 +260,8 @@ public class SpaceShipScript : MonoBehaviour
         stage1 = false;
         StartCoroutine("CoolDown");
     }
+
+    */
   
     // This event is activated from spaceship animation
     public void Activate()
@@ -275,7 +281,8 @@ public class SpaceShipScript : MonoBehaviour
         yield return new WaitForSeconds(1f);
         myRB.AddForce(Vector3.up * launchPower);
     }
-    
+   
+
     public IEnumerator Relaunch()
     {
         yield return new WaitForSeconds(1f);
@@ -288,11 +295,13 @@ public class SpaceShipScript : MonoBehaviour
         }
     }
 
+    /*
     public IEnumerator CoolDown()
     {
         yield return new WaitForSeconds(1f);
         canLaunch = true;
     }
+    */
 
     public void ChangeLevel()
     {

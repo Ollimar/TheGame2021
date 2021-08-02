@@ -11,6 +11,7 @@ public class TongueScript : MonoBehaviour
     public float tongueTimer = 1f;
     public float originalTongueTimer = 1f;
     public Transform originalPosition;
+    public GameObject mouth;
     public Transform tonguePosition;
     public GameObject scalingOject;
     public Vector3 hitPoint;
@@ -32,6 +33,8 @@ public class TongueScript : MonoBehaviour
         scalingOject = GameObject.Find("TongueStretch");
         transform.position = new Vector3(tonguePosition.position.x, tonguePosition.position.y, tonguePosition.position.z);
         scalingOject.GetComponent<Renderer>().enabled = false;
+        mouth = GameObject.Find("MouthOpenAnimated");
+        mouth.SetActive(false);
     }
 
     // Update is called once per frame
@@ -67,6 +70,7 @@ public class TongueScript : MonoBehaviour
         {
             tongueReturned = false;
             scalingOject.GetComponent<Renderer>().enabled = true;
+            mouth.SetActive(true);
             originalPosition.GetComponentInChildren<Animator>().SetBool("Eat",true);
             gameObject.GetComponentInChildren<Collider>().enabled = true;
             gameObject.GetComponentInChildren<Renderer>().enabled = true;
@@ -178,6 +182,8 @@ public class TongueScript : MonoBehaviour
         {
             tongueTimer = 0f;
         }
+
+        mouth.SetActive(false);
 
     }
 

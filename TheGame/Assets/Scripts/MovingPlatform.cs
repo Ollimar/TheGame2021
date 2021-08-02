@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
+    public bool active = true;
 
     public Vector3 movement;
     public float speed = 5f;
@@ -22,7 +23,10 @@ public class MovingPlatform : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-        transform.Translate(movement * speed * Time.deltaTime);
+        if(active)
+        {
+            transform.Translate(movement * speed * Time.deltaTime);
+        }
 
         if (timer > changeTime)
         {
@@ -43,4 +47,15 @@ public class MovingPlatform : MonoBehaviour
         }
     }
     */
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            if(!active)
+            {
+                active = true;
+            }
+        }
+    }
 }
