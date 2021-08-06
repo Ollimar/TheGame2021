@@ -26,5 +26,4 @@ public class KeyScript : MonoBehaviour
         door.GetComponent<Animator>().enabled = true;
         cameraScript.StartCoroutine("DoorToPlayer");
     }
-
 }

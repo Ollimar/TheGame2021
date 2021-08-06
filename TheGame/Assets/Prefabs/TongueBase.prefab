@@ -185,7 +185,7 @@ MonoBehaviour:
   eatParticle: {fileID: 5073452438022918074, guid: 3e126debc6487c4498607ee019e43a3d,
     type: 3}
   pullSound: {fileID: 8300000, guid: a216b643bcb633348b8077e579243488, type: 3}
-  tongueSound: {fileID: 8300000, guid: 746c8da6628aa4b5c910ecd4d7d4003c, type: 3}
+  tongueSound: {fileID: 8300000, guid: a6682b5e9308e4c65acbbfcb0d298d84, type: 3}
   swallowSound: {fileID: 8300000, guid: b95d585afdcbd564a9225c9526bc9f49, type: 3}
 --- !u!135 &325354815985299797
 SphereCollider:

@@ -38,6 +38,7 @@ TagManager:
   - PullObject
   - SeaShell
   - Pickup
+  - Hazard
   layers:
   - Default
   - TransparentFX

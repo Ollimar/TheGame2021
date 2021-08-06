@@ -45,10 +45,10 @@ public class PlayerScript : MonoBehaviour
     public Transform footL;
     public Transform footR;
 
-    // Variables for different eyes
+    // Variables for different eyes and faces
     public GameObject eyesNeutral;
     public GameObject eyesHappy;
-
+    public GameObject mouth;
 
     // UI variables
     public GameObject launchButton;
@@ -120,6 +120,7 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         myAudio = GetComponent<AudioSource>();
+        mouth = GameObject.Find("MouthOpenAnimated");
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         coinsCollected.text = "X " + gm.coins.ToString();
         turnipsCollected.text = "X " + gm.goldenTurnips.ToString();
@@ -233,6 +234,7 @@ public class PlayerScript : MonoBehaviour
                 myRB.useGravity = true;
                 eyesNeutral.SetActive(true);
                 eyesHappy.SetActive(false);
+                mouth.SetActive(true);
                 cameraScript.ReturnCamera();
                 GameObject.Find("TongueBase").GetComponent<Tongue>().enabled = true;
             }
@@ -530,7 +532,7 @@ public class PlayerScript : MonoBehaviour
             spawnPoint = other.gameObject.transform;
         }
 
-        if(other.gameObject.tag == "DeathZone" || other.gameObject.tag == "Water")
+        if(other.gameObject.tag == "DeathZone" || other.gameObject.tag == "Water" || other.gameObject.tag == "Hazard")
         {
             if(spawnPoint !=null)
             {
@@ -542,6 +544,10 @@ public class PlayerScript : MonoBehaviour
                 transform.position = startPoint.position;
             }
 
+            GameObject tongue = GameObject.Find("TongueBase");
+            tongue.GetComponent<Tongue>().enabled = false;
+            tongue.transform.position = transform.position;
+            tongue.GetComponent<Tongue>().enabled = true;
         }
 
         if(other.gameObject.tag == "Turnip" && !holdingTurnip)
@@ -575,6 +581,7 @@ public class PlayerScript : MonoBehaviour
                 steps.Stop();
                 eyesNeutral.SetActive(false);
                 eyesHappy.SetActive(true);
+                mouth.SetActive(false);
                 myAnim.SetBool("GoldCollected", true);
                 
                 cameraScript.DialogueCamera();
