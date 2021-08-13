@@ -69,8 +69,14 @@ public class Tongue : MonoBehaviour
             launchPuff.Play();
             playerObject.GetComponent<Rigidbody>().useGravity = false;
             playerObject.GetComponent<Rigidbody>().isKinematic = true;
-            playerObject.transform.position = Vector3.Lerp(playerObject.transform.position,transform.position,10f*Time.deltaTime);
-
+            if(!player.dead)
+            {
+                playerObject.transform.position = Vector3.Lerp(playerObject.transform.position, transform.position, 10f * Time.deltaTime);
+            }
+            else
+            {
+                return;
+            }
         }
 
         if (Input.GetButtonDown("Fire1") && attachedObject == null && !tongueActive)

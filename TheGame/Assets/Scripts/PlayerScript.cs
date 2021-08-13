@@ -10,6 +10,7 @@ public class PlayerScript : MonoBehaviour
     public bool gameStarted = true;
     public bool paused = false;
     public bool canMove = true;
+    public bool dead = false;
     public float speed = 10f;
     public float storedSpeed = 10f;
     public float turnipCarryingVelocity;
@@ -27,6 +28,7 @@ public class PlayerScript : MonoBehaviour
     public Transform startPoint;
     public Transform spawnPoint;
 
+    //Audio Variables
     private AudioSource myAudio;
     public AudioClip   landingSound;
     public AudioClip   pickupSound;
@@ -34,6 +36,13 @@ public class PlayerScript : MonoBehaviour
     //Variables for raycast positions
     public Transform[] rayCastPositions;
     public LayerMask groundHitLayerMask;
+
+    //Variables for surfaces
+    public bool onIce = false;
+
+    //Variables for Physic materials
+    public PhysicMaterial normalPhysics;
+    public PhysicMaterial slipperyPhysics;
 
     // Time delay for coyote jump
     public float mayJump = 0.5f;
@@ -110,9 +119,10 @@ public class PlayerScript : MonoBehaviour
     // Variables for digging mechanic
     public bool canDig = false;
 
-    // Variables for text objects
+    // Variables for UI objects
     public Text coinsCollected;
     public Text turnipsCollected;
+    public GameObject failImage;
 
     // Variable for gamemanager that is persistent throughout the game
     private GameManager gm;
@@ -120,6 +130,7 @@ public class PlayerScript : MonoBehaviour
     void Start()
     {
         myAudio = GetComponent<AudioSource>();
+        failImage.SetActive(false);
         mouth = GameObject.Find("MouthOpenAnimated");
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         coinsCollected.text = "X " + gm.coins.ToString();
@@ -328,7 +339,14 @@ public class PlayerScript : MonoBehaviour
 
         if(hor == 0f && ver == 0f)
         {
-            myRB.velocity = new Vector3(0f, myRB.velocity.y, 0f);
+            if(!onIce)
+            {
+                myRB.velocity = new Vector3(0f, myRB.velocity.y, 0f);
+            }
+            else if(onIce)
+            {
+                myRB.velocity = new Vector3(myRB.velocity.x, myRB.velocity.y, myRB.velocity.z);
+            }
 
             Vector3 playerStopPoint;
             playerStopPoint = transform.position;
@@ -402,9 +420,21 @@ public class PlayerScript : MonoBehaviour
         float hor = Input.GetAxis("Horizontal");
         float ver = Input.GetAxis("Vertical");
 
-        if(canMove)
+        float horSlippery = Input.GetAxis("HorizontalIce");
+        float verSlippery = Input.GetAxis("VerticalIce");
+
+        if (canMove)
         {
-            Move(hor, ver);
+            if(!onIce)
+            {
+                Move(hor, ver);
+            }
+
+            else if(onIce)
+            {
+                Move(horSlippery, verSlippery);
+            }
+
         }
 
         if(myRB.velocity.y < -0.1f && isJumping)
@@ -522,6 +552,11 @@ public class PlayerScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if(other.gameObject.tag == "Ice")
+        {
+
+        }
+
         if(other.gameObject.tag == "Pickup")
         {
             myAudio.PlayOneShot(pickupSound);
@@ -534,20 +569,9 @@ public class PlayerScript : MonoBehaviour
 
         if(other.gameObject.tag == "DeathZone" || other.gameObject.tag == "Water" || other.gameObject.tag == "Hazard")
         {
-            if(spawnPoint !=null)
-            {
-                transform.position = spawnPoint.position;
-                myRB.velocity = Vector3.zero;
-            }
-            else
-            {
-                transform.position = startPoint.position;
-            }
-
-            GameObject tongue = GameObject.Find("TongueBase");
-            tongue.GetComponent<Tongue>().enabled = false;
-            tongue.transform.position = transform.position;
-            tongue.GetComponent<Tongue>().enabled = true;
+            dead = true;
+            canMove = false;
+            StartCoroutine("Fail");
         }
 
         if(other.gameObject.tag == "Turnip" && !holdingTurnip)
@@ -704,7 +728,19 @@ public class PlayerScript : MonoBehaviour
 
     public void OnCollisionEnter(Collision other)
     {
-        if(other.gameObject.tag == "Sand")
+        if(other.gameObject.tag == "Ice")
+        {
+            onIce = true;
+            //GetComponent<Collider>().material = slipperyPhysics;
+        }
+
+        if (other.gameObject.tag != "Ice")
+        {
+            onIce = false;
+            //GetComponent<Collider>().material = normalPhysics;
+        }
+
+        if (other.gameObject.tag == "Sand")
         {
             createFootSteps = true;
         }
@@ -882,6 +918,33 @@ public class PlayerScript : MonoBehaviour
         //canFly = false;
         launchButton.SetActive(false);
         gameObject.SetActive(false);
+    }
+
+    public IEnumerator Fail()
+    {
+        GameObject tongue = GameObject.Find("TongueBase");
+        tongue.GetComponent<Tongue>().enabled = false;
+        tongue.transform.position = transform.position;
+        yield return new WaitForSeconds(1f);
+        failImage.SetActive(true);
+        yield return new WaitForSeconds(1f);
+
+        if (spawnPoint != null)
+        {
+            transform.position = spawnPoint.position;
+            myRB.velocity = Vector3.zero;
+        }
+        else
+        {
+            transform.position = startPoint.position;
+        }
+
+        yield return new WaitForSeconds(0.5f);
+        failImage.SetActive(false);
+        tongue.GetComponent<Tongue>().enabled = true;
+        dead = false;
+        yield return new WaitForSeconds(0.5f);
+        canMove = true;
     }
 
     public void FootStepL()
