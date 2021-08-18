@@ -28,6 +28,8 @@ public class PlayerScript : MonoBehaviour
     public Transform startPoint;
     public Transform spawnPoint;
 
+    public Vector3 storedRotation;          // Variable to store the player rotation where it returns after wave action
+
     //Audio Variables
     private AudioSource myAudio;
     public AudioClip   landingSound;
@@ -270,6 +272,11 @@ public class PlayerScript : MonoBehaviour
             canMove = false;
         }
 
+        if(Input.GetButtonDown("Fire2"))
+        {
+            StartCoroutine("Wave");
+        }
+
         if(jumpSqueeze)
         {
             transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(2f, 1f, 2f), 7f * Time.deltaTime);
@@ -425,16 +432,7 @@ public class PlayerScript : MonoBehaviour
 
         if (canMove)
         {
-            if(!onIce)
-            {
-                Move(hor, ver);
-            }
-
-            else if(onIce)
-            {
-                Move(horSlippery, verSlippery);
-            }
-
+            Move(hor, ver);
         }
 
         if(myRB.velocity.y < -0.1f && isJumping)
@@ -497,7 +495,7 @@ public class PlayerScript : MonoBehaviour
         Debug.DrawRay(scanners[0].transform.position, scanners[13].transform.forward* scannerLength, Color.red);
         Debug.DrawRay(scanners[0].transform.position, scanners[14].transform.forward* scannerLength, Color.red);
 
-        /*
+        
         for(int i=0; i<scanners.Length;i++)
         {
             if (Physics.Raycast(scanners[i].transform.position, scanners[i].transform.forward, out scannerHit, scannerLength))
@@ -507,13 +505,15 @@ public class PlayerScript : MonoBehaviour
                     print(scannerHit.transform.gameObject.name);
                     targetPoint = scannerHit.transform.gameObject;
                 }
-
+                else
+                {
+                    targetPoint = null;
+                }
             }
-
         }
-        */
+        
 
-
+        /*
         if ((Physics.Raycast(scanners[0].transform.position, scanners[0].transform.forward, out scannerHit, scannerLength))
             || (Physics.Raycast(scanners[1].transform.position, scanners[1].transform.forward, out scannerHit, scannerLength))
             || (Physics.Raycast(scanners[2].transform.position, scanners[2].transform.forward, out scannerHit, scannerLength))
@@ -541,12 +541,6 @@ public class PlayerScript : MonoBehaviour
                 targetPoint = null;
             }
         }
-
-        /*
-        else
-        {
-            targetPoint = null;
-        } 
         */
     }
 
@@ -944,6 +938,21 @@ public class PlayerScript : MonoBehaviour
         tongue.GetComponent<Tongue>().enabled = true;
         dead = false;
         yield return new WaitForSeconds(0.5f);
+        canMove = true;
+    }
+
+    public IEnumerator Wave()
+    {
+        canMove = false;
+        eyesNeutral.SetActive(false);
+        eyesHappy.SetActive(true);
+        storedRotation = transform.eulerAngles;
+        transform.eulerAngles = new Vector3(0f, -180f, 0f);
+        myAnim.SetTrigger("Wave");
+        yield return new WaitForSeconds(1f);        
+        eyesNeutral.SetActive(true);
+        eyesHappy.SetActive(false);
+        yield return new WaitForSeconds(0.3f);
         canMove = true;
     }
 
