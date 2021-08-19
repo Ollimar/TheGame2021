@@ -34,6 +34,8 @@ public class CameraScript : MonoBehaviour
     public PostProcessVolume     postProcess;
     public DepthOfField          depthOfField;
 
+    public float                 dofAmount = 13f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -107,7 +109,7 @@ public class CameraScript : MonoBehaviour
         cameraRotation = 50f;
         canMoveCamera = true;
         target = landTarget;
-        depthOfField.focusDistance.value = 13f;
+        depthOfField.focusDistance.value = dofAmount;
     }
 
     public void Open()

@@ -6352,6 +6352,7 @@ MonoBehaviour:
   coolDownTime: 0
   startPoint: {fileID: 0}
   spawnPoint: {fileID: 0}
+  storedRotation: {x: 0, y: 0, z: 0}
   landingSound: {fileID: 8300000, guid: 7e93792231de8f54891fb7e85a1731fb, type: 3}
   pickupSound: {fileID: 8300000, guid: 43e0da49f0afd4d35bf0b080dc2989b8, type: 3}
   rayCastPositions:
@@ -6416,6 +6417,7 @@ MonoBehaviour:
   - {fileID: 3491482982160782792}
   - {fileID: 8769136158078240486}
   - {fileID: 7954953232494526029}
+  scannerDetect: 000000000000000000000000000000
   targetPoint: {fileID: 0}
   scannerLength: 20
   canPickTurnip: 0

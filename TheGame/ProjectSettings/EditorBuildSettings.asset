@@ -62,4 +62,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HomeLevelReturn.unity
     guid: 6565cab0577369549920504662c9d4ad
+  - enabled: 1
+    path: Assets/Scenes/MenuLevel.unity
+    guid: da7b0fc33690d4c4ea7440358ca24aa4
   m_configObjects: {}

@@ -40,6 +40,7 @@ public class Tongue : MonoBehaviour
         myAudio = GetComponent<AudioSource>();
         mouth = GameObject.Find("MouthOpenAnimated");
         mouth.GetComponent<Animator>().enabled = false;
+        mouth.SetActive(false);
         tongueStart = GameObject.Find("TongueStart");
         tongueEnd = GameObject.Find("TongueMaximum");
         tonguePosition = GameObject.Find("TonguePosition");
@@ -87,6 +88,7 @@ public class Tongue : MonoBehaviour
             }
             myAudio.pitch = Random.Range(0.9f,1.1f); 
             myAudio.PlayOneShot(tongueSound);
+            mouth.SetActive(true);
             mouth.GetComponent<Animator>().enabled = true;
             mouth.GetComponent<Animator>().SetBool("Open",true);
             playerObject.GetComponentInChildren<Animator>().SetBool("Eat", true);
@@ -237,6 +239,7 @@ public class Tongue : MonoBehaviour
                 {
                     attachedObject.GetComponent<Enemy>().puff.transform.parent = null;
                     attachedObject.GetComponent<Enemy>().eaten = true;
+                    attachedObject = null;
                 }
                 else if(attachedObject.tag == "PullObject")
                 {
@@ -245,9 +248,11 @@ public class Tongue : MonoBehaviour
                 else
                 {
                     Destroy(attachedObject);
+                    attachedObject = null;
                 }                
             }
             mouth.GetComponent<Animator>().SetBool("Open", false);
+            StartCoroutine("MouthShut");
         }
     }
 
@@ -257,7 +262,12 @@ public class Tongue : MonoBehaviour
         tonguePosition.transform.position = tongueStart.transform.position;
         
         tongueActive = false;
-       
+    }
+
+    public IEnumerator MouthShut()
+    {
+        yield return new WaitForSeconds(0.25f);
+        mouth.SetActive(false);
     }
 
     public IEnumerator Pull()

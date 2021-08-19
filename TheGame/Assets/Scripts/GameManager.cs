@@ -219,18 +219,8 @@ public class GameManager : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        // Experimental section for changing skybox with sun rotation
-        /*
-        sun.transform.Rotate(Vector3.up * 1f * Time.deltaTime);
-
-        if(sun.transform.eulerAngles.y > 50f)
-        {
-            RenderSettings.skybox = mySkybox;
-            print("Night");
-            mySkybox.Lerp(mySkybox, skyBoxNight, 0.1f * Time.deltaTime);
-        }
-        */
-        if(levelInfo.levelNumber == 0 && logo.activeSelf)
+        RenderSettings.skybox.SetFloat("_Rotation", Time.time*-1f);
+        if (levelInfo.levelNumber == 0 && logo.activeSelf)
         {
             player.GetComponent<PlayerScript>().canMove = false;
             if (Input.GetButton("Jump") || Input.GetButton("Fire1"))

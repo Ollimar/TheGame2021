@@ -96,6 +96,7 @@ public class PlayerScript : MonoBehaviour
 
     // Variables for tongue scanning
     public GameObject[] scanners;
+    public bool[] scannerDetect;
     public GameObject targetPoint;
     public float scannerLength = 100f;
 
@@ -179,6 +180,11 @@ public class PlayerScript : MonoBehaviour
     {
         myAnim.SetFloat("yVelocity",myRB.velocity.y);
         mayJump -= Time.deltaTime;
+
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            SceneManager.LoadScene(18);
+        }
 
         if(mayJump >= 0f)
         {
@@ -497,49 +503,28 @@ public class PlayerScript : MonoBehaviour
 
         
         for(int i=0; i<scanners.Length;i++)
-        {
+        {          
             if (Physics.Raycast(scanners[i].transform.position, scanners[i].transform.forward, out scannerHit, scannerLength))
             {
                 if (scannerHit.transform.tag == "SeaShell" || scannerHit.transform.tag == "Enemy" || scannerHit.transform.tag == "Turnip" || scannerHit.transform.tag == "AttachPoint")
                 {
-                    print(scannerHit.transform.gameObject.name);
+                    scannerDetect[i] = true;
+                    //print(scanners[i]+ "hit" +scannerHit.transform.gameObject.name);
                     targetPoint = scannerHit.transform.gameObject;
                 }
+
                 else
                 {
+                    scannerDetect[i] =false;
                     targetPoint = null;
                 }
             }
         }
-        
 
         /*
-        if ((Physics.Raycast(scanners[0].transform.position, scanners[0].transform.forward, out scannerHit, scannerLength))
-            || (Physics.Raycast(scanners[1].transform.position, scanners[1].transform.forward, out scannerHit, scannerLength))
-            || (Physics.Raycast(scanners[2].transform.position, scanners[2].transform.forward, out scannerHit, scannerLength))
-            || (Physics.Raycast(scanners[3].transform.position, scanners[3].transform.forward, out scannerHit, scannerLength))
-            || (Physics.Raycast(scanners[4].transform.position, scanners[4].transform.forward, out scannerHit, scannerLength))
-            || (Physics.Raycast(scanners[5].transform.position, scanners[5].transform.forward, out scannerHit, scannerLength))
-            || (Physics.Raycast(scanners[6].transform.position, scanners[6].transform.forward, out scannerHit, scannerLength))
-            || (Physics.Raycast(scanners[7].transform.position, scanners[7].transform.forward, out scannerHit, scannerLength))
-            || (Physics.Raycast(scanners[7].transform.position, scanners[8].transform.forward, out scannerHit, scannerLength))
-            || (Physics.Raycast(scanners[7].transform.position, scanners[9].transform.forward, out scannerHit, scannerLength))
-            || (Physics.Raycast(scanners[7].transform.position, scanners[10].transform.forward, out scannerHit, scannerLength))
-            || (Physics.Raycast(scanners[7].transform.position, scanners[11].transform.forward, out scannerHit, scannerLength))
-            || (Physics.Raycast(scanners[7].transform.position, scanners[12].transform.forward, out scannerHit, scannerLength))
-            || (Physics.Raycast(scanners[7].transform.position, scanners[13].transform.forward, out scannerHit, scannerLength))
-            || (Physics.Raycast(scanners[8].transform.position, scanners[14].transform.forward, out scannerHit, scannerLength)))
-
+        if(scannerDetect[0] == false && scannerDetect[1] == false && scannerDetect[2] == false && scannerDetect[3] == false && scannerDetect[4] == false && scannerDetect[5] == false && scannerDetect[6] == false && scannerDetect[7] == false && scannerDetect[8] == false && scannerDetect[9] == false && scannerDetect[10] == false && scannerDetect[11] == false && scannerDetect[12] == false && scannerDetect[13] == false && scannerDetect[14])
         {
-            if (scannerHit.transform.tag == "SeaShell" || scannerHit.transform.tag == "Enemy" || scannerHit.transform.tag == "Turnip" || scannerHit.transform.tag == "AttachPoint")
-            {
-                print(scannerHit.transform.gameObject.name);
-                targetPoint = scannerHit.transform.gameObject;
-            }
-            else
-            {
-                targetPoint = null;
-            }
+            targetPoint = null;
         }
         */
     }
