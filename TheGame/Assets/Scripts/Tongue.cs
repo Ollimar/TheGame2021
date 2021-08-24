@@ -26,6 +26,9 @@ public class Tongue : MonoBehaviour
 
     public bool attached = false;
 
+    public bool carryingBomb = false;
+    public GameObject bomb;
+
     public ParticleSystem eatParticle;
 
     private AudioSource myAudio;
@@ -80,7 +83,7 @@ public class Tongue : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Fire1") && attachedObject == null && !tongueActive)
+        if (Input.GetButtonDown("Fire1") && attachedObject == null && !tongueActive && !carryingBomb)
         {
             if(player.targetPoint != null)
             {
@@ -114,6 +117,19 @@ public class Tongue : MonoBehaviour
                 attachedObject.transform.position = transform.position;
             }
         }
+
+        if(Input.GetButtonDown("Fire1") && carryingBomb)
+        {
+            attachedObject = null;
+            bomb.transform.parent = null;
+            bomb.transform.position = tongueStart.transform.position;
+            bomb.GetComponent<Collider>().isTrigger = false;
+            bomb.GetComponent<Rigidbody>().useGravity = true;
+            bomb.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            bomb.GetComponent<Rigidbody>().AddForce(playerObject.transform.forward * 1000f);
+            carryingBomb = false;
+            bomb = null;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -130,6 +146,19 @@ public class Tongue : MonoBehaviour
                 {
                     other.GetComponent<Animator>().SetBool("EnemyEaten", true);
                 }
+                StartCoroutine("Pull");
+            }
+        }
+
+        if (other.gameObject.tag == "Bomb")
+        {
+            if (tongueActive && attachedObject == null)
+            {
+                bomb = other.gameObject;
+                carryingBomb = true;
+                tonguePosition.transform.position = other.transform.position;
+                attachedObject = other.gameObject;
+                other.gameObject.GetComponent<Collider>().isTrigger = true;
                 StartCoroutine("Pull");
             }
         }
@@ -240,6 +269,10 @@ public class Tongue : MonoBehaviour
                     attachedObject.GetComponent<Enemy>().puff.transform.parent = null;
                     attachedObject.GetComponent<Enemy>().eaten = true;
                     attachedObject = null;
+                }
+                if(attachedObject.tag == "Bomb")
+                {
+                    attachedObject.transform.parent = transform;
                 }
                 else if(attachedObject.tag == "PullObject")
                 {

@@ -40,6 +40,7 @@ TagManager:
   - Pickup
   - Hazard
   - Ice
+  - Bomb
   layers:
   - Default
   - TransparentFX
