@@ -41,6 +41,8 @@ TagManager:
   - Hazard
   - Ice
   - Bomb
+  - BreakableWall
+  - Explosion
   layers:
   - Default
   - TransparentFX

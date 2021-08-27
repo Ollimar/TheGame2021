@@ -123,6 +123,7 @@ public class Tongue : MonoBehaviour
             attachedObject = null;
             bomb.transform.parent = null;
             bomb.transform.position = tongueStart.transform.position;
+            bomb.transform.localScale = new Vector3(2.6852f, 2.6852f, 2.6852f);
             bomb.GetComponent<Collider>().isTrigger = false;
             bomb.GetComponent<Rigidbody>().useGravity = true;
             bomb.GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -273,6 +274,7 @@ public class Tongue : MonoBehaviour
                 if(attachedObject.tag == "Bomb")
                 {
                     attachedObject.transform.parent = transform;
+                    attachedObject.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
                 }
                 else if(attachedObject.tag == "PullObject")
                 {

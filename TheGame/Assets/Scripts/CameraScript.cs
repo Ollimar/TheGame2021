@@ -36,6 +36,8 @@ public class CameraScript : MonoBehaviour
 
     public float                 dofAmount = 13f;
 
+    private Animator             myAnim; 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +46,8 @@ public class CameraScript : MonoBehaviour
         landTarget = GameObject.Find("CameraTarget").transform;
         postProcess = GameObject.Find("PP").GetComponent<PostProcessVolume>();
         postProcess.profile.TryGetSettings(out depthOfField);
+        myAnim = GetComponent<Animator>();
+        myAnim.enabled = false;
         door = GameObject.Find("Door");
         doorCamera = GameObject.Find("Door Camera").GetComponent<Camera>();
         spaceShipTarget = GameObject.Find("SpaceShip").transform;
@@ -129,5 +133,15 @@ public class CameraScript : MonoBehaviour
         doorCamera.depth = -1;
         ReturnCamera();
         GameObject.Find("Player").GetComponent<PlayerScript>().canMove = true;
+    }
+
+    public void StartScreenShake()
+    {
+        myAnim.enabled = true;
+    }
+
+    public void EndScreenShake()
+    {
+        myAnim.enabled = false;
     }
 }

@@ -87,6 +87,8 @@ public class PlayerScript : MonoBehaviour
     public CameraScript cameraScript;
     public GameObject fadeScreen;
 
+    public bool debugCamera = false;
+
     public GameObject seed;
 
     public float rayCheckLength = 0.4f;
@@ -186,7 +188,22 @@ public class PlayerScript : MonoBehaviour
             SceneManager.LoadScene(18);
         }
 
-        if(mayJump >= 0f)
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            debugCamera = !debugCamera;
+            if(debugCamera)
+            {
+                GameObject debugCam = GameObject.Find("Debug Camera");
+                debugCam.GetComponent<Camera>().depth = 5;
+                debugCam.transform.position = new Vector3(transform.position.x,transform.position.y+1f,transform.position.z-5f);
+            }
+            else
+            {
+                GameObject.Find("Debug Camera").GetComponent<Camera>().depth = -5;
+            }
+        }
+
+        if (mayJump >= 0f)
         {
             canJump = true;
         }
@@ -506,7 +523,7 @@ public class PlayerScript : MonoBehaviour
         {          
             if (Physics.Raycast(scanners[i].transform.position, scanners[i].transform.forward, out scannerHit, scannerLength))
             {
-                if (scannerHit.transform.tag == "SeaShell" || scannerHit.transform.tag == "Enemy" || scannerHit.transform.tag == "Turnip" || scannerHit.transform.tag == "AttachPoint")
+                if (scannerHit.transform.tag == "SeaShell" || scannerHit.transform.tag == "Enemy" || scannerHit.transform.tag == "Turnip" || scannerHit.transform.tag == "AttachPoint" || scannerHit.transform.tag == "Bomb")
                 {
                     scannerDetect[i] = true;
                     //print(scanners[i]+ "hit" +scannerHit.transform.gameObject.name);
