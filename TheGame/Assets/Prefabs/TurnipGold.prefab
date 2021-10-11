@@ -4858,7 +4858,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnipNumber: 0
+  correctlevel: 0
   collected: 0
+  childObject: {fileID: 0}
+  goldMaterial: {fileID: 0}
+  glassMaterial: {fileID: 0}
+  goldenTurnipSpots: []
 --- !u!1001 &5643829728475896511
 PrefabInstance:
   m_ObjectHideFlags: 0

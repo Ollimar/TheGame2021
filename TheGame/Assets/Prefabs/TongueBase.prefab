@@ -178,10 +178,13 @@ MonoBehaviour:
   mouth: {fileID: 0}
   tonguePosition: {fileID: 0}
   attachedObject: {fileID: 0}
+  coin: {fileID: 3915827296050125243, guid: a9ca52a213d32bb439872465c3e23f3f, type: 3}
   launchPuff: {fileID: 0}
   tongueSpeed: 10
   lickDuration: 0.5
   attached: 0
+  carryingBomb: 0
+  bomb: {fileID: 0}
   eatParticle: {fileID: 5073452438022918074, guid: 3e126debc6487c4498607ee019e43a3d,
     type: 3}
   pullSound: {fileID: 8300000, guid: a216b643bcb633348b8077e579243488, type: 3}

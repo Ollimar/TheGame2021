@@ -502,24 +502,15 @@ public class PlayerScript : MonoBehaviour
             canJump = false;
         }
 
-        Debug.DrawRay(scanners[0].transform.position, scanners[0].transform.forward* scannerLength, Color.red);
-        Debug.DrawRay(scanners[0].transform.position, scanners[1].transform.forward* scannerLength, Color.red);
-        Debug.DrawRay(scanners[0].transform.position, scanners[2].transform.forward* scannerLength, Color.red);
-        Debug.DrawRay(scanners[0].transform.position, scanners[3].transform.forward* scannerLength, Color.red);
-        Debug.DrawRay(scanners[0].transform.position, scanners[4].transform.forward* scannerLength, Color.red);
-        Debug.DrawRay(scanners[0].transform.position, scanners[5].transform.forward* scannerLength, Color.red);
-        Debug.DrawRay(scanners[0].transform.position, scanners[6].transform.forward* scannerLength, Color.red);
-        Debug.DrawRay(scanners[0].transform.position, scanners[7].transform.forward* scannerLength, Color.red);
-        Debug.DrawRay(scanners[0].transform.position, scanners[8].transform.forward* scannerLength, Color.red);
-        Debug.DrawRay(scanners[0].transform.position, scanners[9].transform.forward* scannerLength, Color.red);
-        Debug.DrawRay(scanners[0].transform.position, scanners[10].transform.forward* scannerLength, Color.red);
-        Debug.DrawRay(scanners[0].transform.position, scanners[11].transform.forward* scannerLength, Color.red);
-        Debug.DrawRay(scanners[0].transform.position, scanners[12].transform.forward* scannerLength, Color.red);
-        Debug.DrawRay(scanners[0].transform.position, scanners[13].transform.forward* scannerLength, Color.red);
-        Debug.DrawRay(scanners[0].transform.position, scanners[14].transform.forward* scannerLength, Color.red);
 
-        
-        for(int i=0; i<scanners.Length;i++)
+
+        for (int i = 0; i < scanners.Length; i++)
+        {
+            Debug.DrawRay(scanners[i].transform.position, scanners[i].transform.forward * scannerLength, Color.red);
+        }
+
+
+        for (int i=0; i<scanners.Length;i++)
         {          
             if (Physics.Raycast(scanners[i].transform.position, scanners[i].transform.forward, out scannerHit, scannerLength))
             {
@@ -539,7 +530,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         /*
-        if(scannerDetect[0] == false && scannerDetect[1] == false && scannerDetect[2] == false && scannerDetect[3] == false && scannerDetect[4] == false && scannerDetect[5] == false && scannerDetect[6] == false && scannerDetect[7] == false && scannerDetect[8] == false && scannerDetect[9] == false && scannerDetect[10] == false && scannerDetect[11] == false && scannerDetect[12] == false && scannerDetect[13] == false && scannerDetect[14])
+        if(scannerDetect[0] == false && scannerDetect[1] == false && scannerDetect[2] == false && scannerDetect[3] == false && scannerDetect[4] == false && scannerDetect[5] == false && scannerDetect[6] == false && scannerDetect[7] == false && scannerDetect[8] == false && scannerDetect[9] == false && scannerDetect[10] == false && scannerDetect[11] == false && scannerDetect[12] == false && scannerDetect[13] == false && scannerDetect[14] == false)
         {
             targetPoint = null;
         }

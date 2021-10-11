@@ -19,6 +19,8 @@ public class Tongue : MonoBehaviour
     public GameObject tonguePosition;
     public GameObject attachedObject;
 
+    public GameObject coin;
+
     public ParticleSystem launchPuff;
 
     public float tongueSpeed = 5f;
@@ -168,6 +170,15 @@ public class Tongue : MonoBehaviour
         {
             if (tongueActive && attachedObject == null)
             {
+                // Instantiate coin from picked object
+                int rnd;
+                rnd = Random.Range(0, 5);
+                if(rnd >= 3)
+                {
+                    GameObject newCoin = Instantiate(coin, new Vector3(other.transform.position.x, other.transform.position.y + 1f, other.transform.position.z), transform.rotation);
+                    newCoin.GetComponent<Rigidbody>().AddForce(Vector3.up * 400f);
+                }
+
                 tonguePosition.transform.position = other.transform.position;
                 attachedObject = other.gameObject;
                 if(other.GetComponent<Rigidbody>())
@@ -287,7 +298,7 @@ public class Tongue : MonoBehaviour
                 }                
             }
             mouth.GetComponent<Animator>().SetBool("Open", false);
-            StartCoroutine("MouthShut");
+            //StartCoroutine("MouthShut");
         }
     }
 

@@ -32,10 +32,11 @@ public class PickUpScript : MonoBehaviour
         {
             gm.coins += 1;
             coinTracker.text = "X " + gm.coins;
-            Instantiate(effect, transform.position, transform.rotation);
+            if(effect != null)
+                Instantiate(effect, transform.position, transform.rotation);
             GetComponent<Renderer>().enabled = false;
             GetComponent<Collider>().enabled = false;
-            if(!myAudio.isPlaying)
+            if(!myAudio.isPlaying && collected !=null)
             {
                 myAudio.PlayOneShot(collected);
             }
@@ -46,6 +47,13 @@ public class PickUpScript : MonoBehaviour
     public IEnumerator TimeToDisappear()
     {
         yield return new WaitForSeconds(1f);
-        Destroy(gameObject);
+        if(transform.parent!=null)
+        {
+            Destroy(transform.parent.gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }
