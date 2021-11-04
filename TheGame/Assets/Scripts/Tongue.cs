@@ -230,6 +230,25 @@ public class Tongue : MonoBehaviour
             }
         }
 
+        if(other.gameObject.tag == "PullStairs")
+        {
+            if (other.gameObject.transform.parent.GetComponent<PullStairs>().canPull)
+            {
+                if (tongueActive && attachedObject == null)
+                {
+                    tonguePosition.transform.position = tongueStart.transform.position;
+                    attachedObject = other.gameObject;
+
+                    if (!player.IsInvoking("Sweat"))
+                    {
+                        player.InvokeRepeating("Sweat", 0.1f, Random.Range(0.4f, 0.6f));
+                    }
+
+                    other.gameObject.transform.parent.GetComponent<PullStairs>().StartCoroutine("StartPull");
+                }
+            }
+        }
+
         if (other.gameObject.tag == "Untagged")
         {
             tonguePosition.transform.position = tongueStart.transform.position;

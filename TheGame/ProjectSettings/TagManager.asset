@@ -43,6 +43,7 @@ TagManager:
   - Bomb
   - BreakableWall
   - Explosion
+  - PullStairs
   layers:
   - Default
   - TransparentFX

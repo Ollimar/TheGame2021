@@ -11,10 +11,9 @@ GameObject:
   - component: {fileID: 9148523346082299657}
   - component: {fileID: 5285482233200996524}
   - component: {fileID: 7979597197279069286}
-  - component: {fileID: 1714772344}
-  - component: {fileID: 1714772343}
   - component: {fileID: 2392221089347904989}
-  m_Layer: 19
+  - component: {fileID: 953075777}
+  m_Layer: 15
   m_Name: Turnip
   m_TagString: Turnip
   m_Icon: {fileID: 0}
@@ -30,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 8484154081846896051}
   m_LocalRotation: {x: 0.0030968452, y: -0.99901193, z: 0.0440402, w: 0.0051136906}
   m_LocalPosition: {x: 0.9400066, y: -19.006567, z: 1.454998}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.19222514, y: 0.19222514, z: 0.19222514}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -82,7 +81,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!54 &1714772344
+--- !u!65 &2392221089347904989
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8484154081846896051}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.363723, y: 2.8732154, z: 2.4438994}
+  m_Center: {x: -0.04323578, y: 0.22780775, z: 0.03311264}
+--- !u!54 &953075777
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -98,29 +110,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!135 &1714772343
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8484154081846896051}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 1.1956183
-  m_Center: {x: 0.001199097, y: -0.013174236, z: 0.0402899}
---- !u!65 &2392221089347904989
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8484154081846896051}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.363723, y: 2.8732154, z: 2.4438994}
-  m_Center: {x: -0.04323578, y: 0.22780775, z: 0.03311264}
