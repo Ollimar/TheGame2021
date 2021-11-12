@@ -44,6 +44,7 @@ TagManager:
   - BreakableWall
   - Explosion
   - PullStairs
+  - TriggerBox
   layers:
   - Default
   - TransparentFX
