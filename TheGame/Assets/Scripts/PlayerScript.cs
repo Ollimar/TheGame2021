@@ -194,12 +194,14 @@ public class PlayerScript : MonoBehaviour
             if(debugCamera)
             {
                 GameObject debugCam = GameObject.Find("Debug Camera");
+                GameObject.Find("Canvas").GetComponent<Canvas>().enabled = false;
                 debugCam.GetComponent<Camera>().depth = 5;
                 debugCam.transform.position = new Vector3(transform.position.x,transform.position.y+1f,transform.position.z-5f);
             }
             else
             {
                 GameObject.Find("Debug Camera").GetComponent<Camera>().depth = -5;
+                GameObject.Find("Canvas").GetComponent<Canvas>().enabled = true;
             }
         }
 

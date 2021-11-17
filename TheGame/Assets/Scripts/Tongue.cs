@@ -85,7 +85,7 @@ public class Tongue : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Fire1") && attachedObject == null && !tongueActive && !carryingBomb)
+        if (Input.GetButtonDown("Fire1") && attachedObject == null && !tongueActive && !carryingBomb && !mouth.activeSelf)
         {
             if(player.targetPoint != null)
             {
@@ -317,7 +317,7 @@ public class Tongue : MonoBehaviour
                 }                
             }
             mouth.GetComponent<Animator>().SetBool("Open", false);
-            //StartCoroutine("MouthShut");
+            mouth.SetActive(false);
         }
     }
 
@@ -325,7 +325,6 @@ public class Tongue : MonoBehaviour
     {
         yield return new WaitForSeconds(lickDuration);
         tonguePosition.transform.position = tongueStart.transform.position;
-        
         tongueActive = false;
     }
 
