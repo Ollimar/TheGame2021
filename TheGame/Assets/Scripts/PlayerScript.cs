@@ -252,7 +252,7 @@ public class PlayerScript : MonoBehaviour
         }
         */
 
-        if(Input.GetButton("Jump"))
+        if(Input.GetButtonDown("Jump"))
         {
             if (canPickSnowball)
             {
@@ -272,7 +272,7 @@ public class PlayerScript : MonoBehaviour
                 myRB.useGravity = true;
                 eyesNeutral.SetActive(true);
                 eyesHappy.SetActive(false);
-                mouth.SetActive(true);
+                //mouth.SetActive(true);
                 cameraScript.ReturnCamera();
                 GameObject.Find("TongueBase").GetComponent<Tongue>().enabled = true;
             }
@@ -594,7 +594,10 @@ public class PlayerScript : MonoBehaviour
                 steps.Stop();
                 eyesNeutral.SetActive(false);
                 eyesHappy.SetActive(true);
-                mouth.SetActive(false);
+                if(!mouth.activeSelf)
+                {
+                    mouth.SetActive(false);
+                }               
                 myAnim.SetBool("GoldCollected", true);
                 
                 cameraScript.DialogueCamera();

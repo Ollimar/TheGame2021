@@ -6426,6 +6426,7 @@ MonoBehaviour:
   cameraPoint: 0
   cameraScript: {fileID: 0}
   fadeScreen: {fileID: 0}
+  debugCamera: 0
   seed: {fileID: 2372837908926096725, guid: 3401ac93e3ad0734182abbe7273fbb40, type: 3}
   rayCheckLength: 0.2
   steps: {fileID: 6166678707337591369}

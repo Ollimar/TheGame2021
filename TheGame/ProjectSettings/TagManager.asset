@@ -45,6 +45,7 @@ TagManager:
   - Explosion
   - PullStairs
   - TriggerBox
+  - PullObjectReturn
   layers:
   - Default
   - TransparentFX
