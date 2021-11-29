@@ -46,6 +46,8 @@ TagManager:
   - PullStairs
   - TriggerBox
   - PullObjectReturn
+  - Damage
+  - LargeDamage
   layers:
   - Default
   - TransparentFX

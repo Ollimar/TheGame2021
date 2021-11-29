@@ -10,6 +10,7 @@ public class PlayerScript : MonoBehaviour
     public bool gameStarted = true;
     public bool paused = false;
     public bool canMove = true;
+    public bool damaged = false;
     public bool dead = false;
     public float speed = 10f;
     public float storedSpeed = 10f;
@@ -123,6 +124,9 @@ public class PlayerScript : MonoBehaviour
 
     // Variables for digging mechanic
     public bool canDig = false;
+
+    //Hitting variables
+    public bool hit = false;
 
     // Variables for UI objects
     public Text coinsCollected;
@@ -455,7 +459,7 @@ public class PlayerScript : MonoBehaviour
         float horSlippery = Input.GetAxis("HorizontalIce");
         float verSlippery = Input.GetAxis("VerticalIce");
 
-        if (canMove)
+        if (canMove && !damaged)
         {
             Move(hor, ver);
         }
@@ -737,6 +741,14 @@ public class PlayerScript : MonoBehaviour
             createFootSteps = true;
         }
 
+        if(other.gameObject.tag == "Damage" || other.gameObject.tag == "LargeDamage" || other.gameObject.tag == "Enemy")
+        {
+            if(!hit)
+            {
+                StartCoroutine("Damage");
+            }           
+        }
+
     }
 
     public void OnCollisionStay(Collision other)
@@ -978,5 +990,24 @@ public class PlayerScript : MonoBehaviour
     public void LaunchEffectStop()
     {
         launchPuff.Stop();
+    }
+
+    public IEnumerator Damage()
+    {
+
+        myAnim.SetBool("isJumping", true);
+        damaged = true;
+        hit = true;
+        canMove = false;
+        canJump = false;
+        myRB.velocity = Vector3.zero;
+        myRB.AddForce(transform.forward * -300f);
+        myRB.AddForce(transform.up * 300f);
+        yield return new WaitForSeconds(1f);
+        canMove = true;
+        canJump = true;
+        hit = false;
+        damaged = false;
+        print("Damage");
     }
 }

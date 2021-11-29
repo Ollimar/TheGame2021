@@ -270,7 +270,7 @@ public class Tongue : MonoBehaviour
             }
         }
 
-        if (other.gameObject.tag == "Untagged")
+        if (other.gameObject.tag == "Untagged" || other.gameObject.tag == "LargeDamage")
         {
             tonguePosition.transform.position = tongueStart.transform.position;
         }
@@ -296,6 +296,37 @@ public class Tongue : MonoBehaviour
             }
         }
 
+        if(other.gameObject.tag == "Damage")
+        {
+            if (tongueActive && attachedObject == null)
+            {
+                other.gameObject.tag = "Turnip";
+                int rnd;
+                rnd = Random.Range(0, 5);
+
+                if (rnd >= 3)
+                {
+                    GameObject newCoin = Instantiate(coin, new Vector3(other.transform.position.x, other.transform.position.y + 1f, other.transform.position.z), transform.rotation);
+                    newCoin.GetComponent<Rigidbody>().AddForce(Vector3.up * 400f);
+                }
+
+                tonguePosition.transform.position = other.transform.position;
+                attachedObject = other.gameObject;
+
+                if (other.GetComponent<Rigidbody>())
+                {
+                    other.GetComponent<Rigidbody>().isKinematic = false;
+                    other.GetComponent<Rigidbody>().useGravity = true;
+                }
+
+                if (other.GetComponent<Collider>())
+                {
+                    other.GetComponent<Collider>().isTrigger = true;
+                }
+                StartCoroutine("Pull");
+            }
+        }
+
         if(other.gameObject.tag == "Player")
         {
             playerObject.GetComponentInChildren<Animator>().SetBool("Eat", false);
@@ -311,22 +342,30 @@ public class Tongue : MonoBehaviour
                 attached = false;
                 tongueActive = false;
                 tonguePosition.transform.position = tongueStart.transform.position;
+
             }
 
             if (attachedObject != null)
             {
                 myAudio.PlayOneShot(swallowSound);
-                if (attachedObject.tag == "Enemy")
+
+                if(attachedObject.tag == "Enemy")
                 {
+                    /*
                     attachedObject.GetComponent<Enemy>().puff.transform.parent = null;
                     attachedObject.GetComponent<Enemy>().eaten = true;
                     attachedObject = null;
+                    */
+                    attachedObject.transform.parent = transform;
+                    attachedObject.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
                 }
+
                 if(attachedObject.tag == "Bomb")
                 {
                     attachedObject.transform.parent = transform;
                     attachedObject.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
                 }
+
                 else if(attachedObject.tag == "PullObject")
                 {
                     return;
