@@ -281,8 +281,12 @@ public class Tongue : MonoBehaviour
             {
                 attached = true;
                 tonguePosition.transform.position = other.gameObject.transform.position;
-            }
 
+                if (other.gameObject.GetComponent<AttachPointScript>())
+                {
+                    other.gameObject.GetComponent<AttachPointScript>().attached = true;
+                }
+            }
         }
 
         if(other.gameObject.tag == "WoodSwallow")
