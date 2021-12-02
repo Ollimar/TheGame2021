@@ -14,6 +14,7 @@ public class AttachPointScript : MonoBehaviour
     public float changeTime = 0.5f;
 
     public bool attached = false;
+    public bool returning = false;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +23,14 @@ public class AttachPointScript : MonoBehaviour
         startPoint = transform.position;
         floatPoint.position = transform.position;
         endPoint = new Vector3(transform.position.x, transform.position.y - 2f, transform.position.z);
+
+        Transform ch = transform.GetChild(0);
         transform.DetachChildren();
+
+        if(transform.parent  != null)
+        {
+            ch.transform.parent = transform.parent;
+        }
     }
 
     // Update is called once per frame
@@ -36,10 +44,21 @@ public class AttachPointScript : MonoBehaviour
             changeTime = 0.5f;
         }
 
+        if(transform.position == floatPoint.position)
+        {
+            returning = false;
+        }
+
         if(attached)
         {
             transform.position = Vector3.Lerp(transform.position, endPoint, dropDelay * Time.deltaTime);
         }
+
+        else if(returning)
+        {
+            transform.position = Vector3.Lerp(transform.position, floatPoint.position, dropDelay * Time.deltaTime);
+        }
+
         else
         {
             transform.position = floatPoint.position;
@@ -50,6 +69,7 @@ public class AttachPointScript : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        returning = true;
         attached = false;
     }
 

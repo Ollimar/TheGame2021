@@ -6367,12 +6367,13 @@ MonoBehaviour:
   gameStarted: 1
   paused: 0
   canMove: 1
+  damaged: 0
   dead: 0
   speed: 7
   storedSpeed: 10
   turnipCarryingVelocity: 0
   snowBallRollVelocity: 0
-  jumpSpeed: 600
+  jumpSpeed: 450
   jumpSqueeze: 0
   isJumping: 0
   turnSmoothing: 20
@@ -6465,6 +6466,7 @@ MonoBehaviour:
   holdingSnowball: 0
   activeSnowball: {fileID: 0}
   canDig: 0
+  hit: 0
   coinsCollected: {fileID: 5319708080246312726}
   turnipsCollected: {fileID: 5680801806123391761}
   failImage: {fileID: 7012861722321075945}
