@@ -110,7 +110,6 @@ public class PlayerScript : MonoBehaviour
     public GameObject activeTurnip;
     public GameObject goldenTurnip;
     public bool sweating = false;
-    public GameObject[] sweatEmitter;
     public GameObject sweat;
 
     // Variables for snowball carrying and throwing
@@ -153,15 +152,12 @@ public class PlayerScript : MonoBehaviour
         pauseMenu.SetActive(false);
         eyesNeutral.SetActive(true);
         eyesHappy.SetActive(false);
+        sweat = GameObject.Find("SweatDrops");
+        sweat.SetActive(false);
         transform.position = startPoint.position;
         transform.eulerAngles = startPoint.eulerAngles;
         myRB = GetComponent<Rigidbody>();
         myAnim = GetComponentInChildren<Animator>();
-        sweatEmitter = GameObject.FindGameObjectsWithTag("SweatDrop");
-        for(int i = 0; i< sweatEmitter.Length; i++)
-        {
-            sweatEmitter[i].SetActive(false);
-        }
         fadeScreen = GameObject.Find("FadeScreen");
         dialogueManager = GameObject.Find("DialogueManager").GetComponent<DialogueManager>();
         cameraScript = Camera.main.GetComponent<CameraScript>();
@@ -359,6 +355,9 @@ public class PlayerScript : MonoBehaviour
 
     }
 
+    // Legace sweating code
+
+    /*
     public void Sweat()
     {
         int r = Random.Range(0, 4);
@@ -367,6 +366,7 @@ public class PlayerScript : MonoBehaviour
             Instantiate(sweat, sweatEmitter[i].transform.position, sweatEmitter[i].transform.rotation);
         }
     }
+    */
 
     public void Move(float hor, float ver)
     {
@@ -1000,14 +1000,17 @@ public class PlayerScript : MonoBehaviour
         hit = true;
         canMove = false;
         canJump = false;
+        sweat.SetActive(true);
         myRB.velocity = Vector3.zero;
         myRB.AddForce(transform.forward * -300f);
         myRB.AddForce(transform.up * 300f);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
+        sweat.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
         canMove = true;
         canJump = true;
         hit = false;
-        damaged = false;
+        damaged = false;       
         print("Damage");
     }
 }

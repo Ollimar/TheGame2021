@@ -19,12 +19,15 @@ public class SweatScript : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        transform.Translate(Vector3.up * speed * Time.deltaTime);
 
-        if(timer > 0.5f)
+        if(timer <= 1f)
         {
-            gameObject.SetActive(false);
+            transform.Translate(Vector3.up * speed * Time.deltaTime);           
         }
-
+        else
+        {
+            transform.parent.position = startPos;
+            timer = 0f;
+        }
     }
 }
