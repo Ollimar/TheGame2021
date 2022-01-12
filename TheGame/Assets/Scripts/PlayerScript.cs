@@ -370,11 +370,13 @@ public class PlayerScript : MonoBehaviour
 
     public void Move(float hor, float ver)
     {
+
         movement.Set(hor, 0f, ver);
         movement = movement.normalized * speed * Time.deltaTime;
 
         if(hor == 0f && ver == 0f)
         {
+
             if(!onIce)
             {
                 myRB.velocity = new Vector3(0f, myRB.velocity.y, 0f);

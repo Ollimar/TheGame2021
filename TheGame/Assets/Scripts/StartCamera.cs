@@ -10,7 +10,7 @@ public class StartCamera : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>();
-        player.canMove = false;
+        player.enabled = false;
     }
 
     // Update is called once per frame
@@ -21,7 +21,7 @@ public class StartCamera : MonoBehaviour
 
     public void CameraReady()
     {
-        player.canMove = true;
+        player.enabled = true;
         player.Fade();
         GetComponent<Camera>().depth = -1;
         gameObject.SetActive(false);
