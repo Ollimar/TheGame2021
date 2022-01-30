@@ -9,12 +9,17 @@ public class ScriptForSpawningCoin : MonoBehaviour
     {
         GetComponent<Collider>().enabled = false;
         StartCoroutine("ReturnCollision");
+        transform.localScale = Vector3.zero;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (transform.localScale.x < 0.8f)
+        {
+            transform.localScale += new Vector3(3f, 3f, 3f) * Time.deltaTime;
+            GetComponent<SphereCollider>().radius = 1f;
+        }
     }
 
     public IEnumerator ReturnCollision()

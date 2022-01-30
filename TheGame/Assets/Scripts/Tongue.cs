@@ -166,10 +166,20 @@ public class Tongue : MonoBehaviour
             }
         }
 
-        if (other.gameObject.tag == "Turnip")
+        if (other.gameObject.tag == "Turnip" || other.gameObject.tag == "SeaShell")
         {
+
             if (tongueActive && attachedObject == null)
             {
+
+                if (other.gameObject.tag == "Turnip")
+                {
+                    other.gameObject.transform.GetChild(0).GetComponent<Animator>().SetTrigger("Pull");
+                    other.gameObject.transform.GetChild(0).position = other.gameObject.transform.position;
+                    other.gameObject.transform.GetChild(0).eulerAngles = new Vector3(playerObject.transform.eulerAngles.x + 90f, playerObject.transform.eulerAngles.y + 90f, playerObject.transform.eulerAngles.z - 90f);
+
+                }
+
                 // Instantiate coin from picked object
                 int rnd;
                 rnd = Random.Range(0, 5);
@@ -273,6 +283,7 @@ public class Tongue : MonoBehaviour
         if (other.gameObject.tag == "Untagged" || other.gameObject.tag == "LargeDamage")
         {
             tonguePosition.transform.position = tongueStart.transform.position;
+            Debug.LogError("Can't eat this");
         }
 
         if(other.gameObject.tag == "AttachPoint")
@@ -352,6 +363,7 @@ public class Tongue : MonoBehaviour
             if (attachedObject != null)
             {
                 myAudio.PlayOneShot(swallowSound);
+                transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
 
                 if(attachedObject.tag == "Enemy")
                 {
@@ -396,6 +408,11 @@ public class Tongue : MonoBehaviour
     {
         yield return new WaitForSeconds(0.25f);
         mouth.SetActive(false);
+    }
+
+    public IEnumerator Pulling()
+    {
+        yield return new WaitForSeconds(1f);
     }
 
     public IEnumerator Pull()

@@ -38,6 +38,11 @@ public class BombScript : MonoBehaviour
         {
             camera.SendMessage("StartScreenShake");
         }
+
+        if(dist<7)
+        {
+            player.GetComponent<PlayerScript>().StartCoroutine("Damage");
+        }
         tongue.carryingBomb = false;
         tongue.bomb = null;
         Destroy(gameObject);

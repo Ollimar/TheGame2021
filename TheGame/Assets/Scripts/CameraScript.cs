@@ -30,6 +30,8 @@ public class CameraScript : MonoBehaviour
 
     public GameObject door;
 
+    public ScreenShakeScript screenShake;
+
     // PostProcessEffects
     public PostProcessVolume     postProcess;
     public DepthOfField          depthOfField;
@@ -46,13 +48,12 @@ public class CameraScript : MonoBehaviour
         landTarget = GameObject.Find("CameraTarget").transform;
         postProcess = GameObject.Find("PP").GetComponent<PostProcessVolume>();
         postProcess.profile.TryGetSettings(out depthOfField);
-        myAnim = GetComponent<Animator>();
-        myAnim.enabled = false;
         door = GameObject.Find("Door");
         doorCamera = GameObject.Find("Door Camera").GetComponent<Camera>();
         spaceShipTarget = GameObject.Find("SpaceShip").transform;
         player.gameStarted = false;
         ReturnCamera();
+        screenShake = GetComponent<ScreenShakeScript>();
     }
 
     // Update is called once per frame
@@ -137,11 +138,7 @@ public class CameraScript : MonoBehaviour
 
     public void StartScreenShake()
     {
-        myAnim.enabled = true;
+        StartCoroutine(screenShake.ScreenShake(0.5f, 1f));
     }
 
-    public void EndScreenShake()
-    {
-        myAnim.enabled = false;
-    }
 }
