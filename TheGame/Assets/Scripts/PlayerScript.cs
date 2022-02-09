@@ -522,7 +522,7 @@ public class PlayerScript : MonoBehaviour
         {          
             if (Physics.Raycast(scanners[i].transform.position, scanners[i].transform.forward, out scannerHit, scannerLength))
             {
-                if (scannerHit.transform.tag == "SeaShell" || scannerHit.transform.tag == "Enemy" || scannerHit.transform.tag == "Turnip" || scannerHit.transform.tag == "AttachPoint" || scannerHit.transform.tag == "Bomb")
+                if (scannerHit.transform.tag == "SeaShell" || scannerHit.transform.tag == "Enemy" || scannerHit.transform.tag == "Turnip" || scannerHit.transform.tag == "AttachPoint" || scannerHit.transform.tag == "Bomb" || scannerHit.transform.tag == "Damage")
                 {
                     scannerDetect[i] = true;
                     //print(scanners[i]+ "hit" +scannerHit.transform.gameObject.name);
@@ -532,9 +532,16 @@ public class PlayerScript : MonoBehaviour
                 else
                 {
                     scannerDetect[i] =false;
-                    targetPoint = null;
+                    //targetPoint = null;
                 }
             }
+
+            if (scannerDetect[0] == false && scannerDetect[1] == false && scannerDetect[2] == false && scannerDetect[3] == false && scannerDetect[4] == false && scannerDetect[5] == false && scannerDetect[6] == false && scannerDetect[7] == false && scannerDetect[8] == false && scannerDetect[9] == false && scannerDetect[10] == false && scannerDetect[11] == false && scannerDetect[12] == false && scannerDetect[13] == false && scannerDetect[14] == false)
+            {
+                targetPoint = null;
+            }
+            
+
         }
 
         /*

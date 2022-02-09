@@ -8,10 +8,13 @@ public class CloudMovementScript : MonoBehaviour
     public float limit = 638f;
     public float startPos = -446f;
 
+    private Camera mainCamera;
+
     // Start is called before the first frame update
     void Start()
     {
         startPos = transform.position.x;
+        mainCamera = Camera.main;
     }
 
     // Update is called once per frame
@@ -21,7 +24,7 @@ public class CloudMovementScript : MonoBehaviour
 
         if(transform.position.x > limit)
         {
-            transform.position = new Vector3(startPos, transform.position.y, transform.position.z);
+            transform.position = new Vector3(mainCamera.transform.position.x-100f, transform.position.y, transform.position.z);
         }
     }
 }

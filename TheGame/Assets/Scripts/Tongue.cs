@@ -90,6 +90,8 @@ public class Tongue : MonoBehaviour
             if(player.targetPoint != null)
             {
                 playerObject.transform.LookAt(player.targetPoint.transform);
+                Vector3 myRotation = playerObject.transform.eulerAngles;
+                playerObject.transform.eulerAngles = new Vector3(0f, playerObject.transform.eulerAngles.y, 0f);
             }
             myAudio.pitch = Random.Range(0.9f,1.1f); 
             myAudio.PlayOneShot(tongueSound);
@@ -363,7 +365,7 @@ public class Tongue : MonoBehaviour
             if (attachedObject != null)
             {
                 myAudio.PlayOneShot(swallowSound);
-                transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y, 0f);
+                playerObject.transform.eulerAngles = new Vector3(0f, playerObject.transform.eulerAngles.y, 0f);
 
                 if(attachedObject.tag == "Enemy")
                 {
