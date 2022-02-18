@@ -540,8 +540,11 @@ public class PlayerScript : MonoBehaviour
             {
                 targetPoint = null;
             }
-            
 
+            if (!Physics.Raycast(scanners[i].transform.position, scanners[i].transform.forward, out scannerHit, scannerLength))
+            {
+                scannerDetect[i] = false;
+            }
         }
 
         /*
