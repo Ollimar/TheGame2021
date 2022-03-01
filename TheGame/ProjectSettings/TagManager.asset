@@ -48,6 +48,7 @@ TagManager:
   - PullObjectReturn
   - Damage
   - LargeDamage
+  - Bouncy
   layers:
   - Default
   - TransparentFX

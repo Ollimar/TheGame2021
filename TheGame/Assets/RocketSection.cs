@@ -17,7 +17,7 @@ public class RocketSection : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        if (playerOn && transform.position.z < 580f)
+        if (playerOn && transform.position.z < 610.55)
         {
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }

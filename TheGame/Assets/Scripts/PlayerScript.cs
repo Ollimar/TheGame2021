@@ -522,7 +522,7 @@ public class PlayerScript : MonoBehaviour
         {          
             if (Physics.Raycast(scanners[i].transform.position, scanners[i].transform.forward, out scannerHit, scannerLength))
             {
-                if (scannerHit.transform.tag == "SeaShell" || scannerHit.transform.tag == "Enemy" || scannerHit.transform.tag == "Turnip" || scannerHit.transform.tag == "AttachPoint" || scannerHit.transform.tag == "Bomb" || scannerHit.transform.tag == "Damage")
+                if (scannerHit.transform.tag == "SeaShell" || scannerHit.transform.tag == "Enemy" || scannerHit.transform.tag == "Turnip" || scannerHit.transform.tag == "AttachPoint" || scannerHit.transform.tag == "Bomb" || scannerHit.transform.tag == "Damage" || scannerHit.transform.tag == "PullObjectReturn")
                 {
                     scannerDetect[i] = true;
                     //print(scanners[i]+ "hit" +scannerHit.transform.gameObject.name);
@@ -736,6 +736,17 @@ public class PlayerScript : MonoBehaviour
 
     public void OnCollisionEnter(Collision other)
     {
+
+        if(other.gameObject.tag == "Bouncy")
+        {           
+            myRB.velocity = Vector3.zero;
+            myRB.AddForce(Vector3.up * 750f);
+            isJumping = true;
+            myAnim.SetBool("isJumping", true);
+            other.gameObject.GetComponent<Animator>().SetTrigger("Bounce");
+            other.gameObject.GetComponent<AudioSource>().Play();
+        }
+
         if(other.gameObject.tag == "Ice")
         {
             onIce = true;
