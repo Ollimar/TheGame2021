@@ -61,6 +61,7 @@ public class PlayerScript : MonoBehaviour
     public GameObject eyesNeutral;
     public GameObject eyesHappy;
     public GameObject mouth;
+    public bool       waving = false;
 
     // UI variables
     public GameObject launchButton;
@@ -98,6 +99,7 @@ public class PlayerScript : MonoBehaviour
     public ParticleSystem launchPuff;
 
     // Variables for tongue scanning
+    public Tongue tongue;
     public GameObject[] scanners;
     public bool[] scannerDetect;
     public GameObject targetPoint;
@@ -135,11 +137,19 @@ public class PlayerScript : MonoBehaviour
     // Variable for gamemanager that is persistent throughout the game
     private GameManager gm;
 
+    void Awake()
+    {
+        tongue = GameObject.Find("TongueBase").GetComponent<Tongue>();
+        mouth = GameObject.Find("MouthOpenAnimated1");
+        tongue.mouth = mouth;
+        tongue.mouth.GetComponent<Animator>().enabled = false;
+        tongue.mouth.SetActive(false);
+    }
+
     void Start()
     {
         myAudio = GetComponent<AudioSource>();
         failImage.SetActive(false);
-        mouth = GameObject.Find("MouthOpenAnimated");
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         coinsCollected.text = "X " + gm.coins.ToString();
         turnipsCollected.text = "X " + gm.goldenTurnips.ToString();
@@ -274,7 +284,7 @@ public class PlayerScript : MonoBehaviour
                 eyesHappy.SetActive(false);
                 //mouth.SetActive(true);
                 cameraScript.ReturnCamera();
-                GameObject.Find("TongueBase").GetComponent<Tongue>().enabled = true;
+                tongue.enabled = true;
             }
         }
 
@@ -297,7 +307,7 @@ public class PlayerScript : MonoBehaviour
             canMove = false;
         }
 
-        if(Input.GetButtonDown("Fire2"))
+        if(Input.GetButtonDown("Fire2") && canJump)
         {
             StartCoroutine("Wave");
         }
@@ -610,10 +620,11 @@ public class PlayerScript : MonoBehaviour
                 steps.Stop();
                 eyesNeutral.SetActive(false);
                 eyesHappy.SetActive(true);
-                if(!mouth.activeSelf)
+
                 {
                     mouth.SetActive(false);
                 }               
+
                 myAnim.SetBool("GoldCollected", true);
                 
                 cameraScript.DialogueCamera();
@@ -977,6 +988,8 @@ public class PlayerScript : MonoBehaviour
     public IEnumerator Wave()
     {
         canMove = false;
+        waving = true;
+        myRB.velocity = Vector3.zero;
         eyesNeutral.SetActive(false);
         eyesHappy.SetActive(true);
         storedRotation = transform.eulerAngles;
@@ -987,6 +1000,7 @@ public class PlayerScript : MonoBehaviour
         eyesHappy.SetActive(false);
         yield return new WaitForSeconds(0.3f);
         canMove = true;
+        waving = false;
     }
 
     public void FootStepL()

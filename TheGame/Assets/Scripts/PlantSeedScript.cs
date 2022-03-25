@@ -11,6 +11,8 @@ public class PlantSeedScript : MonoBehaviour
 
     private Collider myCollider;
 
+    public bool growing = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,19 +31,22 @@ public class PlantSeedScript : MonoBehaviour
             myCollider.enabled = true;
         }
 
-        if(transform.childCount == 0)
+        if(transform.childCount == 0 && !growing)
         {
-            Grow();
+            StartCoroutine("Grow");
         }
     }
 
-    public void Grow()
+    public IEnumerator Grow()
     {
+        growing = true;
+        yield return new WaitForSeconds(1f);
         GameObject newPlant = Instantiate(plants[0], transform.position, transform.rotation);
         newPlant.transform.parent = transform;
         newPlant.transform.localScale = new Vector3(0f, 0f, 0f);
         activePlant = newPlant;
         myCollider = newPlant.GetComponent<Collider>();
         myCollider.enabled = false;
+        growing = false;
     }
 }

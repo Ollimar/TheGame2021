@@ -36,7 +36,7 @@ public class BombScript : MonoBehaviour
         float dist = Vector3.Distance(transform.position, player.transform.position);
         if(dist < 25f)
         {
-            camera.SendMessage("StartScreenShake");
+            //camera.SendMessage("StartScreenShake");
         }
 
         if(dist<7)

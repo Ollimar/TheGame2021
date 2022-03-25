@@ -6375,6 +6375,7 @@ MonoBehaviour:
   eyesNeutral: {fileID: 7910113035548383053}
   eyesHappy: {fileID: 6437077962097714956}
   mouth: {fileID: 0}
+  waving: 0
   launchButton: {fileID: 0}
   gasTankInfo: {fileID: 0}
   SnowBallRollPrompt: {fileID: 0}
@@ -8304,7 +8305,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 85a3a870debc3ee419b9406b503162fa,
         type: 3}
       propertyPath: m_Name
-      value: MouthOpenAnimated
+      value: MouthOpenAnimated1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 85a3a870debc3ee419b9406b503162fa,
         type: 3}

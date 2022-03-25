@@ -54,7 +54,6 @@ public class SpaceShipScript : MonoBehaviour
     private AudioSource myAudio;
     public  AudioClip   rocketSound;
 
-    // Start is called before the first frame update
     void Start()
     {
         myAudio             = GetComponent<AudioSource>();
@@ -66,10 +65,11 @@ public class SpaceShipScript : MonoBehaviour
         myAnim.enabled      = false;
         landButton.SetActive(false);
         launchParticles.Stop();
-        spaceShipStaminaImage.transform.parent.gameObject.SetActive(false);
-        fadeScreen          = GameObject.Find("FadeScreen");
+        
+        //fadeScreen          = GameObject.Find("FadeScreen");
         boosterSky          = gm.boosterSky;
         boosterSpace        = gm.boosterSpace;
+        //spaceShipStaminaImage.transform.parent.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -146,7 +146,7 @@ public class SpaceShipScript : MonoBehaviour
         if (canMove)
         {
             stamina -= Time.deltaTime* staminaMultiplier;
-            spaceShipStaminaImage.fillAmount = stamina/10;
+            //spaceShipStaminaImage.fillAmount = stamina/10;
         }
 
         if(stamina <= 0)
@@ -225,7 +225,7 @@ public class SpaceShipScript : MonoBehaviour
 
     public void Stop()
     {
-        spaceShipStaminaImage.transform.parent.gameObject.SetActive(true);
+        //spaceShipStaminaImage.transform.parent.gameObject.SetActive(true);
         activate = false;
         canMove = true;
         canLaunch = false;
@@ -311,7 +311,7 @@ public class SpaceShipScript : MonoBehaviour
     public IEnumerator ChangeLevel(int levelNumber)
     {
         canMove = false;
-        fadeScreen.GetComponent<Animator>().SetTrigger("ChangeLevel");
+        //fadeScreen.GetComponent<Animator>().SetTrigger("ChangeLevel");
         yield return new WaitForSeconds(1);
         gm.previousLevel = gm.levelInfo.levelNumber;
         SceneManager.LoadScene(levelNumber);

@@ -9,8 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: StylizedWater_Desktop
   m_Shader: {fileID: 4800000, guid: 4bcc0b68579a5c740ad31644411ffb54, type: 3}
-  m_ShaderKeywords: _SECONDARYFOAMALWAYSVISIBLE_ON _SECONDARY_WAVES_ON _USEINTERSECTIONFOAM_ON
-    _WORLDSPACETILING_ON
+  m_ShaderKeywords: _ENABLEDEPTHTEXTURE_ON _SECONDARYFOAMALWAYSVISIBLE_ON _SECONDARY_WAVES_ON
+    _UNLIT_ON _USEINTERSECTIONFOAM_ON _WORLDSPACETILING_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -63,19 +63,20 @@ Material:
     m_Floats:
     - _ChromaticAberration: 0.3
     - _Cutoff: 0.5
-    - _Depth: 8
+    - _Depth: 9.2
     - _Depthdarkness: 0
     - _ENABLE_GRADIENT: 0
     - _ENABLE_SHADOWS: 0
     - _ENABLE_VC: 0
-    - _EdgeFade: 2.67
-    - _FoamDistortion: 0.82
-    - _FoamOpacity: 0.32
+    - _EdgeFade: 2.23
+    - _EnableDepthTexture: 1
+    - _FoamDistortion: 0.68
+    - _FoamOpacity: 0.31
     - _FoamSize: 0
-    - _FoamSpeed: 0.2
-    - _FoamTiling: 2
+    - _FoamSpeed: 0.132
+    - _FoamTiling: 1.5
     - _Fresnelexponent: 2.37
-    - _Glossiness: 0.17
+    - _Glossiness: 0.27
     - _Gradient: 0
     - _HighlightPanning: 0
     - _IntersectionDistortion: 0.1
@@ -86,8 +87,8 @@ Material:
     - _MaskClipValue: 0.5
     - _Metallicness: 0.1
     - _NORMAL_MAP: 0
-    - _NormalStrength: 0.28
-    - _NormalTiling: 0.4
+    - _NormalStrength: 0.359
+    - _NormalTiling: 2
     - _Pixelate: 0
     - _Pixelize: 0
     - _RT_REFRACTION: 0
@@ -95,7 +96,7 @@ Material:
     - _ReflectionFresnel: 2.43
     - _ReflectionRefraction: 0.014
     - _ReflectionStrength: 0
-    - _RefractionAmount: 0.061
+    - _RefractionAmount: 0.056
     - _RimDistance: 1.91
     - _RimDistortion: 0.24
     - _RimSize: 2.3
@@ -110,12 +111,12 @@ Material:
     - _TessPhongStrength: 0.5
     - _Tessellation: 20
     - _Tiling: 2.9489994
-    - _Transparency: 0.97
+    - _Transparency: 0.916
     - _USE_VC_INTERSECTION: 0
-    - _Unlit: 0
+    - _Unlit: 1
     - _UseIntersectionFoam: 1
     - _UseIntersectionHighlight: 1
-    - _WaveFoam: 0.27
+    - _WaveFoam: 0.274
     - _WaveHeight: 0
     - _WaveSize: 0.1
     - _Wavefoam: 1
@@ -127,6 +128,6 @@ Material:
     m_Colors:
     - _FresnelColor: {r: 0.13563336, g: 0.637597, b: 1, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 0.453}
-    - _WaterColor: {r: 0, g: 0.5886526, b: 1, a: 0}
+    - _WaterColor: {r: 0.011747932, g: 0.68348473, b: 0.8301887, a: 0}
     - _WaterShallowColor: {r: 0.4190787, g: 1, b: 0.8798174, a: 1}
     - _WaveDirection: {r: 0.04, g: 0, b: 0, a: 0}

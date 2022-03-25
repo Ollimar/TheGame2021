@@ -40,12 +40,9 @@ public class Tongue : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         myAudio = GetComponent<AudioSource>();
-        mouth = GameObject.Find("MouthOpenAnimated");
-        mouth.GetComponent<Animator>().enabled = false;
-        mouth.SetActive(false);
         tongueStart = GameObject.Find("TongueStart");
         tongueEnd = GameObject.Find("TongueMaximum");
         tonguePosition = GameObject.Find("TonguePosition");
@@ -85,7 +82,7 @@ public class Tongue : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Fire1") && attachedObject == null && !tongueActive && !carryingBomb && !mouth.activeSelf)
+        if (Input.GetButtonDown("Fire1") && attachedObject == null && !tongueActive && !carryingBomb && !mouth.activeSelf && !player.waving)
         {
             if(player.targetPoint != null)
             {
