@@ -295,6 +295,8 @@ public class Tongue : MonoBehaviour
                 if (other.gameObject.GetComponent<AttachPointScript>())
                 {
                     other.gameObject.GetComponent<AttachPointScript>().attached = true;
+                    other.gameObject.GetComponent<AttachPointScript>().wingAnim.SetTrigger("Fall");
+                    other.gameObject.GetComponent<AttachPointScript>().wingAnim2.SetTrigger("Fall");
                 }
             }
         }

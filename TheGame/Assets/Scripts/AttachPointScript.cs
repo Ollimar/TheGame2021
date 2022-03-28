@@ -55,6 +55,8 @@ public class AttachPointScript : MonoBehaviour
         if(transform.position.y >= floatPoint.position.y-0.1f)
         {
             returning = false;
+            wingAnim.SetTrigger("Rise");
+            wingAnim2.SetTrigger("Rise");
         }
 
         if(attached)
@@ -66,11 +68,6 @@ public class AttachPointScript : MonoBehaviour
             eyes[1].gameObject.SetActive(false);
             eyesShut[0].gameObject.SetActive(true);
             eyesShut[1].gameObject.SetActive(true);
-            if (wingAnim.GetCurrentAnimatorStateInfo(0).IsName("Take 001"))
-            {
-                wingAnim.SetTrigger("Fall");
-                wingAnim2.SetTrigger("Fall");
-            }
         }
 
         else if(returning)

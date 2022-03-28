@@ -10,7 +10,6 @@ public class PlayerScript : MonoBehaviour
     public bool gameStarted = true;
     public bool paused = false;
     public bool canMove = true;
-    public bool damaged = false;
     public bool dead = false;
     public float speed = 10f;
     public float storedSpeed = 10f;
@@ -49,6 +48,11 @@ public class PlayerScript : MonoBehaviour
 
     // Time delay for coyote jump
     public float mayJump = 0.5f;
+
+    //Damage variables
+    public bool damaged = false;
+    public GameObject damageCoin;
+    public Transform[] coinSpawners;
 
     // Variables for footsteps
     public bool createFootSteps;
@@ -193,6 +197,8 @@ public class PlayerScript : MonoBehaviour
         myAnim.SetFloat("yVelocity",myRB.velocity.y);
         mayJump -= Time.deltaTime;
 
+
+        //Debug actions. DELETE BEFORE SHIPPING!///////////////
         if(Input.GetKeyDown(KeyCode.F))
         {
             SceneManager.LoadScene(18);
@@ -201,12 +207,12 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G))
         {
             debugCamera = !debugCamera;
-            if(debugCamera)
+            if (debugCamera)
             {
                 GameObject debugCam = GameObject.Find("Debug Camera");
                 GameObject.Find("Canvas").GetComponent<Canvas>().enabled = false;
                 debugCam.GetComponent<Camera>().depth = 5;
-                debugCam.transform.position = new Vector3(transform.position.x,transform.position.y+1f,transform.position.z-5f);
+                debugCam.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z - 5f);
             }
             else
             {
@@ -214,6 +220,8 @@ public class PlayerScript : MonoBehaviour
                 GameObject.Find("Canvas").GetComponent<Canvas>().enabled = true;
             }
         }
+
+        ////////////////////////////////////////////////////////////
 
         if (mayJump >= 0f)
         {
@@ -793,7 +801,6 @@ public class PlayerScript : MonoBehaviour
             GetComponent<Rigidbody>().useGravity = false;
             transform.parent = other.transform;
         }
-
     }
 
     public void OnCollisionExit(Collision other)
@@ -1033,6 +1040,7 @@ public class PlayerScript : MonoBehaviour
     {
 
         myAnim.SetBool("isJumping", true);
+        gm.coins -= 3;
         damaged = true;
         hit = true;
         canMove = false;
@@ -1041,6 +1049,11 @@ public class PlayerScript : MonoBehaviour
         myRB.velocity = Vector3.zero;
         myRB.AddForce(transform.forward * -300f);
         myRB.AddForce(transform.up * 300f);
+        for (int i = 0; i < coinSpawners.Length; i++)
+        {
+            GameObject dCoin = Instantiate(damageCoin, coinSpawners[i].position, coinSpawners[i].rotation);
+            dCoin.GetComponent<Rigidbody>().AddForce(coinSpawners[i].up * 500f);
+        }
         yield return new WaitForSeconds(0.5f);
         sweat.SetActive(false);
         yield return new WaitForSeconds(0.5f);

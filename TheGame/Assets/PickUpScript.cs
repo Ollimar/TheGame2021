@@ -30,7 +30,10 @@ public class PickUpScript : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            gm.coins += 1;
+            if(gm.coins != null)
+            {
+                gm.coins += 1;
+            }
             coinTracker.text = "X " + gm.coins;
             if(effect != null)
                 Instantiate(effect, transform.position, transform.rotation);
