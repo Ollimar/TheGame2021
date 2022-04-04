@@ -34,7 +34,16 @@ public class PickUpScript : MonoBehaviour
             {
                 gm.coins += 1;
             }
-            coinTracker.text = "X " + gm.coins;
+
+            if(gm.coins >= 0)
+            {
+                coinTracker.text = "X " + gm.coins;
+            }
+            else
+            {
+                coinTracker.text = "X " + 0;
+            }
+
             if(effect != null)
                 Instantiate(effect, transform.position, transform.rotation);
             GetComponent<Renderer>().enabled = false;

@@ -51,8 +51,13 @@ public class PlayerScript : MonoBehaviour
 
     //Damage variables
     public bool damaged = false;
-    public GameObject damageCoin;
+    public GameObject[] damageCoin;
     public Transform[] coinSpawners;
+    public GameObject damageCoin1;
+    public GameObject damageCoin2;
+    public GameObject damageCoin3;
+    public float damageTimer = 5f;
+    public int damageCount = 3;
 
     // Variables for footsteps
     public bool createFootSteps;
@@ -671,7 +676,7 @@ public class PlayerScript : MonoBehaviour
                     gm.goldenTurnipsForest += 1;
                 }
 
-                if (gm.levelInfo.levelNumber == 6)
+                if (gm.levelInfo.levelNumber == 13)
                 {
                     gm.goldenTurnipsMoon += 1;
                 }
@@ -790,7 +795,6 @@ public class PlayerScript : MonoBehaviour
                 StartCoroutine("Damage");
             }           
         }
-
     }
 
     public void OnCollisionStay(Collision other)
@@ -1038,9 +1042,12 @@ public class PlayerScript : MonoBehaviour
 
     public IEnumerator Damage()
     {
-
         myAnim.SetBool("isJumping", true);
-        gm.coins -= 3;
+        if(gm.coins >=3)
+        {
+            gm.coins -= 3;
+            coinsCollected.text = "X " + gm.coins.ToString();
+        }
         damaged = true;
         hit = true;
         canMove = false;
@@ -1049,11 +1056,49 @@ public class PlayerScript : MonoBehaviour
         myRB.velocity = Vector3.zero;
         myRB.AddForce(transform.forward * -300f);
         myRB.AddForce(transform.up * 300f);
-        for (int i = 0; i < coinSpawners.Length; i++)
+
+        if (damageCoin1 == null && damageCoin2 == null && damageCoin3 == null)
         {
-            GameObject dCoin = Instantiate(damageCoin, coinSpawners[i].position, coinSpawners[i].rotation);
-            dCoin.GetComponent<Rigidbody>().AddForce(coinSpawners[i].up * 500f);
+            for (int i = 0; i < coinSpawners.Length; i++)
+            {
+                GameObject dCoin = Instantiate(damageCoin[i], coinSpawners[i].position, coinSpawners[i].rotation);
+                dCoin.GetComponent<Rigidbody>().AddForce(coinSpawners[i].up * 500f);
+                if(i==0)
+                {
+                    damageCoin1 = dCoin;
+                }
+
+                if (i == 1)
+                {
+                    damageCoin2 = dCoin;
+                }
+
+                if (i == 2)
+                {
+                    damageCoin3 = dCoin;
+                }
+            }
         }
+
+        else
+        {
+            damageCoin1.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            damageCoin1.transform.position = coinSpawners[0].position;
+            damageCoin1.transform.eulerAngles = new Vector3(0f, 0f, 0f);
+            damageCoin1.GetComponent<Rigidbody>().AddForce(coinSpawners[0].up * 500f);
+
+            damageCoin2.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            damageCoin2.transform.position = coinSpawners[1].position;
+            damageCoin2.transform.eulerAngles = new Vector3(0f, 0f, 0f);
+            damageCoin2.GetComponent<Rigidbody>().AddForce(coinSpawners[1].up * 500f);
+
+            damageCoin3.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            damageCoin3.transform.position = coinSpawners[2].position;
+            damageCoin3.transform.eulerAngles = new Vector3(0f, 0f, 0f);
+            damageCoin3.GetComponent<Rigidbody>().AddForce(coinSpawners[2].up * 500f);
+        }
+
+
         yield return new WaitForSeconds(0.5f);
         sweat.SetActive(false);
         yield return new WaitForSeconds(0.5f);

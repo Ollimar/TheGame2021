@@ -165,7 +165,7 @@ public class Tongue : MonoBehaviour
             }
         }
 
-        if (other.gameObject.tag == "Turnip" || other.gameObject.tag == "SeaShell")
+        if (other.gameObject.tag == "Turnip" || other.gameObject.tag == "SeaShell" || other.gameObject.tag == "Fruit")
         {
 
             if (tongueActive && attachedObject == null)
@@ -176,7 +176,11 @@ public class Tongue : MonoBehaviour
                     other.gameObject.transform.GetChild(0).GetComponent<Animator>().SetTrigger("Pull");
                     other.gameObject.transform.GetChild(0).position = other.gameObject.transform.position;
                     other.gameObject.transform.GetChild(0).eulerAngles = new Vector3(playerObject.transform.eulerAngles.x + 90f, playerObject.transform.eulerAngles.y + 90f, playerObject.transform.eulerAngles.z - 90f);
+                }
 
+                if(other.gameObject.tag == "Fruit")
+                {
+                    other.gameObject.GetComponent<CapsuleCollider>().height = 1f;
                 }
 
                 // Instantiate coin from picked object

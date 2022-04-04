@@ -50,6 +50,7 @@ TagManager:
   - LargeDamage
   - Bouncy
   - Bumper
+  - Fruit
   layers:
   - Default
   - TransparentFX
