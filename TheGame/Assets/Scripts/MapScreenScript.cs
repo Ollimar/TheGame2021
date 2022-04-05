@@ -21,11 +21,13 @@ public class MapScreenScript : MonoBehaviour
         for (int i=0; i<levels.Length; i++)
         {
             levels[i].SetActive(false);
+            levels[i].transform.GetChild(0).gameObject.SetActive(false);
         }
 
         for(int i = 0; i < gm.levelUnlocked.Length; i++)
         {
             levelUnlocked[i] = gm.levelUnlocked[i];
+            levels[i].transform.GetChild(0).gameObject.SetActive(true);
         }
 
         levels[0].SetActive(true);
@@ -33,9 +35,9 @@ public class MapScreenScript : MonoBehaviour
         if(gm.goldenTurnips >= 1)
         {
             levels[1].SetActive(true);
-            levels[1].GetComponentInChildren<Renderer>().enabled = false;
             if(!levelUnlocked[1])
             {
+                levels[1].transform.GetChild(0).gameObject.SetActive(false);
                 StartCoroutine(ShowNewLevel(1));
             }
 
@@ -44,10 +46,9 @@ public class MapScreenScript : MonoBehaviour
         if (gm.goldenTurnips >= 6)
         {
             levels[2].SetActive(true);
-            levels[2].GetComponentInChildren<Renderer>().enabled = false;
-
             if (!levelUnlocked[2])
             {
+                levels[2].transform.GetChild(0).gameObject.SetActive(false);
                 StartCoroutine(ShowNewLevel(2));
             }
         }
@@ -55,10 +56,9 @@ public class MapScreenScript : MonoBehaviour
         if (gm.goldenTurnips >= 10)
         {
             levels[3].SetActive(true);
-            levels[3].GetComponentInChildren<Renderer>().enabled = false;
-
             if (!levelUnlocked[3])
             {
+                levels[3].transform.GetChild(0).gameObject.SetActive(false);
                 StartCoroutine(ShowNewLevel(3));
             }
         }
@@ -66,10 +66,9 @@ public class MapScreenScript : MonoBehaviour
         if (gm.goldenTurnips >= 15)
         {
             levels[4].SetActive(true);
-            levels[4].GetComponentInChildren<Renderer>().enabled = false;
-
             if (!levelUnlocked[4])
             {
+                levels[4].transform.GetChild(0).gameObject.SetActive(false);
                 StartCoroutine(ShowNewLevel(4));
             }
         }
@@ -77,10 +76,9 @@ public class MapScreenScript : MonoBehaviour
         if (gm.goldenTurnips >= 22)
         {
             levels[5].SetActive(true);
-            levels[5].GetComponentInChildren<Renderer>().enabled = false;
-
             if (!levelUnlocked[5])
             {
+                levels[5].transform.GetChild(0).gameObject.SetActive(false);
                 StartCoroutine(ShowNewLevel(5));
             }
         }
@@ -102,7 +100,7 @@ public class MapScreenScript : MonoBehaviour
         mapMovement.newLevelUnlocked = true;
         yield return new WaitForSeconds(1f);
         Instantiate(newLevelEffect, levels[levelNumber].transform.position, levels[levelNumber].transform.rotation);
-        levels[1].GetComponentInChildren<Renderer>().enabled = true;
+        levels[levelNumber].transform.GetChild(0).gameObject.SetActive(true);
         yield return new WaitForSeconds(3f);
         mapMovement.zoomToLevel = false;
         mapMovement.newLevelUnlocked = false;

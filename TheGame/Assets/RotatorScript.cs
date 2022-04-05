@@ -8,8 +8,9 @@ public class RotatorScript : MonoBehaviour
 
     public bool canMove = true;
 
-    public float speed = 5f;
-    public float turnSmoothing = 5f;
+    public float speed = 10f;
+    public bool boosting = false;
+    public float speedSmoothing = 1f;
 
     float smooth = 5.0f;
     float tiltAngle = 60.0f;
@@ -80,7 +81,28 @@ public class RotatorScript : MonoBehaviour
 
         if(canMove)
         {
-            transform.Rotate((new Vector3(10f * hor, 0.0f, 10.0f * ver) * Time.deltaTime), Space.Self);
+            transform.Rotate((new Vector3(speed * hor, 0.0f, speed * ver) * Time.deltaTime), Space.Self);
+        }
+
+        if(Input.GetButton("Jump"))
+        {
+            boosting = true;
+            canMove = false;
+            if(speed < 25)
+            {
+                speed = Mathf.Lerp(speed, 25f, speedSmoothing);
+            }
+        }
+
+        if(Input.GetButtonUp("Jump"))
+        {
+            boosting = false;
+            canMove = true;
+        }
+
+        if(!boosting && speed > 10f)
+        {
+            speed = Mathf.Lerp(speed, 10f, speedSmoothing);
         }
 
         if (ver !=0f || hor !=0f)
