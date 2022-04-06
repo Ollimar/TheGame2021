@@ -9,6 +9,7 @@ public class LanderAreaScript : MonoBehaviour
     public Transform cameraTarget;
     public Transform spaceShipPosition;
     public int levelNumber;
+    public Transform diorama;
 
     // Start is called before the first frame update
     void Start()

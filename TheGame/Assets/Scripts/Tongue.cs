@@ -188,7 +188,16 @@ public class Tongue : MonoBehaviour
                 rnd = Random.Range(0, 5);
                 if(rnd >= 3)
                 {
-                    GameObject newCoin = Instantiate(coin, new Vector3(other.transform.position.x, other.transform.position.y + 1f, other.transform.position.z), transform.rotation);
+                    Vector3 offset;
+                    if (other.gameObject.tag == "Fruit")
+                    {
+                        offset = new Vector3(0f, 1f, -2f);
+                    }
+                    else
+                    {
+                        offset = new Vector3(0f, 1f, 0f);
+                    }
+                    GameObject newCoin = Instantiate(coin, new Vector3(other.transform.position.x+offset.x, other.transform.position.y + offset.y, other.transform.position.z + offset.z), transform.rotation);
                     newCoin.GetComponent<Rigidbody>().AddForce(Vector3.up * 400f);
                 }
 
@@ -343,6 +352,7 @@ public class Tongue : MonoBehaviour
                 {
                     other.GetComponent<Collider>().isTrigger = true;
                 }
+
                 StartCoroutine("Pull");
             }
         }
@@ -353,6 +363,7 @@ public class Tongue : MonoBehaviour
             player.canMove = true;
             gameObject.GetComponentInChildren<Renderer>().enabled = false;
             tongueStretch.GetComponent<Renderer>().enabled = false;
+
             if (attached)
             {
                 launchPuff.Stop();
@@ -362,11 +373,11 @@ public class Tongue : MonoBehaviour
                 attached = false;
                 tongueActive = false;
                 tonguePosition.transform.position = tongueStart.transform.position;
-
             }
 
             if (attachedObject != null)
             {
+                player.swallow = true;
                 myAudio.PlayOneShot(swallowSound);
                 playerObject.transform.eulerAngles = new Vector3(0f, playerObject.transform.eulerAngles.y, 0f);
 

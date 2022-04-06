@@ -10,6 +10,7 @@ public class MapMovement : MonoBehaviour
 {
     public bool canMove = true;
     public bool canEnterLevel = true;
+    bool selectedLevel = false; 
 
     // rotation of the object when level starts
     private Vector3 objectRotation;
@@ -88,7 +89,9 @@ public class MapMovement : MonoBehaviour
             rocket.transform.rotation = playerPos.transform.rotation;
             depthOfField.focusDistance.value = 7f;
             depthOfField.focalLength.value = 48.51f;
-            if(!newLevelUnlocked)
+            //playerPos.GetComponent<LanderAreaScript>().diorama.eulerAngles = playerPos.GetComponent<LanderAreaScript>().diorama.GetComponent<SpinningObject>().originalRotation;
+
+            if (!newLevelUnlocked)
             {
                 landOrLeave.SetActive(true);
                 landOrLeave.GetComponentInChildren<Text>().text = levelName.ToString();
@@ -148,8 +151,6 @@ public class MapMovement : MonoBehaviour
                 }
             }
 
-
-
             StartCoroutine("Zoomed");
         }
 
@@ -161,7 +162,11 @@ public class MapMovement : MonoBehaviour
 
         if (zoomed && Input.GetButtonDown("Jump") && canEnterLevel && landOrLeave.activeSelf)
         {
-            myAudio.PlayOneShot(levelSelected);
+            if(!selectedLevel)
+            {
+                myAudio.PlayOneShot(levelSelected);
+                selectedLevel = true;
+            }
             StartCoroutine("NewLevel");
         }
 
@@ -182,8 +187,7 @@ public class MapMovement : MonoBehaviour
             levelName = other.gameObject.GetComponent<LanderAreaScript>().planetName;
             levelToLoad = other.gameObject.GetComponent<LanderAreaScript>().levelNumber;
             cameraTarget = other.gameObject.GetComponent<LanderAreaScript>().cameraTarget;
-            playerPos = other.gameObject.GetComponent<LanderAreaScript>().spaceShipPosition;
-            
+            playerPos = other.gameObject.GetComponent<LanderAreaScript>().spaceShipPosition;           
         }
 
         if(other.gameObject.tag == "WorldMapPickUp")

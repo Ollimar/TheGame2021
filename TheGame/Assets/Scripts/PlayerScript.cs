@@ -122,6 +122,7 @@ public class PlayerScript : MonoBehaviour
     public GameObject goldenTurnip;
     public bool sweating = false;
     public GameObject sweat;
+    public bool swallow = false;
 
     // Variables for snowball carrying and throwing
     public Transform snowBallPosition;
@@ -201,7 +202,6 @@ public class PlayerScript : MonoBehaviour
     {
         myAnim.SetFloat("yVelocity",myRB.velocity.y);
         mayJump -= Time.deltaTime;
-
 
         //Debug actions. DELETE BEFORE SHIPPING!///////////////
         if(Input.GetKeyDown(KeyCode.F))
@@ -328,10 +328,13 @@ public class PlayerScript : MonoBehaviour
         if(jumpSqueeze)
         {
             transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(2f, 1f, 2f), 7f * Time.deltaTime);
-            if (!myAudio.isPlaying)
-            {
-                myAudio.PlayOneShot(landingSound);
-            }
+
+        }
+
+        if(swallow)
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1.8f, 1.8f, 1.8f), 13f * Time.deltaTime);
+            
         }
 
         if(transform.localScale.y <= 1.1f)
@@ -339,7 +342,12 @@ public class PlayerScript : MonoBehaviour
             jumpSqueeze = false;
         }
 
-        if (!jumpSqueeze && transform.localScale.y != 1.5f)
+        if (transform.localScale.y >=1.75f)
+        {
+            swallow = false;
+        }
+
+        if (!jumpSqueeze && !swallow && transform.localScale.y != 1.5f)
         {
             transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1.5f, 1.5f, 1.5f), 10f * Time.deltaTime);
         }
@@ -375,6 +383,7 @@ public class PlayerScript : MonoBehaviour
         {
             Time.timeScale = 1.0f;
         }
+
 
     }
 
@@ -428,7 +437,10 @@ public class PlayerScript : MonoBehaviour
             {
                 steps.Play();
             }
-            Rotating(hor, ver);
+            if(canMove)
+            {
+                Rotating(hor, ver);
+            }
             myAnim.SetBool("isRunning", true);
 
             if(activeSnowball != null)
@@ -514,6 +526,10 @@ public class PlayerScript : MonoBehaviour
                 {
                     jumpSqueeze = true;
                     Instantiate(stepPuff, new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.rotation);
+                    if (!myAudio.isPlaying)
+                    {
+                        myAudio.PlayOneShot(landingSound);
+                    }
                 }
             }
 
@@ -545,7 +561,7 @@ public class PlayerScript : MonoBehaviour
         {          
             if (Physics.Raycast(scanners[i].transform.position, scanners[i].transform.forward, out scannerHit, scannerLength))
             {
-                if (scannerHit.transform.tag == "SeaShell" || scannerHit.transform.tag == "Enemy" || scannerHit.transform.tag == "Turnip" || scannerHit.transform.tag == "AttachPoint" || scannerHit.transform.tag == "Bomb" || scannerHit.transform.tag == "Damage" || scannerHit.transform.tag == "PullObjectReturn")
+                if (scannerHit.transform.tag == "SeaShell" || scannerHit.transform.tag == "Enemy" || scannerHit.transform.tag == "Turnip" || scannerHit.transform.tag == "AttachPoint" || scannerHit.transform.tag == "Bomb" || scannerHit.transform.tag == "Damage" || scannerHit.transform.tag == "PullObjectReturn" || scannerHit.transform.tag == "Fruit")
                 {
                     scannerDetect[i] = true;
                     //print(scanners[i]+ "hit" +scannerHit.transform.gameObject.name);
