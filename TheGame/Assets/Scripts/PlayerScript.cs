@@ -247,34 +247,6 @@ public class PlayerScript : MonoBehaviour
             myRB.AddForce(Vector3.up * jumpSpeed);
         }
 
-        /*
-        if(Input.GetButtonDown("Fire1"))
-        {
-            if(canPickTurnip && !holdingTurnip)
-            {
-                myAnim.SetBool("Pick", true);
-                speed = 0f;
-                canMove = false;
-                StartCoroutine("PullTurnip");
-            }
-
-            else if(holdingTurnip)
-            {
-
-                speed = 0f;
-                canMove = false;
-                activeTurnip.transform.parent = null;
-                activeTurnip.AddComponent<CapsuleCollider>();
-                activeTurnip.AddComponent<Rigidbody>();
-                activeTurnip.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
-                holdingTurnip = false;
-                canPickTurnip = true;
-                //myRB.velocity = Vector3.zero;
-                StartCoroutine("ThrowTurnip");
-            }
-        }
-        */
-
         if(Input.GetButtonDown("Jump"))
         {
             if (canPickSnowball)
@@ -384,7 +356,6 @@ public class PlayerScript : MonoBehaviour
             Time.timeScale = 1.0f;
         }
 
-
     }
 
     // Legace sweating code
@@ -421,8 +392,7 @@ public class PlayerScript : MonoBehaviour
             Vector3 playerStopPoint;
             playerStopPoint = transform.position;
 
-
-           cameraFollow.position = Vector3.Lerp(cameraFollow.position, playerStopPoint, 1f * Time.deltaTime);
+            cameraFollow.position = Vector3.Lerp(cameraFollow.position, playerStopPoint, 1f * Time.deltaTime);
 
         }
 
@@ -503,7 +473,7 @@ public class PlayerScript : MonoBehaviour
 
         if(myRB.velocity.y < -0.1f && isJumping)
         {
-            isJumping = false;
+            isJumping = false;           
         }
 
         cameraTarget.position = new Vector3(cameraFollow.position.x, cameraPoint, cameraFollow.position.z);
@@ -533,13 +503,6 @@ public class PlayerScript : MonoBehaviour
                 }
             }
 
-            /*
-            if(hit.transform.tag == "SandCube" && Input.GetButtonDown("Fire1"))
-            {
-                print("OnSand");
-                hit.transform.gameObject.SetActive(false);
-            }
-            */
             canJump = true;
             
         }
@@ -776,6 +739,10 @@ public class PlayerScript : MonoBehaviour
 
     public void OnCollisionEnter(Collision other)
     {
+        if(!canJump)
+        {
+            other.gameObject.GetComponent<Collider>().material = slipperyPhysics;
+        }
 
         if(other.gameObject.tag == "Bouncy")
         {           
@@ -811,6 +778,11 @@ public class PlayerScript : MonoBehaviour
                 StartCoroutine("Damage");
             }           
         }
+
+        if(other.gameObject.tag != "MovingPlatform")
+        {
+            transform.parent = null;
+        }
     }
 
     public void OnCollisionStay(Collision other)
@@ -825,6 +797,7 @@ public class PlayerScript : MonoBehaviour
 
     public void OnCollisionExit(Collision other)
     {
+        other.gameObject.GetComponent<Collider>().material = null;
         if (other.gameObject.tag == "Sand")
         {
             createFootSteps = false;
@@ -905,6 +878,8 @@ public class PlayerScript : MonoBehaviour
 
     }
 
+    // Coroutines
+
     public IEnumerator PullTurnip()
     {
         yield return new WaitForSeconds(1.1f);
@@ -929,6 +904,13 @@ public class PlayerScript : MonoBehaviour
         myAnim.SetBool("Pick", false);
     }
 
+    public IEnumerator WaitForBridge()
+    {
+        
+        yield return new WaitForSeconds(3f);
+        canMove = true;
+    }
+
     public IEnumerator ChangeLevel(int levelNumber)
     {
         canMove = false;
@@ -948,25 +930,6 @@ public class PlayerScript : MonoBehaviour
         yield return new WaitForSeconds(1);
         canMove = true;
     }
-
-
-    // Old. Check if it can be deleted
-
-    /*
-    public IEnumerator GoToBed()
-    {
-        canMove = false;
-        myAnim.SetBool("isRunning", false);
-        curtains[0].GetComponent<Animator>().SetTrigger("CurtainClose");
-        curtains[1].GetComponent<Animator>().SetTrigger("CurtainClose");
-        windowLight.enabled = false;
-        lightDust.SetActive(false);
-        yield return new WaitForSeconds(1f);
-        fadeScreen.GetComponent<Animator>().SetTrigger("ChangeLevel");
-        yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene("Test2D");
-    }
-    */
 
     public IEnumerator StartFlight()
     {

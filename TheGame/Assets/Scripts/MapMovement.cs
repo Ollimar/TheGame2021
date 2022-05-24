@@ -162,12 +162,13 @@ public class MapMovement : MonoBehaviour
 
         if (zoomed && Input.GetButtonDown("Jump") && canEnterLevel && landOrLeave.activeSelf)
         {
-            if(!selectedLevel)
+            StartCoroutine("NewLevel");
+            if (!selectedLevel)
             {
                 myAudio.PlayOneShot(levelSelected);
                 selectedLevel = true;
             }
-            StartCoroutine("NewLevel");
+            
         }
 
         if (!zoomToLevel)

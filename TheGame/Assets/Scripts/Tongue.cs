@@ -289,7 +289,7 @@ public class Tongue : MonoBehaviour
 
                     other.gameObject.transform.parent.GetComponent<PullStairs>().StartCoroutine("StartPull");
                 }
-            }
+            }           
         }
 
         if (other.gameObject.tag == "Untagged" || other.gameObject.tag == "LargeDamage")

@@ -24,7 +24,7 @@ public class MapScreenScript : MonoBehaviour
             levels[i].transform.GetChild(0).gameObject.SetActive(false);
         }
 
-        for(int i = 0; i < gm.levelUnlocked.Length; i++)
+        for (int i = 0; i < gm.levelUnlocked.Length; i++)
         {
             levelUnlocked[i] = gm.levelUnlocked[i];
             levels[i].transform.GetChild(0).gameObject.SetActive(true);
@@ -40,7 +40,6 @@ public class MapScreenScript : MonoBehaviour
                 levels[1].transform.GetChild(0).gameObject.SetActive(false);
                 StartCoroutine(ShowNewLevel(1));
             }
-
         }
 
         if (gm.goldenTurnips >= 6)
@@ -106,5 +105,11 @@ public class MapScreenScript : MonoBehaviour
         mapMovement.newLevelUnlocked = false;
         gm.levelUnlocked[levelNumber] = true;
         mapMovement.canEnterLevel = true;
+
+        for (int i = 0; i < gm.levelUnlocked.Length; i++)
+        {
+            levelUnlocked[i] = gm.levelUnlocked[i];
+            levels[i].transform.GetChild(0).gameObject.SetActive(true);
+        }
     }
 }
