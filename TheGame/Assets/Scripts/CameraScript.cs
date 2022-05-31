@@ -109,6 +109,7 @@ public class CameraScript : MonoBehaviour
 
     public void ReturnCamera()
     {
+        doorCamera.GetComponent<Camera>().enabled = false;
         cameraDistance = 12f;
         cameraHeight = 14f;
         cameraRotation = 50f;

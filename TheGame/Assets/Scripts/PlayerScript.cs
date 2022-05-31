@@ -98,6 +98,7 @@ public class PlayerScript : MonoBehaviour
     public CameraScript cameraScript;
     public GameObject fadeScreen;
 
+    GameObject debugCam;
     public bool debugCamera = false;
 
     public GameObject seed;
@@ -168,6 +169,8 @@ public class PlayerScript : MonoBehaviour
         cameraTarget = GameObject.Find("CameraTarget").transform;
         cameraFollow = GameObject.Find("CameraFollow").transform;
         cameraMaximum = GameObject.Find("CameraMaximum").transform;
+        debugCam = GameObject.Find("Debug Camera");
+        debugCam.GetComponent<Camera>().enabled = false;
         launchPuff.Stop();
         pauseMenu.SetActive(false);
         eyesNeutral.SetActive(true);
@@ -213,9 +216,10 @@ public class PlayerScript : MonoBehaviour
         {
             debugCamera = !debugCamera;
             if (debugCamera)
-            {
-                GameObject debugCam = GameObject.Find("Debug Camera");
+            {   
+                //GameObject debugCam = GameObject.Find("Debug Camera");
                 GameObject.Find("Canvas").GetComponent<Canvas>().enabled = false;
+                debugCam.GetComponent<Camera>().enabled = true;
                 debugCam.GetComponent<Camera>().depth = 5;
                 debugCam.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z - 5f);
             }
@@ -223,6 +227,7 @@ public class PlayerScript : MonoBehaviour
             {
                 GameObject.Find("Debug Camera").GetComponent<Camera>().depth = -5;
                 GameObject.Find("Canvas").GetComponent<Canvas>().enabled = true;
+                debugCam.GetComponent<Camera>().enabled = false;
             }
         }
 

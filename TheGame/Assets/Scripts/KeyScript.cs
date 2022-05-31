@@ -15,11 +15,13 @@ public class KeyScript : MonoBehaviour
     {
         player      = GameObject.Find("Player").GetComponent<PlayerScript>();
         cameraScript = Camera.main.GetComponent<CameraScript>();
+        cameraScript.doorCamera = doorCamera;
+        doorCamera.GetComponent<Camera>().enabled = false;
     }
 
     public void Open()
     {
-        cameraScript.doorCamera = doorCamera;
+        doorCamera.GetComponent<Camera>().enabled = true;
         player.canMove = false;
         Camera.main.depth = -1;
         doorCamera.depth = 0;
