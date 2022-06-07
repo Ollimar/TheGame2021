@@ -22,7 +22,6 @@ public class PlayerScript : MonoBehaviour
     public bool canJump = false;
     public bool inRocketArea = false;       // boolean to disable jumping in the rocket area
     public bool canFly = false;
-    public bool canGoToBed = false;
     public float coolDownTime = 0f;
 
     public Transform startPoint;
@@ -78,13 +77,6 @@ public class PlayerScript : MonoBehaviour
     public GameObject SnowBallRollPrompt;
     public GameObject goldenTurnipCollected;
     public GameObject pauseMenu;
-
-
-    // Bedtime variables
-    public GameObject toBedPrompt;
-    public Transform[] curtains;
-    public Light windowLight;
-    public GameObject lightDust;
 
     public Vector3 movement;
     public Rigidbody myRB;
@@ -289,12 +281,6 @@ public class PlayerScript : MonoBehaviour
         {
             launchButton.SetActive(false);
             StartCoroutine("StartFlight");
-        }
-
-        if(Input.GetButtonDown("Fire1") && canGoToBed)
-        {
-            StartCoroutine("GoToBed");
-            canMove = false;
         }
 
         if(Input.GetButtonDown("Fire2") && canJump)
@@ -734,12 +720,6 @@ public class PlayerScript : MonoBehaviour
             Destroy(other.gameObject);
         }
 
-        if (other.gameObject.name == "ToBed")
-        {
-            toBedPrompt.SetActive(true);
-            canGoToBed = true;
-        }
-
     }
 
     public void OnCollisionEnter(Collision other)
@@ -868,12 +848,6 @@ public class PlayerScript : MonoBehaviour
             launchButton.SetActive(false);
             canFly = false;
             canJump = true;
-        }
-
-        if (other.gameObject.name == "ToBed")
-        {
-            toBedPrompt.SetActive(false);
-            canGoToBed = false;
         }
 
         if (other.gameObject.tag == "DialogueTrigger")

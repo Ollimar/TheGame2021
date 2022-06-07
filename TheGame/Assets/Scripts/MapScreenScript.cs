@@ -13,6 +13,7 @@ public class MapScreenScript : MonoBehaviour
     public GameObject newLevelEffect;
 
     // Start is called before the first frame update
+
     void Start()
     {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -29,7 +30,7 @@ public class MapScreenScript : MonoBehaviour
             levelUnlocked[i] = gm.levelUnlocked[i];
             levels[i].transform.GetChild(0).gameObject.SetActive(true);
         }
-
+        
         levels[0].SetActive(true);
 
         if(gm.goldenTurnips >= 1)
@@ -83,11 +84,6 @@ public class MapScreenScript : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public IEnumerator ShowNewLevel(int levelNumber)
     {

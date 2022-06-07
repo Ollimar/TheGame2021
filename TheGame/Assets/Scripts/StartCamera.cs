@@ -13,7 +13,7 @@ public class StartCamera : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>();
         player.enabled = false;
-
+        //Camera.main.GetComponent<Camera>().enabled = false;
         subCameras = GameObject.FindGameObjectsWithTag("SubCamera");
     }
 
@@ -27,11 +27,17 @@ public class StartCamera : MonoBehaviour
     {
         player.enabled = true;
         player.Fade();
-        GetComponent<Camera>().depth = -1;
-        gameObject.SetActive(false);
+        //Camera.main.GetComponent<Camera>().enabled = false;
+        GetComponent<Camera>().enabled = false;       
         for(int i=0; i<subCameras.Length; i++)
         {
             subCameras[i].SetActive(false);
         }
+        gameObject.SetActive(false);
+    }
+
+    public IEnumerator cameraDelay()
+    {
+        yield return new WaitForSeconds(0.1f);
     }
 }
