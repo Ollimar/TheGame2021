@@ -5,39 +5,65 @@ using UnityEngine;
 public class StartCamera : MonoBehaviour
 {
     public PlayerScript player;
+    public TongueScript tongue;
 
-    public GameObject[] subCameras;
+    public Camera main;
+    public GameObject[] cameras;
+    public float[] cameraDurations;
 
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>();
-        player.enabled = false;
-        //Camera.main.GetComponent<Camera>().enabled = false;
-        subCameras = GameObject.FindGameObjectsWithTag("SubCamera");
+        main = Camera.main;
+        main.enabled = false;
+        cameras[0].GetComponent<Camera>().enabled = true;
+        cameras[1].GetComponent<Camera>().enabled = false;
+        cameras[1].GetComponent<Animator>().enabled = false;
+        cameras[2].GetComponent<Camera>().enabled = false;
+        cameras[2].GetComponent<Animator>().enabled = false;
+        StartCoroutine("CameraSwitcher");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Camera2()
     {
-        
+        cameras[0].GetComponent<Camera>().enabled = false;
+        cameras[1].GetComponent<Camera>().enabled = true;
+        cameras[1].GetComponent<Animator>().enabled = true;
+        cameras[2].GetComponent<Camera>().enabled = false;
     }
 
-    public void CameraReady()
+    public void Camera3()
     {
-        player.enabled = true;
-        player.Fade();
-        //Camera.main.GetComponent<Camera>().enabled = false;
-        GetComponent<Camera>().enabled = false;       
-        for(int i=0; i<subCameras.Length; i++)
+        cameras[0].GetComponent<Camera>().enabled = false;
+        cameras[1].GetComponent<Camera>().enabled = false;
+        cameras[2].GetComponent<Camera>().enabled = true;
+        cameras[2].GetComponent<Animator>().enabled = true;
+    }
+
+    public void GameOn()
+    {
+        for (int i = 0; i < cameras.Length; i++)
         {
-            subCameras[i].SetActive(false);
+            cameras[i].SetActive(false);
         }
-        gameObject.SetActive(false);
+        main.enabled = true;
+        player.enabled = true;
+        //tongue.enabled = true;
+        player.Fade();
     }
 
-    public IEnumerator cameraDelay()
+    public IEnumerator CameraSwitcher()
     {
         yield return new WaitForSeconds(0.1f);
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>();
+        tongue = GameObject.Find("TongueBase").GetComponent<TongueScript>();
+        player.enabled = false;
+        //tongue.enabled = false;
+        yield return new WaitForSeconds(cameraDurations[0]);
+        Camera2();
+        yield return new WaitForSeconds(cameraDurations[1]);
+        Camera3();
+        yield return new WaitForSeconds(cameraDurations[2]);
+        GameOn();
     }
 }

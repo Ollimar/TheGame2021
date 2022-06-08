@@ -52,6 +52,7 @@ TagManager:
   - Bumper
   - Fruit
   - SubCamera
+  - Empty
   layers:
   - Default
   - TransparentFX

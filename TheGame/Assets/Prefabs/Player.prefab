@@ -6371,14 +6371,13 @@ MonoBehaviour:
   storedSpeed: 10
   turnipCarryingVelocity: 0
   snowBallRollVelocity: 0
-  jumpSpeed: 450
+  jumpSpeed: 425
   jumpSqueeze: 0
   isJumping: 0
   turnSmoothing: 20
   canJump: 0
   inRocketArea: 0
   canFly: 0
-  canGoToBed: 0
   coolDownTime: 0
   startPoint: {fileID: 0}
   spawnPoint: {fileID: 0}
@@ -6428,10 +6427,6 @@ MonoBehaviour:
   SnowBallRollPrompt: {fileID: 0}
   goldenTurnipCollected: {fileID: 0}
   pauseMenu: {fileID: 0}
-  toBedPrompt: {fileID: 0}
-  curtains: []
-  windowLight: {fileID: 0}
-  lightDust: {fileID: 0}
   movement: {x: 0, y: 0, z: 0}
   myRB: {fileID: 0}
   cameraTarget: {fileID: 0}
