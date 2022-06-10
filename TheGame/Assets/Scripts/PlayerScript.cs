@@ -187,6 +187,7 @@ public class PlayerScript : MonoBehaviour
         snowBallRollVelocity = speed * 0.6f;
         turnipCarryingVelocity = speed * 0.5f;
         storedSpeed = speed;
+        steps.Stop();
         SnowBallRollPrompt.SetActive(false);
         //footL = GameObject.Find("FootStepL").transform;
         //footR = GameObject.Find("FootStepR").transform;

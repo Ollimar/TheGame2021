@@ -6,6 +6,8 @@ public class StartCamera : MonoBehaviour
 {
     public PlayerScript player;
     public TongueScript tongue;
+    public GameObject coinTracker;
+    public GameObject turnipTracker;
 
     public Camera main;
     public GameObject[] cameras;
@@ -16,6 +18,10 @@ public class StartCamera : MonoBehaviour
     {
         main = Camera.main;
         main.enabled = false;
+        coinTracker = GameObject.Find("CoinTracker");
+        turnipTracker = GameObject.Find("TurnipTracker");
+        coinTracker.SetActive(false);
+        turnipTracker.SetActive(false);
         cameras[0].GetComponent<Camera>().enabled = true;
         cameras[1].GetComponent<Camera>().enabled = false;
         cameras[1].GetComponent<Animator>().enabled = false;
@@ -64,6 +70,8 @@ public class StartCamera : MonoBehaviour
         yield return new WaitForSeconds(cameraDurations[1]);
         Camera3();
         yield return new WaitForSeconds(cameraDurations[2]);
+        coinTracker.SetActive(true);
+        turnipTracker.SetActive(true);
         GameOn();
     }
 }
