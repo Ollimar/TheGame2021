@@ -162,7 +162,10 @@ public class PlayerScript : MonoBehaviour
         cameraFollow = GameObject.Find("CameraFollow").transform;
         cameraMaximum = GameObject.Find("CameraMaximum").transform;
         debugCam = GameObject.Find("Debug Camera");
-        debugCam.GetComponent<Camera>().enabled = false;
+        if(debugCam != null)
+        {
+            debugCam.GetComponent<Camera>().enabled = false;
+        }
         launchPuff.Stop();
         pauseMenu.SetActive(false);
         eyesNeutral.SetActive(true);
@@ -710,10 +713,6 @@ public class PlayerScript : MonoBehaviour
             GameObject.Find("SpaceShip").GetComponent<SpaceShipScript>().stage2 = true;
         }
 
-        if(other.gameObject.tag == "SkyBooster")
-        {
-            gm.SkyActivated();
-        }
 
         if(other.gameObject.tag == "Key")
         {
@@ -913,8 +912,8 @@ public class PlayerScript : MonoBehaviour
 
     public IEnumerator StartFlight()
     {
-        canMove = false;
-       
+        GameObject.Find("LevelInfo").GetComponent<LevelInfo>().LevelBeaten();
+        canMove = false;       
         eyesNeutral.SetActive(false);
         eyesHappy.SetActive(true);
         transform.eulerAngles = new Vector3(0f, -180f, 0f);

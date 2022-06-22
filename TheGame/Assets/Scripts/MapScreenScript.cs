@@ -53,7 +53,7 @@ public class MapScreenScript : MonoBehaviour
             }
         }
 
-        if (gm.goldenTurnips >= 10)
+        if (gm.goldenTurnips >= 10 && levelUnlocked[2])
         {
             levels[3].SetActive(true);
             if (!levelUnlocked[3])
@@ -63,7 +63,7 @@ public class MapScreenScript : MonoBehaviour
             }
         }
 
-        if (gm.goldenTurnips >= 15)
+        if (gm.goldenTurnips >= 15 && levelUnlocked[3])
         {
             levels[4].SetActive(true);
             if (!levelUnlocked[4])
@@ -73,7 +73,7 @@ public class MapScreenScript : MonoBehaviour
             }
         }
 
-        if (gm.goldenTurnips >= 22)
+        if (gm.goldenTurnips >= 22 && levelUnlocked[4])
         {
             levels[5].SetActive(true);
             if (!levelUnlocked[5])

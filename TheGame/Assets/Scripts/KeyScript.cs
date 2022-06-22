@@ -5,7 +5,9 @@ using UnityEngine;
 public class KeyScript : MonoBehaviour
 {
 
-    public GameObject door;
+    public GameObject door;   
+    public TipuToRescue tipuToRescue;
+    public Rigidbody cageBottom;
     public Camera doorCamera;
 
     private PlayerScript player;
@@ -25,7 +27,13 @@ public class KeyScript : MonoBehaviour
         player.canMove = false;
         Camera.main.depth = -1;
         doorCamera.depth = 0;
-        door.GetComponent<Animator>().enabled = true;
+        if(cageBottom != null)
+        {
+            cageBottom.useGravity = true;
+            cageBottom.isKinematic = false;
+        }
+        tipuToRescue.Rescued();
+        door.GetComponent<CageHolderScript>().enabled = true;
         cameraScript.StartCoroutine("DoorToPlayer");
     }
 }

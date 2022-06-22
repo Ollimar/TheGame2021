@@ -16,10 +16,6 @@ public class GameManager : MonoBehaviour
     public int previousLevel;
     public bool[] levelUnlocked;
 
-    // Variables for allowing player to travel between different heights
-    public bool boosterSky              = false;
-    public bool boosterSpace            = false;
-
     public int coins;
     public Text CoinTracker;
 
@@ -35,6 +31,13 @@ public class GameManager : MonoBehaviour
     public int goldenTurnipsForest;
     public int goldenTurnipsMoon;
     public int goldenTurnipsIce;
+
+    public bool level1Beaten;
+    public bool level2Beaten;
+    public bool level3Beaten;
+    public bool level4Beaten;
+    public bool level5Beaten;
+    public bool level6Beaten;
 
     public float timer;
     public float changeTimer;
@@ -289,12 +292,6 @@ public class GameManager : MonoBehaviour
         missions[mission] = true;
         int nPc = npc[mission].GetComponentInChildren<NPCScript>().npcNumber;
         npc[nPc].GetComponentInChildren<NPCScript>().missionComplete = true;
-    }
-
-    public void SkyActivated()
-    {
-        boosterSky = true;
-        spaceShip.GetComponent<SpaceShipScript>().boosterSky = true;
     }
 
     public void GoldenTurnipCollected()

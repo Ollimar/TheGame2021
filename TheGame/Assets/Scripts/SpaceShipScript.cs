@@ -67,8 +67,6 @@ public class SpaceShipScript : MonoBehaviour
         launchParticles.Stop();
         
         //fadeScreen          = GameObject.Find("FadeScreen");
-        boosterSky          = gm.boosterSky;
-        boosterSpace        = gm.boosterSpace;
         //spaceShipStaminaImage.transform.parent.gameObject.SetActive(false);
     }
 
