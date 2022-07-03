@@ -53,6 +53,7 @@ TagManager:
   - Fruit
   - SubCamera
   - Empty
+  - TrainPumber
   layers:
   - Default
   - TransparentFX
