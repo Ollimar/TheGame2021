@@ -46,6 +46,7 @@ public class CameraScript : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>();
         target = GameObject.Find("CameraTarget").transform;
         landTarget = GameObject.Find("CameraTarget").transform;
+        flyTarget = GameObject.Find("FlyCameraTarget").transform;
         postProcess = GameObject.Find("PP").GetComponent<PostProcessVolume>();
         postProcess.profile.TryGetSettings(out depthOfField);
         door = GameObject.Find("Door");

@@ -54,6 +54,7 @@ TagManager:
   - SubCamera
   - Empty
   - TrainPumber
+  - SpaceShipDoor
   layers:
   - Default
   - TransparentFX

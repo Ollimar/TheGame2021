@@ -231,6 +231,15 @@ public class Tongue : MonoBehaviour
             }
         }
 
+        if (other.gameObject.tag == "SpaceShipDoor")
+        {
+            other.gameObject.GetComponent<CapsuleCollider>().height = 1f;
+            other.gameObject.transform.parent.GetComponent<Animator>().SetTrigger("Open");
+            other.gameObject.GetComponent<CapsuleCollider>().enabled = false;
+            other.GetComponentInParent<SpaceShipScript>().DoorOpen();
+            other.tag = "Untagged";
+        }
+
         if (other.gameObject.tag == "PullObject")
         {
             if(other.gameObject.GetComponent<PullObject>().canPull)

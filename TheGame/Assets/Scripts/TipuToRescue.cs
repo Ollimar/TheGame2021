@@ -11,6 +11,8 @@ public class TipuToRescue : MonoBehaviour
 
     public GameObject[] eyes;
     public ParticleSystem[] tears;
+    public GameObject tear;
+    public GameObject sweat;
 
     public bool isRunning = false;
 
@@ -31,6 +33,11 @@ public class TipuToRescue : MonoBehaviour
         if (small && inCutScene)
         {
             transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+        }
+
+        if(sweat != null)
+        {
+            sweat.SetActive(false);
         }
     }
 

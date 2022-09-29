@@ -13,21 +13,17 @@ public class SweatScript : MonoBehaviour
     void Start()
     {
         startPos = transform.position;
+        InvokeRepeating("Up", 0f, 0.5f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
+        transform.Translate(Vector3.down * speed * Time.deltaTime);
+    }
 
-        if(timer <= 1f)
-        {
-            transform.Translate(Vector3.up * speed * Time.deltaTime);           
-        }
-        else
-        {
-            transform.parent.position = startPos;
-            timer = 0f;
-        }
+    public void Up()
+    {
+        transform.position = startPos;
     }
 }

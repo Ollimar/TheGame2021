@@ -24,6 +24,13 @@ public class SpaceShipScript : MonoBehaviour
     public float fullStamina = 10f;
     public float staminaMultiplier; //this number decreases as player collects more gas tanks
 
+    // Hatch variables
+    public bool hatchOpen   = false;
+    public GameObject doorTrigger;
+    public ParticleSystem doorParticles;
+    public Light doorLight;
+    public Material glassMaterial;
+
     public bool activate    = false;
     public bool canLaunch   = true;
     public bool canMove     = false;
@@ -65,6 +72,7 @@ public class SpaceShipScript : MonoBehaviour
         myAnim.enabled      = false;
         landButton.SetActive(false);
         launchParticles.Stop();
+        doorTrigger.SetActive(false);
         
         //fadeScreen          = GameObject.Find("FadeScreen");
         //spaceShipStaminaImage.transform.parent.gameObject.SetActive(false);
@@ -73,7 +81,7 @@ public class SpaceShipScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Jump") && activate && !falling && canLaunch && !myAnim.enabled)
+        if(Input.GetButtonDown("Jump") && activate && !falling && canLaunch && !myAnim.enabled && hatchOpen)
         {
            canMove = false;
            transform.eulerAngles = new Vector3(-90f, 0f, 0f);
@@ -269,8 +277,8 @@ public class SpaceShipScript : MonoBehaviour
         myAnim.enabled = true;
         //myAnim.SetTrigger("Air");
         //GetComponentInChildren<Animator>().SetTrigger("Air");
-        myRB.useGravity = true;
-        myRB.isKinematic = false;
+        //myRB.useGravity = true;
+        //myRB.isKinematic = false;
         StartCoroutine("Fly");
     }
 
@@ -278,6 +286,8 @@ public class SpaceShipScript : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         myRB.AddForce(Vector3.up * launchPower);
+        yield return new WaitForSeconds(0.5f);
+        myRB.velocity = new Vector3(myRB.velocity.x, myRB.velocity.y, myRB.velocity.z);
     }
    
 
@@ -304,6 +314,25 @@ public class SpaceShipScript : MonoBehaviour
     public void ChangeLevel()
     {
         StartCoroutine(ChangeLevel(6));
+    }
+
+    //function that is called when player has pulled the hatch open with tongue
+    public void DoorOpen()
+    {
+        doorTrigger.SetActive(true);
+        hatchOpen = true;
+        doorParticles.Play();
+        doorLight.enabled = true;
+        glassMaterial.EnableKeyword("_EMISSION");
+        glassMaterial.SetColor("_EmissionColor", new Color(0f, 2.0f, 2.0f, 2f));
+    }
+
+    public void DoorClose()
+    {
+        doorParticles.gameObject.SetActive(false);
+        doorLight.enabled = false;
+        glassMaterial.EnableKeyword("_EMISSION");
+        glassMaterial.SetColor("_EmissionColor", new Color(0f, 2.0f, 2.0f, 0f));
     }
 
     public IEnumerator ChangeLevel(int levelNumber)

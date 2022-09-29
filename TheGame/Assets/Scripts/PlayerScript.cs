@@ -22,6 +22,7 @@ public class PlayerScript : MonoBehaviour
     public bool canJump = false;
     public bool inRocketArea = false;       // boolean to disable jumping in the rocket area
     public bool canFly = false;
+    public bool shrinking = false;          // Use this to shrink player when jumping to spaceship
     public float coolDownTime = 0f;
 
     public Transform startPoint;
@@ -132,6 +133,9 @@ public class PlayerScript : MonoBehaviour
     //Hitting variables
     public bool hit = false;
 
+    //SpaceShip that is character's goal in level
+    public Transform spaceShip;
+
     // Variables for UI objects
     public Text coinsCollected;
     public Text turnipsCollected;
@@ -162,7 +166,8 @@ public class PlayerScript : MonoBehaviour
         cameraFollow = GameObject.Find("CameraFollow").transform;
         cameraMaximum = GameObject.Find("CameraMaximum").transform;
         debugCam = GameObject.Find("Debug Camera");
-        if(debugCam != null)
+        spaceShip = GameObject.FindGameObjectWithTag("SpaceShip").transform;
+        if (debugCam != null)
         {
             debugCam.GetComponent<Camera>().enabled = false;
         }
@@ -290,6 +295,12 @@ public class PlayerScript : MonoBehaviour
         if(Input.GetButtonDown("Fire2") && canJump)
         {
             StartCoroutine("Wave");
+        }
+
+        if(shrinking)
+        {
+            transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(0.1f, 0.1f, 0.1f), 10f * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position,GameObject.Find("Window").transform.position,5f*Time.deltaTime);
         }
 
         if(jumpSqueeze)
@@ -519,7 +530,7 @@ public class PlayerScript : MonoBehaviour
         {          
             if (Physics.Raycast(scanners[i].transform.position, scanners[i].transform.forward, out scannerHit, scannerLength))
             {
-                if (scannerHit.transform.tag == "SeaShell" || scannerHit.transform.tag == "Enemy" || scannerHit.transform.tag == "Turnip" || scannerHit.transform.tag == "AttachPoint" || scannerHit.transform.tag == "Bomb" || scannerHit.transform.tag == "Damage" || scannerHit.transform.tag == "PullObjectReturn" || scannerHit.transform.tag == "Fruit")
+                if (scannerHit.transform.tag == "SeaShell" || scannerHit.transform.tag == "Enemy" || scannerHit.transform.tag == "Turnip" || scannerHit.transform.tag == "AttachPoint" || scannerHit.transform.tag == "Bomb" || scannerHit.transform.tag == "Damage" || scannerHit.transform.tag == "PullObjectReturn" || scannerHit.transform.tag == "Fruit" || scannerHit.transform.tag == "SpaceShip")
                 {
                     scannerDetect[i] = true;
                     //print(scanners[i]+ "hit" +scannerHit.transform.gameObject.name);
@@ -554,6 +565,17 @@ public class PlayerScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
+        if(other.gameObject.name == "Window")
+        {
+            if(shrinking)
+            {
+                GetComponentInChildren<Renderer>().enabled = false;
+                GetComponent<Rigidbody>().velocity = Vector3.zero;
+                GetComponent<Rigidbody>().isKinematic = true;
+            }
+        }
+
         if(other.gameObject.tag == "Ice")
         {
 
@@ -837,11 +859,6 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
-        if (other.gameObject.name == "ForestArea")
-        {
-            cameraScript.ReturnCamera();
-        }
-
         if (other.gameObject.name == "SpaceShipTrigger")
         {
             inRocketArea = false;
@@ -919,7 +936,15 @@ public class PlayerScript : MonoBehaviour
         transform.eulerAngles = new Vector3(0f, -180f, 0f);
         myAnim.SetTrigger("Wave");
         yield return new WaitForSeconds(1f);
-        transform.eulerAngles = new Vector3(0f, 0f, 0f);
+        shrinking = true;
+        transform.LookAt(GameObject.Find("Window").transform);
+        spaceShip.gameObject.layer = 14;
+        //myRB.AddForce(transform.forward*200f);
+        //myRB.AddForce(transform.up*600f);
+        myAnim.SetBool("isJumping", true);
+        yield return new WaitForSeconds(1f);
+        GameObject.Find("RocketWithDoor").GetComponent<Animator>().SetTrigger("Close");
+        spaceShip.GetComponent<SpaceShipScript>().DoorClose();
         yield return new WaitForSeconds(1f);
         gm.ActivateFly();
         //canFly = false;
