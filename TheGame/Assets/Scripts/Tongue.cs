@@ -238,6 +238,7 @@ public class Tongue : MonoBehaviour
             other.gameObject.GetComponent<CapsuleCollider>().enabled = false;
             other.GetComponentInParent<SpaceShipScript>().DoorOpen();
             other.tag = "Untagged";
+            player.spaceShip.tag = "Untagged";
         }
 
         if (other.gameObject.tag == "PullObject")

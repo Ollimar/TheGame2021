@@ -69,6 +69,7 @@ public class SpaceShipScript : MonoBehaviour
         myAnim              = GetComponent<Animator>();
         parachute           = GameObject.Find("Parachute");
         levelInfo           = GameObject.Find("LevelInfo").GetComponent<LevelInfo>();
+        landButton          = GameObject.Find("LandingUI");
         myAnim.enabled      = false;
         landButton.SetActive(false);
         launchParticles.Stop();
