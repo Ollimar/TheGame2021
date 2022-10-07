@@ -751,7 +751,7 @@ public class PlayerScript : MonoBehaviour
             other.gameObject.GetComponent<Collider>().material = slipperyPhysics;
         }
 
-        if(other.gameObject.tag == "Bouncy")
+        if(other.gameObject.tag == "Bouncy" && !isJumping)
         {           
             myRB.velocity = Vector3.zero;
             myRB.AddForce(Vector3.up * 750f);
