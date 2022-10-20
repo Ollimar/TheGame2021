@@ -13,6 +13,7 @@ public class TipuToRescue : MonoBehaviour
     public ParticleSystem[] tears;
     public GameObject tear;
     public GameObject sweat;
+    public GameObject puff;
 
     public bool isRunning = false;
 
@@ -92,5 +93,17 @@ public class TipuToRescue : MonoBehaviour
         {
             transform.eulerAngles = new Vector3(transform.eulerAngles.x,newRotation,transform.eulerAngles.z);
         }
+    }
+
+    public void SadFace()
+    {
+        eyes[0].SetActive(true);
+        eyes[1].SetActive(false);
+    }
+
+    public void HappyFace()
+    {
+        eyes[0].SetActive(false);
+        eyes[1].SetActive(true);
     }
 }

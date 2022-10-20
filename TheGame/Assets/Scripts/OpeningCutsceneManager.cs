@@ -17,6 +17,8 @@ public class OpeningCutsceneManager : MonoBehaviour
     public GameObject theTipu;
 
     public GameObject villain;
+    public GameObject villainHand;
+    public GameObject cage;
 
     //public GameObject clouds; 
 
@@ -32,6 +34,9 @@ public class OpeningCutsceneManager : MonoBehaviour
     {
         Camera.main.transform.position = cameras[0].transform.position;
         Camera.main.transform.rotation = cameras[0].transform.rotation;
+        villain.SetActive(false);
+        villainHand.GetComponent<ParticleSystem>().Stop();
+        cage.SetActive(false);
         //clouds.SetActive(false);
         audioSource.clip = music[0];
         audioSource.Play();
@@ -135,9 +140,105 @@ public class OpeningCutsceneManager : MonoBehaviour
     public IEnumerator Scene3()
     {
         theTipu.SetActive(false);
+        villain.SetActive(true);
+        tipus[0].transform.position = tipuStartPositions[3].position;
+        tipus[0].transform.rotation = tipuStartPositions[3].rotation;
+        tipus[0].GetComponent<Animator>().SetTrigger("Rescued");
+        tipus[0].GetComponent<Animator>().SetBool("Running", false);
+        tipus[0].GetComponent<TipuToRescue>().speed = 0f;
+        tipus[0].GetComponent<TipuToRescue>().puff.SetActive(false);
+
+        tipus[1].transform.position = tipuStartPositions[4].position;
+        tipus[1].transform.rotation = tipuStartPositions[4].rotation;
+        tipus[1].GetComponent<Animator>().SetTrigger("Rescued");
+        tipus[1].GetComponent<Animator>().SetBool("Running", false);
+        tipus[1].GetComponent<TipuToRescue>().speed = 0f;
+        tipus[1].GetComponent<TipuToRescue>().puff.SetActive(false);
+
+        tipus[2].transform.position = tipuStartPositions[5].position;
+        tipus[2].transform.rotation = tipuStartPositions[5].rotation;
+        tipus[2].GetComponent<Animator>().SetTrigger("ShortFly");
+        tipus[2].GetComponent<Animator>().SetBool("Running", false);
+        tipus[2].GetComponent<TipuToRescue>().speed = 0f;
+        tipus[2].GetComponent<TipuToRescue>().puff.SetActive(false);
+
+        Camera.main.GetComponent<OpeningCutSceneCameraScript>().MovingCamera();
         Camera.main.transform.position = cameras[2].transform.position;
         Camera.main.transform.rotation = cameras[2].transform.rotation;
+        yield return new WaitForSeconds(5f);
+        StartCoroutine("Scene4");
+        //clouds.SetActive(true);
+    }
+
+    public IEnumerator Scene4()
+    {
+        theTipu.SetActive(false);
+        villain.SetActive(true);
+
+        tipus[0].GetComponent<Animator>().SetTrigger("Turn");
+
+        tipus[1].GetComponent<Animator>().SetTrigger("Turn");
+
+        tipus[2].GetComponent<Animator>().SetTrigger("Turn");
+
+        Camera.main.transform.position = cameras[4].transform.position;
+        Camera.main.transform.rotation = cameras[4].transform.rotation;
+
+        yield return new WaitForSeconds(1.5f);
+
+        tipus[0].GetComponent<TipuToRescue>().SadFace();
+        tipus[0].GetComponent<Animator>().SetTrigger("Shiver");
+
+        tipus[1].GetComponent<TipuToRescue>().SadFace();
+        tipus[1].GetComponent<Animator>().SetTrigger("Shiver");
+
+        tipus[2].GetComponent<TipuToRescue>().SadFace();
+        tipus[2].GetComponent<Animator>().SetTrigger("Shiver");
+
+        yield return new WaitForSeconds(2f);
+        StartCoroutine("Scene5");
+        //clouds.SetActive(true);
+    }
+
+    public IEnumerator Scene5()
+    {
+        Camera.main.transform.position = cameras[2].transform.position;
+        Camera.main.transform.rotation = cameras[2].transform.rotation;
+
+        theTipu.SetActive(false);
+        villain.SetActive(true);
+        tipus[0].transform.position = tipuStartPositions[3].position;
+        tipus[0].transform.rotation = tipuStartPositions[3].rotation;
+        tipus[0].GetComponent<Animator>().SetBool("Running",true);
+        tipus[0].GetComponent<TipuToRescue>().speed = 5f;
+
+        tipus[1].transform.position = tipuStartPositions[4].position;
+        tipus[1].transform.rotation = tipuStartPositions[4].rotation;
+        tipus[1].GetComponent<Animator>().SetBool("Running", true);
+        tipus[1].GetComponent<TipuToRescue>().speed = 5f;
+
+        tipus[2].transform.position = tipuStartPositions[5].position;
+        tipus[2].transform.rotation = tipuStartPositions[5].rotation;
+        tipus[2].GetComponent<Animator>().SetBool("Running", true);
+        tipus[2].GetComponent<TipuToRescue>().speed = 5f;
+
         yield return new WaitForSeconds(1f);
+
+        villainHand.GetComponent<ParticleSystem>().Play();
+        yield return new WaitForSeconds(1f);
+        villainHand.GetComponent<ParticleSystem>().Stop();
+        cage.SetActive(true);
+
+        for(int i=0; i<tipus.Length;i++)
+        {
+            tipus[i].GetComponent<Rigidbody>().useGravity = false;
+            tipus[i].GetComponent<Rigidbody>().isKinematic = true;
+            tipus[i].GetComponent<Animator>().SetBool("Running", false);
+            tipus[i].GetComponent<Animator>().SetTrigger("Caught");
+            tipus[i].GetComponent<TipuToRescue>().speed = 0f;
+        }
+
+        yield return new WaitForSeconds(5.5f);
         StartCoroutine("TipuRunning");
         //clouds.SetActive(true);
     }
