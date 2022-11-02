@@ -157,10 +157,31 @@ public class OpeningCutsceneManager : MonoBehaviour
 
         tipus[2].transform.position = tipuStartPositions[5].position;
         tipus[2].transform.rotation = tipuStartPositions[5].rotation;
-        tipus[2].GetComponent<Animator>().SetTrigger("ShortFly");
+        tipus[2].GetComponent<Animator>().SetTrigger("Rescued");
         tipus[2].GetComponent<Animator>().SetBool("Running", false);
         tipus[2].GetComponent<TipuToRescue>().speed = 0f;
         tipus[2].GetComponent<TipuToRescue>().puff.SetActive(false);
+
+        tipus[3].transform.position = tipuStartPositions[6].position;
+        tipus[3].transform.rotation = tipuStartPositions[6].rotation;
+        tipus[3].GetComponent<Animator>().SetTrigger("Rescued");
+        tipus[3].GetComponent<Animator>().SetBool("Running", false);
+        tipus[3].GetComponent<TipuToRescue>().speed = 0f;
+        tipus[3].GetComponent<TipuToRescue>().puff.SetActive(false);
+
+        tipus[4].transform.position = tipuStartPositions[7].position;
+        tipus[4].transform.rotation = tipuStartPositions[7].rotation;
+        tipus[4].GetComponent<Animator>().SetTrigger("Rescued");
+        tipus[4].GetComponent<Animator>().SetBool("Running", false);
+        tipus[4].GetComponent<TipuToRescue>().speed = 0f;
+        tipus[4].GetComponent<TipuToRescue>().puff.SetActive(false);
+
+        tipus[5].transform.position = tipuStartPositions[8].position;
+        tipus[5].transform.rotation = tipuStartPositions[8].rotation;
+        tipus[5].GetComponent<Animator>().SetTrigger("Rescued");
+        tipus[5].GetComponent<Animator>().SetBool("Running", false);
+        tipus[5].GetComponent<TipuToRescue>().speed = 0f;
+        tipus[5].GetComponent<TipuToRescue>().puff.SetActive(false);
 
         Camera.main.GetComponent<OpeningCutSceneCameraScript>().MovingCamera();
         Camera.main.transform.position = cameras[2].transform.position;
@@ -176,24 +197,22 @@ public class OpeningCutsceneManager : MonoBehaviour
         villain.SetActive(true);
 
         tipus[0].GetComponent<Animator>().SetTrigger("Turn");
-
         tipus[1].GetComponent<Animator>().SetTrigger("Turn");
-
         tipus[2].GetComponent<Animator>().SetTrigger("Turn");
+        tipus[3].GetComponent<Animator>().SetTrigger("Turn");
+        tipus[4].GetComponent<Animator>().SetTrigger("Turn");
+        tipus[5].GetComponent<Animator>().SetTrigger("Turn");
 
         Camera.main.transform.position = cameras[4].transform.position;
         Camera.main.transform.rotation = cameras[4].transform.rotation;
 
         yield return new WaitForSeconds(1.5f);
 
-        tipus[0].GetComponent<TipuToRescue>().SadFace();
-        tipus[0].GetComponent<Animator>().SetTrigger("Shiver");
-
-        tipus[1].GetComponent<TipuToRescue>().SadFace();
-        tipus[1].GetComponent<Animator>().SetTrigger("Shiver");
-
-        tipus[2].GetComponent<TipuToRescue>().SadFace();
-        tipus[2].GetComponent<Animator>().SetTrigger("Shiver");
+        for (int i = 0; i < tipus.Length; i++)
+        {
+            tipus[i].GetComponent<TipuToRescue>().SadFace();
+            tipus[i].GetComponent<Animator>().SetTrigger("Shiver");
+        }
 
         yield return new WaitForSeconds(2f);
         StartCoroutine("Scene5");
@@ -207,20 +226,12 @@ public class OpeningCutsceneManager : MonoBehaviour
 
         theTipu.SetActive(false);
         villain.SetActive(true);
-        tipus[0].transform.position = tipuStartPositions[3].position;
-        tipus[0].transform.rotation = tipuStartPositions[3].rotation;
-        tipus[0].GetComponent<Animator>().SetBool("Running",true);
-        tipus[0].GetComponent<TipuToRescue>().speed = 5f;
 
-        tipus[1].transform.position = tipuStartPositions[4].position;
-        tipus[1].transform.rotation = tipuStartPositions[4].rotation;
-        tipus[1].GetComponent<Animator>().SetBool("Running", true);
-        tipus[1].GetComponent<TipuToRescue>().speed = 5f;
-
-        tipus[2].transform.position = tipuStartPositions[5].position;
-        tipus[2].transform.rotation = tipuStartPositions[5].rotation;
-        tipus[2].GetComponent<Animator>().SetBool("Running", true);
-        tipus[2].GetComponent<TipuToRescue>().speed = 5f;
+        for (int i = 0; i < tipus.Length; i++)
+        {
+            tipus[i].GetComponent<Animator>().SetBool("Running", true);
+            tipus[i].GetComponent<TipuToRescue>().speed = 5f;
+        }
 
         yield return new WaitForSeconds(1f);
 
@@ -237,6 +248,24 @@ public class OpeningCutsceneManager : MonoBehaviour
             tipus[i].GetComponent<Animator>().SetTrigger("Caught");
             tipus[i].GetComponent<TipuToRescue>().speed = 0f;
         }
+
+        tipus[0].transform.parent = cage.transform;
+        tipus[0].transform.position = new Vector3(cage.transform.position.x, cage.transform.position.y, cage.transform.position.z);
+
+        tipus[1].transform.parent = cage.transform;
+        tipus[1].transform.position = new Vector3(cage.transform.position.x+1f, cage.transform.position.y, cage.transform.position.z);
+
+        tipus[2].transform.parent = cage.transform;
+        tipus[2].transform.position = new Vector3(cage.transform.position.x - 1f, cage.transform.position.y, cage.transform.position.z);
+
+        tipus[3].transform.parent = cage.transform;
+        tipus[3].transform.position = new Vector3(cage.transform.position.x, cage.transform.position.y, cage.transform.position.z - 1f);
+
+        tipus[4].transform.parent = cage.transform;
+        tipus[4].transform.position = new Vector3(cage.transform.position.x+1f, cage.transform.position.y, cage.transform.position.z - 1f);
+
+        tipus[5].transform.parent = cage.transform;
+        tipus[5].transform.position = new Vector3(cage.transform.position.x - 1f, cage.transform.position.y, cage.transform.position.z - 1f);
 
         yield return new WaitForSeconds(5.5f);
         StartCoroutine("TipuRunning");
@@ -266,14 +295,19 @@ public class OpeningCutsceneManager : MonoBehaviour
         theTipu.GetComponent<TipuToRescue>().sweat.SetActive(false);
         theTipu.GetComponent<TipuToRescue>().tear.SetActive(false);
         Camera.main.GetComponent<OpeningCutSceneCameraScript>().speed = -5f;
-        yield return new WaitForSeconds(3f);
-        StartCoroutine("LoadMenu");
+        yield return new WaitForSeconds(1f);
+        StartCoroutine("FinalScene");
     }
 
     public IEnumerator FinalScene()
     {
-        yield return new WaitForSeconds(1f);
-        LoadMenu();
+        Camera.main.GetComponent<OpeningCutSceneCameraScript>().speed = 0f;
+        Camera.main.transform.position = cameras[5].transform.position;
+        Camera.main.transform.rotation = cameras[5].transform.rotation;
+        yield return new WaitForSeconds(0.5f);
+        theTipu.GetComponent<TipuToRescue>().GetComponent<Animator>().SetTrigger("Sad");
+        yield return new WaitForSeconds(2.5f);
+        StartCoroutine("LoadMenu");
     }
 
     public IEnumerator LoadMenu()
