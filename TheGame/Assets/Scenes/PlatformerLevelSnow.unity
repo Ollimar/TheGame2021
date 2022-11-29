@@ -14240,6 +14240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dbff1df019c33d43b812ec849b57659, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fullVolume: 0.25
   TransitionTime: 0.05
   musicOn: 0
 --- !u!1001 &333893701

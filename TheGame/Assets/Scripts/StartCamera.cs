@@ -20,6 +20,7 @@ public class StartCamera : MonoBehaviour
         main.enabled = false;
         coinTracker = GameObject.Find("CoinTracker");
         turnipTracker = GameObject.Find("TurnipTracker");
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerScript>();
         coinTracker.SetActive(false);
         turnipTracker.SetActive(false);
         cameras[0].GetComponent<Camera>().enabled = true;

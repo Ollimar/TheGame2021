@@ -34,6 +34,7 @@ public class PlayerScript : MonoBehaviour
     private AudioSource myAudio;
     public AudioClip   landingSound;
     public AudioClip   pickupSound;
+    public AudioClip   goldenTurnipChimeSound;
 
     //Variables for raycast positions
     public Transform[] rayCastPositions;
@@ -575,7 +576,7 @@ public class PlayerScript : MonoBehaviour
                 GetComponent<Rigidbody>().isKinematic = true;
             }
         }
-
+  
         if(other.gameObject.tag == "Ice")
         {
 
@@ -646,6 +647,8 @@ public class PlayerScript : MonoBehaviour
                 goldenTurnipCollected.SetActive(true);
                 gm.GoldenTurnipCollected();
                 other.gameObject.GetComponent<CollectableGoldenTurnip>().collected = true;
+                GameObject.Find("MusicPlayer").GetComponent<MusicPlayerMapLevel>().TurnipCollected();
+                myAudio.PlayOneShot(goldenTurnipChimeSound);
 
                 if (gm.levelInfo.levelNumber == 1)
                 {

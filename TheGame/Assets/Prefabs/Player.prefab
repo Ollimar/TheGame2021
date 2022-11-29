@@ -6378,12 +6378,15 @@ MonoBehaviour:
   canJump: 0
   inRocketArea: 0
   canFly: 0
+  shrinking: 0
   coolDownTime: 0
   startPoint: {fileID: 0}
   spawnPoint: {fileID: 0}
   storedRotation: {x: 0, y: 0, z: 0}
   landingSound: {fileID: 8300000, guid: 7e93792231de8f54891fb7e85a1731fb, type: 3}
   pickupSound: {fileID: 8300000, guid: 43e0da49f0afd4d35bf0b080dc2989b8, type: 3}
+  goldenTurnipChimeSound: {fileID: 8300000, guid: 5d10ad3dae7f007429cda1e774dbe8d4,
+    type: 3}
   rayCastPositions:
   - {fileID: 1356443075778087499}
   - {fileID: 5659470290423049894}
@@ -6476,6 +6479,7 @@ MonoBehaviour:
   activeSnowball: {fileID: 0}
   canDig: 0
   hit: 0
+  spaceShip: {fileID: 0}
   coinsCollected: {fileID: 5319708080246312726}
   turnipsCollected: {fileID: 5680801806123391761}
   failImage: {fileID: 7012861722321075945}

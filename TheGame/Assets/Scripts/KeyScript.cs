@@ -18,6 +18,7 @@ public class KeyScript : MonoBehaviour
         player      = GameObject.Find("Player").GetComponent<PlayerScript>();
         cameraScript = Camera.main.GetComponent<CameraScript>();
         cameraScript.doorCamera = doorCamera;
+        doorCamera = GameObject.Find("Door Camera").GetComponent<Camera>();
         doorCamera.GetComponent<Camera>().enabled = false;
     }
 
