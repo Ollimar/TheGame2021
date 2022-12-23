@@ -55,6 +55,7 @@ TagManager:
   - Empty
   - TrainPumber
   - SpaceShipDoor
+  - LevelGoal
   layers:
   - Default
   - TransparentFX

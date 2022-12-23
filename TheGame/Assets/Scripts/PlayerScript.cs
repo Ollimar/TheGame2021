@@ -35,6 +35,7 @@ public class PlayerScript : MonoBehaviour
     public AudioClip   landingSound;
     public AudioClip   pickupSound;
     public AudioClip   goldenTurnipChimeSound;
+    public AudioClip   levelBeaten;
 
     //Variables for raycast positions
     public Transform[] rayCastPositions;
@@ -209,6 +210,8 @@ public class PlayerScript : MonoBehaviour
         mayJump -= Time.deltaTime;
 
         //Debug actions. DELETE BEFORE SHIPPING!///////////////
+
+        /*
         if(Input.GetKeyDown(KeyCode.F))
         {
             SceneManager.LoadScene(18);
@@ -233,6 +236,8 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
+        */
+
         ////////////////////////////////////////////////////////////
 
         if (mayJump >= 0f)
@@ -248,6 +253,7 @@ public class PlayerScript : MonoBehaviour
                 myRB.useGravity = true;
                 transform.parent = null;
             }
+
             isJumping = true;
             myAnim.SetBool("isJumping",true);
             myRB.velocity = Vector3.zero;
@@ -275,6 +281,7 @@ public class PlayerScript : MonoBehaviour
                 eyesNeutral.SetActive(true);
                 eyesHappy.SetActive(false);
                 //mouth.SetActive(true);
+                print("Camera returned");
                 cameraScript.ReturnCamera();
                 tongue.enabled = true;
             }
@@ -312,8 +319,7 @@ public class PlayerScript : MonoBehaviour
 
         if(swallow)
         {
-            transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1.8f, 1.8f, 1.8f), 13f * Time.deltaTime);
-            
+            transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(1.8f, 1.8f, 1.8f), 13f * Time.deltaTime);         
         }
 
         if(transform.localScale.y <= 1.1f)
@@ -365,7 +371,7 @@ public class PlayerScript : MonoBehaviour
 
     }
 
-    // Legace sweating code
+    // Legacy sweating code
 
     /*
     public void Sweat()
@@ -566,6 +572,11 @@ public class PlayerScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
+        if(other.gameObject.tag == "LevelGoal")
+        {
+            StartCoroutine(LevelGoal());
+        }
 
         if(other.gameObject.name == "Window")
         {
@@ -908,6 +919,28 @@ public class PlayerScript : MonoBehaviour
         
         yield return new WaitForSeconds(3f);
         canMove = true;
+    }
+
+    public IEnumerator LevelGoal()
+    {
+        GameObject.Find("LevelInfo").GetComponent<LevelInfo>().LevelBeaten();
+        cameraScript.DialogueCamera();
+        canMove = false;
+        canJump = false;
+        eyesNeutral.SetActive(false);
+        eyesHappy.SetActive(true);
+        transform.eulerAngles = new Vector3(0f, -180f, 0f);
+        myAnim.SetTrigger("Wave");
+        myAudio.PlayOneShot(levelBeaten);
+        yield return new WaitForSeconds(1f);
+        myAnim.SetTrigger("Wave");
+        yield return new WaitForSeconds(1f);
+        myAnim.SetTrigger("Wave");
+        yield return new WaitForSeconds(1f);
+        myAnim.SetTrigger("Wave");
+        yield return new WaitForSeconds(1f);
+        myAnim.SetTrigger("Wave");
+        StartCoroutine(ChangeLevel(6));
     }
 
     public IEnumerator ChangeLevel(int levelNumber)

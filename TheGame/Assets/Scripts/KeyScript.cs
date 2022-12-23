@@ -24,6 +24,10 @@ public class KeyScript : MonoBehaviour
 
     public void Open()
     {
+        if(doorCamera == null)
+        {
+            doorCamera = GameObject.Find("Door Camera").GetComponent<Camera>();
+        }
         doorCamera.GetComponent<Camera>().enabled = true;
         player.canMove = false;
         Camera.main.depth = -1;

@@ -47,7 +47,7 @@ public class CollectableGoldenTurnip : MonoBehaviour
     }
 
     // Called from gamemanager every time level changes 
- 
+    
     public void CheckTurnips(Scene scene, LoadSceneMode mode)
     {
         goldenTurnipSpots = GameObject.FindGameObjectsWithTag("Golden Turnip Spot");

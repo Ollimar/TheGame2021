@@ -29,6 +29,14 @@ public class TipuToRescue : MonoBehaviour
         speed = 0f;
         myAnim = GetComponent<Animator>();
         myRB = GetComponent<Rigidbody>();
+        GameObject newObject = new GameObject();
+        Instantiate(newObject, transform.position, transform.rotation);
+        newObject.transform.parent = transform;
+        newObject.transform.position = transform.position;
+        SphereCollider newCol = newObject.AddComponent<SphereCollider>();
+        newCol.isTrigger = true;
+        newCol.radius = 5f;
+        newCol.tag = "LevelGoal";
 
         // Set the caharacter initial size to small so it can walk through the door
         if (small && inCutScene)

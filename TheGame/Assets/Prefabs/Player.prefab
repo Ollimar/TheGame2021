@@ -6387,6 +6387,7 @@ MonoBehaviour:
   pickupSound: {fileID: 8300000, guid: 43e0da49f0afd4d35bf0b080dc2989b8, type: 3}
   goldenTurnipChimeSound: {fileID: 8300000, guid: 5d10ad3dae7f007429cda1e774dbe8d4,
     type: 3}
+  levelBeaten: {fileID: 8300000, guid: 35c38a75e72eb5646a04529e850b8bf9, type: 3}
   rayCastPositions:
   - {fileID: 1356443075778087499}
   - {fileID: 5659470290423049894}

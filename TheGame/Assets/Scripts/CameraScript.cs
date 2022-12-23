@@ -65,6 +65,7 @@ public class CameraScript : MonoBehaviour
         Vector3 newRot = new Vector3(cameraRotation, transform.rotation.y, transform.rotation.z);
         transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, newRot, cameraSmoothing * Time.deltaTime);
 
+        /*
         if(canMoveCamera)
         {
             if (Input.GetAxis("Mouse Y") > 0.1f && cameraDistance > 10f || Input.GetAxis("CameraVertical") > 0.1f && cameraDistance > 10f)
@@ -80,6 +81,7 @@ public class CameraScript : MonoBehaviour
                 cameraRotation = 50f;
             }
         }
+        */
     }
 
     public void OverHeadCamera()
@@ -110,6 +112,10 @@ public class CameraScript : MonoBehaviour
 
     public void ReturnCamera()
     {
+        if(doorCamera == null)
+        {
+            doorCamera = GameObject.Find("Door Camera").GetComponent<Camera>();
+        }
         doorCamera.GetComponent<Camera>().enabled = false;
         cameraDistance = 12f;
         cameraHeight = 14f;
